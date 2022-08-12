@@ -1,6 +1,5 @@
 package ua.com.shestakova.Island.Animal.Predator;
 
-
 import ua.com.shestakova.Island.Animal.Animal;
 import ua.com.shestakova.Island.Animal.Plant;
 
