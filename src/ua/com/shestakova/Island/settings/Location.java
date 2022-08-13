@@ -1,10 +1,10 @@
-package ua.com.shestakova.Island.FieldOfIsland;
+package ua.com.shestakova.Island.settings;
 
 
-import ua.com.shestakova.Island.Animal.Animal;
-import ua.com.shestakova.Island.Animal.Herbivore.*;
-import ua.com.shestakova.Island.Animal.Plant;
-import ua.com.shestakova.Island.Animal.Predator.*;
+import ua.com.shestakova.Island.animal.Animal;
+import ua.com.shestakova.Island.animal.herbivore.*;
+import ua.com.shestakova.Island.animal.Plant;
+import ua.com.shestakova.Island.animal.predator.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +15,7 @@ import java.util.Random;
 public class Location {
 
     public ArrayList<Animal> location;
-    public  HashMap<Integer, Class> mapAllAnimals = addedOfAllAnimals();
+    private HashMap<Integer, Class> mapAllAnimals = addedOfAllAnimals();
 
     public HashMap<Integer, Class> addedOfAllAnimals () {
         this.mapAllAnimals = new HashMap<>(); // мапа всех животных
@@ -28,21 +28,19 @@ public class Location {
     public void createRandomLocation() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException { // создание локации с рандомным числом разных животных
 
         location = new ArrayList<>();  // локация
-        int countAnimalsOnFields = new Random().nextInt(10);     // количество животных в локации
+        int countLifesOnLocation = new Random().nextInt(5);
 
-        for (int i = 1; i < countAnimalsOnFields; i++) {  // создать нужное количество животных раз
+        for (int i = 1; i < countLifesOnLocation; i++) {
             int numberOfAnimal = new Random().nextInt(mapAllAnimals.size());  // рандомный выбор животного по ключу
 
-            Class clazz = mapAllAnimals.get(numberOfAnimal); // получен класс рандомного животного
-            Constructor<?> constructor = clazz.getConstructor(); // и конструктор
+            Class clazz = mapAllAnimals.get(numberOfAnimal);
+            Constructor<?> constructor = clazz.getConstructor();
 
-            //System.out.println(Animal.class.isAssignableFrom(clazz))
-            Animal newInstance = (Animal) constructor.newInstance(); // создан объект
-            location.add(newInstance); // добавлен в локацию
+            location.add((Animal) constructor.newInstance());
         }
+
     }
     public ArrayList<Animal> createWithParameter(int countAnimalsOnFields) {
-
         return null;
     }
     public void checkNextStep(){

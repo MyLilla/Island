@@ -1,10 +1,10 @@
-package ua.com.shestakova.Island.Animal.Predator;
+package ua.com.shestakova.Island.animal.predator;
 
-import ua.com.shestakova.Island.Animal.Animal;
-import ua.com.shestakova.Island.Animal.Herbivore.Herbivore;
-import ua.com.shestakova.Island.FieldOfIsland.Location;
+import ua.com.shestakova.Island.animal.Animal;
+import ua.com.shestakova.Island.animal.herbivore.Herbivore;
+import ua.com.shestakova.Island.settings.Location;
 
-import static ua.com.shestakova.Island.FieldOfIsland.Island.fields;
+import static ua.com.shestakova.Island.settings.Island.field;
 
 public class Wolf extends Predator {
 
@@ -13,8 +13,9 @@ public class Wolf extends Predator {
         setCountFoodMax(8);
         setSpeed(3);
         setCountInThisFieldMax(30);
-        setIcone("\uD83D\uDC3A");
+        setIcon("\uD83D\uDC3A");
     }
+
     @Override
     public <T> void eat(T animal) {
         // с какой вероятностью животное съедает "пищу", если они находятся на одной клетке (50%)
@@ -24,12 +25,7 @@ public class Wolf extends Predator {
         }
     }
 
-    @Override
-    public void move(int line, int higt) {
-        if (line < getSpeed() || higt < getSpeed()) {
-            int goLine = line + getSpeed();
-        }
-    }
+
 
     @Override
     public <T extends Animal> void copy(T couple) {

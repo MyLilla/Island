@@ -1,20 +1,19 @@
-package ua.com.shestakova.Island.Animal.Herbivore;
+package ua.com.shestakova.Island.animal.herbivore;
 
-import ua.com.shestakova.Island.Animal.Animal;
+import ua.com.shestakova.Island.animal.Animal;
+
+import static ua.com.shestakova.Island.settings.Island.field;
 
 public class Deer extends Herbivore{
 
     public Deer() {
-        setIcone("\uD83E\uDD8C");
+        setIcon("\uD83E\uDD8C");
+        setSpeed(4);
     }
 
     @Override
     public <T> void eat(T food) {
 
-    }
-
-    @Override
-    public void move(int line, int higt) {
     }
 
     @Override
@@ -26,4 +25,6 @@ public class Deer extends Herbivore{
     public void die() {
 
     }
+
+
 }

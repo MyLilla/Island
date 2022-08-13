@@ -1,8 +1,8 @@
-package ua.com.shestakova.Island.Animal;
+package ua.com.shestakova.Island.animal;
 
 public class Plant extends Animal {
     public Plant() {
-        setIcone("\uD83D\uDC0D");
+        setIcon("\uD83D\uDC0D");
     }
 
     @Override
@@ -11,7 +11,7 @@ public class Plant extends Animal {
     }
 
     @Override
-    public void move(int line, int higt) {
+    public void move(int x, int y) {
     }
 
     @Override
