@@ -1,12 +1,16 @@
 package ua.com.shestakova.Island.animal;
 
 
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import static ua.com.shestakova.Island.settings.Island.field;
 
 public abstract class Animal {
 
     private int weight;
-    private int countInThisFieldMax;
+    private int maxCountInOneField;
     private int speed;
     private double countFoodMax;
     private boolean moved = false;
@@ -19,8 +23,6 @@ public abstract class Animal {
 
     public void move(int x, int y){
         // определить, в какую из ячеек можно двигаться
-        // если координаты у края - двигаться внутрь
-
         int xNew = x;
         int yNew = y;
 
@@ -34,6 +36,7 @@ public abstract class Animal {
             yNew = y - getSpeed();
         }
         // проверять лимит животных на следующе клетке
+        // число животных этого вида в новой локации
 
         field[xNew][yNew].location.add(this);             // переселение
         field[x][y].location.remove(this);             // удаление со старой
@@ -42,7 +45,16 @@ public abstract class Animal {
         System.out.println(" на " + xNew + yNew);
         setMoved(true);
     }
-    // скорость
+
+    private int getCountThisTypeInNewLocation (int xNew, int yNew){
+
+        int countThisAnimalInNewLocation = 0;
+        for (Animal animal : field[xNew][yNew].location) {
+            if (animal.getClass().equals(this.getClass()))
+                countThisAnimalInNewLocation++;
+        }
+        return countThisAnimalInNewLocation;
+    }
 
     public abstract <T extends Animal> void copy(T couple);
     // при наличии пары
@@ -67,12 +79,12 @@ public abstract class Animal {
         this.weight = weight;
     }
 
-    public int getCountInThisFieldMax() {
-        return countInThisFieldMax;
+    public int getMaxCountInOneField() {
+        return maxCountInOneField;
     }
 
-    public void setCountInThisFieldMax(int countInThisFieldMax) {
-        this.countInThisFieldMax = countInThisFieldMax;
+    public void setMaxCountInOneField(int maxCountInOneField) {
+        this.maxCountInOneField = maxCountInOneField;
     }
 
     public int getSpeed() {

@@ -9,7 +9,7 @@ import static ua.com.shestakova.Island.settings.Island.field;
 public class App {
     public static void main(String[] args) {
         Island island = new Island(); // создан объект острова
-        island.autoAddInland(); // заполнить локациями
+        island.addLocationOnIsland(); // заполнить локациями
 
         print();
         System.out.println("_____________________________________");

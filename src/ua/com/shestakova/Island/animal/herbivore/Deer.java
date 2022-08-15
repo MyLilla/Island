@@ -7,8 +7,12 @@ import static ua.com.shestakova.Island.settings.Island.field;
 public class Deer extends Herbivore{
 
     public Deer() {
-        setIcon("\uD83E\uDD8C");
+
+        setWeight(50);
+        setCountFoodMax(8);
         setSpeed(4);
+        setMaxCountInOneField(1);
+        setIcon("\uD83E\uDD8C");
     }
 
     @Override

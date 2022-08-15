@@ -2,9 +2,6 @@ package ua.com.shestakova.Island.animal.predator;
 
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.animal.herbivore.Herbivore;
-import ua.com.shestakova.Island.settings.Location;
-
-import static ua.com.shestakova.Island.settings.Island.field;
 
 public class Wolf extends Predator {
 
@@ -12,7 +9,7 @@ public class Wolf extends Predator {
         setWeight(50);
         setCountFoodMax(8);
         setSpeed(3);
-        setCountInThisFieldMax(30);
+        setMaxCountInOneField(1);
         setIcon("\uD83D\uDC3A");
     }
 

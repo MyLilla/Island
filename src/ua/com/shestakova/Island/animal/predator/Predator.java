@@ -12,4 +12,5 @@ public abstract class Predator extends Animal {
             System.out.println("Predators doesn't eat Plants");
         }
     }
+
 }
