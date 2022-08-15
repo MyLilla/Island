@@ -2,6 +2,7 @@ package ua.com.shestakova.Island.animal;
 
 
 import java.util.Map;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -26,13 +27,22 @@ public abstract class Animal {
         int xNew = x;
         int yNew = y;
 
-        if (x < getSpeed()) {
+        if (x >= getSpeed() && y >= getSpeed() &&
+        x < field.length - getSpeed() && y < field[x].length - getSpeed()){
+            int random = new Random().nextInt(4);
+            switch (random) {
+                case 0 -> xNew = x + getSpeed();
+                case 1 -> yNew = y - getSpeed();
+                case 2 -> xNew = x - getSpeed();
+                case 3 -> yNew = y + getSpeed();
+            }
+        } else if (x < getSpeed()) {
             xNew = x + getSpeed();
         } else if (y < getSpeed()) {
             yNew = y + getSpeed();
-        } else if (x > field.length || x >= getSpeed()) {
+        } else if (x >= field.length - getSpeed()) {
             xNew = x - getSpeed();
-        } else if (y > field[x].length || y >= getSpeed()) {
+        } else if (y >= field[x].length - getSpeed()) {
             yNew = y - getSpeed();
         }
         // проверять лимит животных на следующе клетке
@@ -42,7 +52,7 @@ public abstract class Animal {
         field[x][y].location.remove(this);             // удаление со старой
         field[x][y].location.trimToSize();
 
-        System.out.println(" на " + xNew + yNew);
+        // System.out.println(" на " + xNew + yNew);
         setMoved(true);
     }
 

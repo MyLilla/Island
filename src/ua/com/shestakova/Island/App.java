@@ -11,16 +11,12 @@ public class App {
         Island island = new Island(); // создан объект острова
         island.addLocationOnIsland(); // заполнить локациями
 
-        print();
-        System.out.println("_____________________________________");
-        callAction();
-        print();
-        resetFlags();
-
-        System.out.println("_____________________________________");
-        callAction();
-        print();
-
+        for (int i = 0; i < 10; i++) {
+            print();
+            System.out.println("_____________________________________");
+            callAction();
+            resetFlags();
+        }
           }
 
     private static void callAction() {   // вызов действия
@@ -29,8 +25,8 @@ public class App {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) { // лист
                     Animal ani = field[i][j].location.get(k);  // животное
-                    if (!ani.isMoved() && ani.getClass() != Plant.class) {
-                        System.out.print("перемещение " + ani.getIcon() + " из " + i + j );
+                    if (!ani.isMoved() && ani.getClass() != Plant.class && k >= 0) {
+                      // System.out.print("перемещение " + ani.getIcon() + " из " + i + j );
                         ani.move(i, j);
                         k = k-1;
                     }
