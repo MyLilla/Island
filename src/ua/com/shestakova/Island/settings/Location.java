@@ -29,7 +29,7 @@ public class Location {
             InstantiationException, IllegalAccessException { // создание локации с рандомным числом разных животных
 
         location = new ArrayList<>();
-        int countLifesOnLocation = new Random().nextInt(4);
+        int countLifesOnLocation = new Random().nextInt(10);
 
 
         for (int i = 1; i <= countLifesOnLocation; i++) {

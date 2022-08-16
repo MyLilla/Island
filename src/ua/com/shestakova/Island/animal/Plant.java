@@ -1,21 +1,18 @@
 package ua.com.shestakova.Island.animal;
 
+import java.util.ArrayList;
+
 public class Plant extends Animal {
     public Plant() {
-        setIcon("\uD83D\uDC0D");
+        setIcon("\uD83C\uDF31");
         setMaxCountInOneField(15);
         setWeight(3);
     }
 
-    @Override
-    public <T> void eat(T food) {
-
-    }
 
     @Override
-    public void move(int x, int y) {
-        // написать тут логику роста?
-        this.setWeight(this.getWeight() + 1);
+    public int eat(ArrayList<Animal> animals) {
+        return -1;
     }
 
     @Override

@@ -1,34 +1,73 @@
 package ua.com.shestakova.Island.animal;
 
-
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static ua.com.shestakova.Island.settings.Island.field;
 
-public abstract class Animal {
+public abstract class Animal{
 
+    private String icon;
     private int weight;
     private int maxCountInOneField;
     private int speed;
     private double countFoodMax;
     private boolean moved = false;
-    private String icon;
+    private int satiety = 100;
+    private boolean alive = true;
 
+    public boolean getAlive() {
+        return alive;
+    }
 
-    public abstract <T> void eat(T food);
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public int getSatiety() {
+        return satiety;
+    }
+
+    public void setSatiety(int satiety) {
+        this.satiety = satiety;
+    }
+
+    public abstract int eat(ArrayList <Animal> animals);
     // растения и/или других животных
     // проверка, есть ли подходящая еда
 
-    public void move(int x, int y){
-        // определить, в какую из ячеек можно двигаться
+
+    public boolean move(int x, int y) {
+
+        ArrayList<Animal> newLocation = getNewField(x, y);
+
+        int count = getCountThisTypeInNewLocation(newLocation); // сколько животных такого типа на локации
+
+        if (count < this.getMaxCountInOneField()) {
+            newLocation.add(this);             // переселение
+            field[x][y].location.remove(this);             // удаление со старой
+            field[x][y].location.trimToSize();
+            setMoved(true);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private int getCountThisTypeInNewLocation(ArrayList<Animal> loc) {
+
+        int countThisAnimalInNewLocation = 0;
+        for (Animal animal : loc) {
+            if (animal.getClass().equals(this.getClass()))
+                countThisAnimalInNewLocation++;
+        }
+        return countThisAnimalInNewLocation;
+    }
+
+    private ArrayList<Animal> getNewField(int x, int y) {
         int xNew = x;
         int yNew = y;
-
         if (x >= getSpeed() && y >= getSpeed() &&
-        x < field.length - getSpeed() && y < field[x].length - getSpeed()){
+                x < field.length - getSpeed() && y < field[x].length - getSpeed()) {
             int random = new Random().nextInt(4);
             switch (random) {
                 case 0 -> xNew = x + getSpeed();
@@ -45,25 +84,7 @@ public abstract class Animal {
         } else if (y >= field[x].length - getSpeed()) {
             yNew = y - getSpeed();
         }
-        // проверять лимит животных на следующе клетке
-        // число животных этого вида в новой локации
-
-        field[xNew][yNew].location.add(this);             // переселение
-        field[x][y].location.remove(this);             // удаление со старой
-        field[x][y].location.trimToSize();
-
-        // System.out.println(" на " + xNew + yNew);
-        setMoved(true);
-    }
-
-    private int getCountThisTypeInNewLocation (int xNew, int yNew){
-
-        int countThisAnimalInNewLocation = 0;
-        for (Animal animal : field[xNew][yNew].location) {
-            if (animal.getClass().equals(this.getClass()))
-                countThisAnimalInNewLocation++;
-        }
-        return countThisAnimalInNewLocation;
+        return field[xNew][yNew].location;
     }
 
     public abstract <T extends Animal> void copy(T couple);
