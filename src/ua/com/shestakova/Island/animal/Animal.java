@@ -12,7 +12,7 @@ public abstract class Animal {
     public static int FULL_ENERGY = 100;
     private String icon;
     private int weight;
-    private int maxCountInOneField;
+    private int MAX_COUNT_OF_THIS_ANIMAL;
     private int speed;
     private double countFoodMax;
     private boolean moved = false;
@@ -52,8 +52,7 @@ public abstract class Animal {
         this.satiety = satiety;
     }
 
-    public abstract int eat(ArrayList <Animal> animals);
-
+    public abstract void eat(ArrayList <Animal> animals);
 
     public boolean move(int x, int y) {
 
@@ -61,7 +60,7 @@ public abstract class Animal {
 
         int count = getCountThisTypeInNewLocation(newLocation); // сколько животных такого типа на локации
 
-        if (count < this.getMaxCountInOneField()) {
+        if (count < this.getMAX_COUNT_OF_THIS_ANIMAL()) {
             newLocation.add(this);             // переселение
             field[x][y].location.remove(this);             // удаление со старой
             field[x][y].location.trimToSize();
@@ -143,12 +142,12 @@ public abstract class Animal {
         this.weight = weight;
     }
 
-    public int getMaxCountInOneField() {
-        return maxCountInOneField;
+    public int getMAX_COUNT_OF_THIS_ANIMAL() {
+        return MAX_COUNT_OF_THIS_ANIMAL;
     }
 
-    public void setMaxCountInOneField(int maxCountInOneField) {
-        this.maxCountInOneField = maxCountInOneField;
+    public void setMAX_COUNT_OF_THIS_ANIMAL(int MAX_COUNT_OF_THIS_ANIMAL) {
+        this.MAX_COUNT_OF_THIS_ANIMAL = MAX_COUNT_OF_THIS_ANIMAL;
     }
 
     public int getSpeed() {

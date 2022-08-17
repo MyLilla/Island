@@ -5,15 +5,14 @@ import java.util.ArrayList;
 public class Plant extends Animal {
     public Plant() {
         setIcon("\uD83C\uDF31");
-        setMaxCountInOneField(15);
+        setMAX_COUNT_OF_THIS_ANIMAL(15);
         setWeight(3);
         setWeight(10);
     }
 
 
     @Override
-    public int eat(ArrayList<Animal> animals) {
-        return -1;
+    public void eat(ArrayList<Animal> animals) {
     }
 
     @Override

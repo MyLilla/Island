@@ -1,32 +1,19 @@
 {
-  "0" : {
+  "Plant" : [ {
     "icon" : "\uD83D\uDC3A",
     "weight" : 50,
     "maxCountInOneField" : 2,
     "speed" : 3,
     "countFoodMax" : 8.0,
     "moved" : false,
-    "satiety" : 1,
+    "satiety" : 0,
     "alive" : true,
     "lossEnergy" : 1,
     "percent" : {
       "Plant" : 0,
       "Deer" : 15
     }
-  },
-  "1" : {
-    "icon" : "\uD83E\uDD8C",
-    "weight" : 40,
-    "maxCountInOneField" : 1,
-    "speed" : 3,
-    "countFoodMax" : 8.0,
-    "moved" : false,
-    "satiety" : 50,
-    "alive" : true,
-    "lossEnergy" : 5,
-    "percent" : { }
-  },
-  "2" : {
+  }, {
     "icon" : "\uD83C\uDF31",
     "weight" : 10,
     "maxCountInOneField" : 15,
@@ -37,5 +24,104 @@
     "alive" : true,
     "lossEnergy" : 0,
     "percent" : { }
-  }
+  }, {
+    "icon" : "\uD83C\uDF31",
+    "weight" : 10,
+    "maxCountInOneField" : 15,
+    "speed" : 0,
+    "countFoodMax" : 0.0,
+    "moved" : false,
+    "satiety" : 100,
+    "alive" : true,
+    "lossEnergy" : 0,
+    "percent" : { }
+  }, {
+    "icon" : "\uD83D\uDC3A",
+    "weight" : 50,
+    "maxCountInOneField" : 2,
+    "speed" : 3,
+    "countFoodMax" : 8.0,
+    "moved" : false,
+    "satiety" : -1,
+    "alive" : true,
+    "lossEnergy" : 1,
+    "percent" : {
+      "Plant" : 0,
+      "Deer" : 15
+    }
+  } ],
+  "Wolf" : [ {
+    "icon" : "\uD83C\uDF31",
+    "weight" : 10,
+    "maxCountInOneField" : 15,
+    "speed" : 0,
+    "countFoodMax" : 0.0,
+    "moved" : false,
+    "satiety" : 100,
+    "alive" : true,
+    "lossEnergy" : 0,
+    "percent" : { }
+  }, {
+    "icon" : "\uD83D\uDC3A",
+    "weight" : 50,
+    "maxCountInOneField" : 2,
+    "speed" : 3,
+    "countFoodMax" : 8.0,
+    "moved" : false,
+    "satiety" : 30,
+    "alive" : true,
+    "lossEnergy" : 1,
+    "percent" : {
+      "Plant" : 0,
+      "Deer" : 15
+    }
+  } ],
+  "Deer" : [ {
+    "icon" : "\uD83C\uDF31",
+    "weight" : 10,
+    "maxCountInOneField" : 15,
+    "speed" : 0,
+    "countFoodMax" : 0.0,
+    "moved" : false,
+    "satiety" : 100,
+    "alive" : true,
+    "lossEnergy" : 0,
+    "percent" : { }
+  }, {
+    "icon" : "\uD83E\uDD8C",
+    "weight" : 40,
+    "maxCountInOneField" : 2,
+    "speed" : 2,
+    "countFoodMax" : 8.0,
+    "moved" : false,
+    "satiety" : 15,
+    "alive" : true,
+    "lossEnergy" : 5,
+    "percent" : { }
+  }, {
+    "icon" : "\uD83E\uDD8C",
+    "weight" : 40,
+    "maxCountInOneField" : 2,
+    "speed" : 2,
+    "countFoodMax" : 8.0,
+    "moved" : false,
+    "satiety" : 10,
+    "alive" : true,
+    "lossEnergy" : 5,
+    "percent" : { }
+  }, {
+    "icon" : "\uD83D\uDC3A",
+    "weight" : 50,
+    "maxCountInOneField" : 2,
+    "speed" : 3,
+    "countFoodMax" : 8.0,
+    "moved" : false,
+    "satiety" : 30,
+    "alive" : true,
+    "lossEnergy" : 1,
+    "percent" : {
+      "Plant" : 0,
+      "Deer" : 15
+    }
+  } ]
 }

@@ -23,9 +23,8 @@ public class App {
 
     public static void main(String[] args) {
 
-
         Island island = new Island(); // создан объект острова
-        island.addLocationOnIsland(); // заполнить локациями
+        island.addLocationOnIsland(island.WIDTH, island.HEIGHT); // заполнить локациями
 
 //        JsonParse parse = new JsonParse();
 //        parse.parserToJsonMAP(Date.mapAllAnimals);

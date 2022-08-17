@@ -7,12 +7,12 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Island implements StartSimulation {
     public static Location[][] field;
-    private final int WIDTH = 6; // столбец
-    private final int HEIGHT = 6; // строка
+    public final int WIDTH = 6; // столбец
+    public final int HEIGHT = 6; // строка
 
-    public void addLocationOnIsland() {   // заполнение острова локациями
+    public void addLocationOnIsland(int width, int height) {   // заполнение острова локациями
 
-        field = new Location[WIDTH][HEIGHT];
+        field = new Location[width][height];
       //  Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
 
         for (int i = 0; i < field.length; i++) {
@@ -28,10 +28,6 @@ public class Island implements StartSimulation {
                 }
             }
         }
-    }
-    @Override
-    public void addLocationWithSittingsIsland() {
-
     }
 
     @Override

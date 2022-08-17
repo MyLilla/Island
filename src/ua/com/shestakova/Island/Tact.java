@@ -3,21 +3,27 @@ package ua.com.shestakova.Island;
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.animal.Plant;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static ua.com.shestakova.Island.settings.Island.field;
 
 public class Tact {
 
     public static void makeTact() {
-         for (int i = 0; i < 10; i++) {
-        print();
-        System.out.println("_____________________________________");
-        callActionMove();
-        resetFlags();
-        print();
-        System.out.println("_____________________________________");
-        callActionEat();
-       updateAfterTact();
+        for (int i = 0; i < 10; i++) {
+            print();
+            System.out.println("_____________________________________");
+            callActionMove();
+            resetFlags();
+            print();
+            System.out.println("_____________________________________");
+            callActionEat();
+            updateAfterTact();
         }
+        printInformationAfterTact();
 
     }
 
@@ -28,7 +34,7 @@ public class Tact {
                 for (int k = 0; k < field[i][j].location.size(); k++) { // лист
                     Animal ani = field[i][j].location.get(k);  // животное
                     if (!ani.isMoved() && ani.getClass() != Plant.class && k >= 0) {
-                         System.out.print("перемещение " + ani.getIcon() + " из " + i + j );
+                        System.out.print("перемещение " + ani.getIcon() + " из " + i + j);
                         if (ani.move(i, j)) {
                             k = k - 1;
                         }
@@ -55,14 +61,8 @@ public class Tact {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) { // лист
                     Animal ani = field[i][j].location.get(k);  // животное
-                    int index = ani.eat(field[i][j].location);
-                    if (index >= 0) {
-                        System.out.print(field[i][j].location.get(index).getIcon() + " на " + i + j + " будет съедена ");
-                        System.out.println();
-                        field[i][j].location.remove(index);
-                        field[i][j].location.trimToSize();
+                    ani.eat(field[i][j].location);
 
-                    }
                 }
             }
         }
@@ -89,6 +89,25 @@ public class Tact {
                 }
             }
         }
+    }
+
+    public static void printInformationAfterTact() { // сохранение в джейсоне сколько животных на конец такта
+
+        JsonParse parse = new JsonParse();
+        HashMap<String, Animal> mapAnimalNow = new HashMap<>();
+
+
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                for (int k = 0; k < field[i][j].location.size(); k++) {
+                    Animal anim = field[i][j].location.get(k);
+                    mapAnimalNow.put(anim.getClass().getSimpleName(), anim);
+                }
+                System.out.println("на локации: " + i + j + " " + mapAnimalNow.size() + " вида животных");
+            }
+        }
+//        System.out.println(mapAnimalNow);
+//        parse.parserToJsonMAP(mapAnimalNow);
     }
 
 }

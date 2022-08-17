@@ -2,14 +2,10 @@ package ua.com.shestakova.Island.settings;
 
 import ua.com.shestakova.Island.Date;
 import ua.com.shestakova.Island.animal.Animal;
-import ua.com.shestakova.Island.animal.herbivore.*;
-import ua.com.shestakova.Island.animal.Plant;
-import ua.com.shestakova.Island.animal.predator.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class Location {
@@ -36,7 +32,7 @@ public class Location {
                         countTypeInLocation++;
                     }
                 }
-                if (countTypeInLocation < randomAnimal.getMaxCountInOneField()) {
+                if (countTypeInLocation < randomAnimal.getMAX_COUNT_OF_THIS_ANIMAL()) {
                     location.add(randomAnimal);
                 }
             }

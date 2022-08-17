@@ -6,34 +6,39 @@ import ua.com.shestakova.Island.animal.herbivore.Herbivore;
 
 import java.util.*;
 
+import static ua.com.shestakova.Island.settings.Island.field;
+
 public abstract class Predator extends Animal {
     public Predator() {
         getPercent().put("Plant", 0);
     }
 
     @Override
-    public int eat(ArrayList<Animal> animals) {
+    public void eat(ArrayList<Animal> animals) {
+
+        int result = -1;
 
         if (this.getSatiety() < FULL_ENERGY) { // если голоден
 
-            int needCalories = FULL_ENERGY - this.getSatiety(); // сколько нужно еды
             Animal ani;      // выбор животного
             try {
                 ani = animals.stream()
                         .filter(Animal::getAlive)
-                       // .filter(x -> x.getWeight() <= needCalories)
                         .filter(x -> x instanceof Herbivore)
                         .findAny().get();
             } catch (NoSuchElementException e) {  // если подходящих нет
-                return -1;
+                return;
             }
-            if (checkFoodPercent(this, ani)) {                       // вероятность съедения
+            if (checkFoodPercent(this, ani)) {     // вероятность съедения
                 ani.setAlive(false);
-                this.setSatiety(this.getSatiety() + ani.getWeight());             // - сытость
-                return animals.indexOf(ani);
+                setSatiety(getSatiety() + ani.getWeight() > FULL_ENERGY ? FULL_ENERGY
+                        : getSatiety() + ani.getWeight());          // + сытость (не переполнить)
+                    System.out.print(ani.getIcon() + " будет съедена ");
+                    System.out.println();
+                    animals.remove(animals.indexOf(ani));
+                    animals.trimToSize();
             }
         }
-        return -1;  // если сыт
     }
 
     private boolean checkFoodPercent (Animal hunter, Animal prey) {

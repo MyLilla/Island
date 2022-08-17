@@ -9,7 +9,7 @@ public class Wolf extends Predator {
         setWeight(50);
         setCountFoodMax(8);
         setSpeed(3);
-        setMaxCountInOneField(2);
+        setMAX_COUNT_OF_THIS_ANIMAL(2);
         setIcon("\uD83D\uDC3A");
         setSatiety(10);
         setLossEnergy(1);

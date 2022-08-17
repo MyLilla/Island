@@ -1,7 +1,6 @@
 package ua.com.shestakova.Island;
 
 public interface StartSimulation {
-    void addLocationOnIsland();
-    void addLocationWithSittingsIsland(); // с настройками острова
+    void addLocationOnIsland(int width, int height);
     void startIsland();  // запуск
 }
