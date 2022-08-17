@@ -4,14 +4,18 @@ import ua.com.shestakova.Island.animal.Animal;
 
 public class Wolf extends Predator {
 
+
     public Wolf() {
         setWeight(50);
         setCountFoodMax(8);
         setSpeed(3);
         setMaxCountInOneField(2);
         setIcon("\uD83D\uDC3A");
-        setSatiety(50);
+        setSatiety(10);
+        setLossEnergy(1);
+        getPercent().put("Deer", 15);
     }
+
 
 
     @Override

@@ -1,6 +1,6 @@
 package ua.com.shestakova.Island.settings;
 
-
+import ua.com.shestakova.Island.Date;
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.animal.herbivore.*;
 import ua.com.shestakova.Island.animal.Plant;
@@ -15,25 +15,15 @@ import java.util.Random;
 public class Location {
 
     public ArrayList<Animal> location;
-    private HashMap<Integer, Class> mapAllAnimals = addedOfAllAnimals();
-
-    public HashMap<Integer, Class> addedOfAllAnimals() {
-        this.mapAllAnimals = new HashMap<>();
-        this.mapAllAnimals.put(0, Wolf.class);
-        this.mapAllAnimals.put(1, Deer.class);
-        this.mapAllAnimals.put(2, Plant.class);
-        return mapAllAnimals;
-    }
 
     public void createRandomLocation() throws NoSuchMethodException, InvocationTargetException,
             InstantiationException, IllegalAccessException { // создание локации с рандомным числом разных животных
 
         location = new ArrayList<>();
-        int countLifesOnLocation = new Random().nextInt(10);
-
+        int countLifesOnLocation = new Random().nextInt(5);
 
         for (int i = 1; i <= countLifesOnLocation; i++) {
-            int numberOfAnimal = new Random().nextInt(mapAllAnimals.size());  // рандомный выбор животного по ключу
+            int numberOfAnimal = new Random().nextInt(Date.mapAllAnimals.size());  // рандомный выбор животного по ключу
 
             Animal randomAnimal = createNewAnimal(numberOfAnimal);
 
@@ -53,23 +43,18 @@ public class Location {
         }
     }
 
-    private Animal createNewAnimal (int animalNumber) throws NoSuchMethodException, InvocationTargetException,
+    private Animal createNewAnimal(int animalNumber) throws NoSuchMethodException, InvocationTargetException,
             InstantiationException, IllegalAccessException {
 
-        Class clazz = mapAllAnimals.get(animalNumber);
+        Animal animal = Date.mapAllAnimals.get(animalNumber);
+        Class clazz = animal.getClass();
         Constructor<?> constructor = clazz.getConstructor();
         return (Animal) constructor.newInstance();
+
     }
 
     public ArrayList<Animal> createWithParameter(int countAnimalsOnFields) {
         return null;
     }
 
-    public void checkNextStep() {
-       /* если голодно - есть
-         если сыт - двигаться
-        если есть пара и сыт и ЖЦ ок - размножаться
-        иначе - двигаться
-        */
-    }
 }

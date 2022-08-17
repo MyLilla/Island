@@ -10,12 +10,13 @@ public class Deer extends Herbivore{
 
     public Deer() {
 
-        setWeight(50);
+        setWeight(40);
         setCountFoodMax(8);
-        setSpeed(3);
-        setMaxCountInOneField(1);
+        setSpeed(2);
+        setMaxCountInOneField(2);
         setIcon("\uD83E\uDD8C");
-        setSatiety(50);
+        setSatiety(100);
+        setLossEnergy(5);
     }
 
     @Override

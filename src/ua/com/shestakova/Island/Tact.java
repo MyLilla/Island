@@ -7,15 +7,20 @@ import static ua.com.shestakova.Island.settings.Island.field;
 
 public class Tact {
 
-    public static void makeTact () {
-        for (int i = 0; i < 10; i++) {
-            print();
-            System.out.println("_____________________________________");
-            callActionEat();
-            callActionMove();
-            resetFlags();
+    public static void makeTact() {
+         for (int i = 0; i < 10; i++) {
+        print();
+        System.out.println("_____________________________________");
+        callActionMove();
+        resetFlags();
+        print();
+        System.out.println("_____________________________________");
+        callActionEat();
+       updateAfterTact();
         }
+
     }
+
     private static void callActionMove() {   // вызов действия
 
         for (int i = 0; i < field.length; i++) {
@@ -23,28 +28,10 @@ public class Tact {
                 for (int k = 0; k < field[i][j].location.size(); k++) { // лист
                     Animal ani = field[i][j].location.get(k);  // животное
                     if (!ani.isMoved() && ani.getClass() != Plant.class && k >= 0) {
-                        //  System.out.print("перемещение " + ani.getIcon() + " из " + i + j );
+                         System.out.print("перемещение " + ani.getIcon() + " из " + i + j );
                         if (ani.move(i, j)) {
                             k = k - 1;
                         }
-                    }
-                }
-            }
-        }
-    }
-    private static void callActionEat() {   // вызов действия
-
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length; j++) {
-                for (int k = 0; k < field[i][j].location.size(); k++) { // лист
-                    Animal ani = field[i][j].location.get(k);  // животное
-                    int index = ani.eat(field[i][j].location);
-                    if (index > 0) {
-                        System.out.print(field[i][j].location.get(index).getIcon() + " будет съедена " + i + j);
-                        System.out.println();
-                        field[i][j].location.remove(index);
-                        field[i][j].location.trimToSize();
-                        ani.setAlive(false);
                     }
                 }
             }
@@ -62,6 +49,24 @@ public class Tact {
         }
     }
 
+    private static void callActionEat() {   // вызов действия
+
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                for (int k = 0; k < field[i][j].location.size(); k++) { // лист
+                    Animal ani = field[i][j].location.get(k);  // животное
+                    int index = ani.eat(field[i][j].location);
+                    if (index >= 0) {
+                        System.out.print(field[i][j].location.get(index).getIcon() + " на " + i + j + " будет съедена ");
+                        System.out.println();
+                        field[i][j].location.remove(index);
+                        field[i][j].location.trimToSize();
+
+                    }
+                }
+            }
+        }
+    }
 
     private static void print() {
         for (int i = 0; i < field.length; i++) {
@@ -74,4 +79,16 @@ public class Tact {
             System.out.println();
         }
     }
+
+    public static void updateAfterTact() {
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                for (int k = 0; k < field[i][j].location.size(); k++) {
+                    Animal anim = field[i][j].location.get(k);
+                    anim.setSatiety(anim.getSatiety() - anim.getLossEnergy());
+                }
+            }
+        }
+    }
+
 }

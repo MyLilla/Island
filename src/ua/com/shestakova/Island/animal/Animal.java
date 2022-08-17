@@ -1,12 +1,15 @@
 package ua.com.shestakova.Island.animal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import static ua.com.shestakova.Island.settings.Island.field;
 
-public abstract class Animal{
+public abstract class Animal {
 
+    public static int FULL_ENERGY = 100;
     private String icon;
     private int weight;
     private int maxCountInOneField;
@@ -15,6 +18,23 @@ public abstract class Animal{
     private boolean moved = false;
     private int satiety = 100;
     private boolean alive = true;
+    private int lossEnergy;
+    private Map<String, Integer> percent = new HashMap<>();
+
+    public Map<String, Integer> getPercent() {
+        return percent;
+    }
+    public void setPercent(Map<String, Integer> percent) {
+        this.percent = percent;
+    }
+
+    public int getLossEnergy() {
+        return lossEnergy;
+    }
+
+    public void setLossEnergy(int lossEnergy) {
+        this.lossEnergy = lossEnergy;
+    }
 
     public boolean getAlive() {
         return alive;
@@ -33,8 +53,6 @@ public abstract class Animal{
     }
 
     public abstract int eat(ArrayList <Animal> animals);
-    // растения и/или других животных
-    // проверка, есть ли подходящая еда
 
 
     public boolean move(int x, int y) {
@@ -48,6 +66,7 @@ public abstract class Animal{
             field[x][y].location.remove(this);             // удаление со старой
             field[x][y].location.trimToSize();
             setMoved(true);
+            setSatiety(getSatiety() - getLossEnergy());
             return true;
         } else {
             return false;
@@ -70,21 +89,35 @@ public abstract class Animal{
                 x < field.length - getSpeed() && y < field[x].length - getSpeed()) {
             int random = new Random().nextInt(4);
             switch (random) {
-                case 0 -> xNew = x + getSpeed();
-                case 1 -> yNew = y - getSpeed();
-                case 2 -> xNew = x - getSpeed();
-                case 3 -> yNew = y + getSpeed();
+                case 0 -> xNew = down(x);
+                case 1 -> yNew = right(y);
+                case 2 -> xNew = up(x);
+                case 3 -> yNew = left(y);
             }
         } else if (x < getSpeed()) {
-            xNew = x + getSpeed();
+            xNew = down(x);
         } else if (y < getSpeed()) {
-            yNew = y + getSpeed();
+            yNew = left(y);
         } else if (x >= field.length - getSpeed()) {
-            xNew = x - getSpeed();
+            xNew = up(x);
         } else if (y >= field[x].length - getSpeed()) {
-            yNew = y - getSpeed();
+            yNew = right(y);
         }
+        System.out.println(" в " + xNew + yNew);
         return field[xNew][yNew].location;
+    }
+
+    private int down (int x){
+        return x + this.getSpeed();
+    }
+    private int up (int x){
+        return x - this.getSpeed();
+    }
+    private int left (int y){
+        return y + this.getSpeed();
+    }
+    private int right (int y){
+        return y - this.getSpeed();
     }
 
     public abstract <T extends Animal> void copy(T couple);

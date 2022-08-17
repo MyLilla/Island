@@ -7,6 +7,7 @@ public class Plant extends Animal {
         setIcon("\uD83C\uDF31");
         setMaxCountInOneField(15);
         setWeight(3);
+        setWeight(10);
     }
 
 

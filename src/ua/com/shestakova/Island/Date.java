@@ -1,0 +1,20 @@
+package ua.com.shestakova.Island;
+
+import ua.com.shestakova.Island.animal.Animal;
+import ua.com.shestakova.Island.animal.Plant;
+import ua.com.shestakova.Island.animal.herbivore.Deer;
+import ua.com.shestakova.Island.animal.predator.Wolf;
+
+import java.util.HashMap;
+
+public class Date {
+
+    public static HashMap<Integer, Animal> mapAllAnimals = addedOfAllAnimals();
+    public static HashMap<Integer, Animal> addedOfAllAnimals() {
+        mapAllAnimals = new HashMap<>();
+        mapAllAnimals.put(0, new Wolf());
+        mapAllAnimals.put(1, new Deer());
+        mapAllAnimals.put(2, new Plant());
+        return mapAllAnimals;
+    }
+}
