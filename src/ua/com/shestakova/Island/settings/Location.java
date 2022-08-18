@@ -16,7 +16,7 @@ public class Location {
             InstantiationException, IllegalAccessException { // создание локации с рандомным числом разных животных
 
         location = new ArrayList<>();
-        int countLifesOnLocation = new Random().nextInt(5);
+        int countLifesOnLocation = new Random().nextInt(10);
 
         for (int i = 1; i <= countLifesOnLocation; i++) {
             int numberOfAnimal = new Random().nextInt(Date.mapAllAnimals.size());  // рандомный выбор животного по ключу
@@ -26,26 +26,35 @@ public class Location {
             if (location.isEmpty()) {
                 location.add(randomAnimal);
             } else {
-                int countTypeInLocation = 0;
-                for (Animal animal : location) {
-                    if (animal.getClass().equals(randomAnimal.getClass())) {
-                        countTypeInLocation++;
-                    }
-                }
-                if (countTypeInLocation < randomAnimal.getMAX_COUNT_OF_THIS_ANIMAL()) {
+                int countTypeInLocation = getCountTypeInLoc(location, randomAnimal);
+                if (countTypeInLocation < randomAnimal.getMaxCountTypeInLoc()) {
                     location.add(randomAnimal);
                 }
             }
         }
     }
+    public static int getCountTypeInLoc(ArrayList<Animal> animals, Animal animal) {
+        int countTypeInLoc = 0;                         // подсчитать сколько таких животных на клетке уже есть
+        for (Animal ani : animals) {
+            if (ani.getName().equals(animal.getName())){
+                countTypeInLoc++;
+            }
+        }
+        return countTypeInLoc;
+    }
 
-    private Animal createNewAnimal(int animalNumber) throws NoSuchMethodException, InvocationTargetException,
-            InstantiationException, IllegalAccessException {
+    public static Animal createNewAnimal(int animalNumber)  {
 
         Animal animal = Date.mapAllAnimals.get(animalNumber);
         Class clazz = animal.getClass();
-        Constructor<?> constructor = clazz.getConstructor();
-        return (Animal) constructor.newInstance();
+        Constructor<?> constructor;
+        try {
+            constructor = clazz.getConstructor();
+            return (Animal) constructor.newInstance();
+
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

@@ -13,17 +13,23 @@ import static ua.com.shestakova.Island.settings.Island.field;
 public class Tact {
 
     public static void makeTact() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             print();
             System.out.println("_____________________________________");
-            callActionMove();
-            resetFlags();
+            callActionCopy();
             print();
             System.out.println("_____________________________________");
             callActionEat();
-            updateAfterTact();
+            print();
+            System.out.println("_____________________________________");
+            callActionMove();
+            print();
+            System.out.println("_____________________________________");
+
+            resetFlags();
+            printInformationAfterTact();
         }
-        printInformationAfterTact();
+
 
     }
 
@@ -34,7 +40,7 @@ public class Tact {
                 for (int k = 0; k < field[i][j].location.size(); k++) { // лист
                     Animal ani = field[i][j].location.get(k);  // животное
                     if (!ani.isMoved() && ani.getClass() != Plant.class && k >= 0) {
-                        System.out.print("перемещение " + ani.getIcon() + " из " + i + j);
+                        // System.out.print("перемещение " + ani.getIcon() + " из " + i + j);
                         if (ani.move(i, j)) {
                             k = k - 1;
                         }
@@ -49,7 +55,10 @@ public class Tact {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) { // лист
-                    field[i][j].location.get(k).setMoved(false);  // животное
+                    Animal anim = field[i][j].location.get(k);
+                    anim.setSatiety(anim.getSatiety() - anim.getLossEnergy());
+                    anim.setMoved(false);  // животное
+                    anim.die(i, j);
                 }
             }
         }
@@ -68,6 +77,19 @@ public class Tact {
         }
     }
 
+    private static void callActionCopy() {   // вызов действия
+
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+              //  System.out.println("на локации " + i + j);
+                for (int k = 0; k < field[i][j].location.size(); k++) { // лист
+                    Animal ani = field[i][j].location.get(k);  // животное
+                    ani.copy(field[i][j].location);
+                }
+            }
+        }
+    }
+
     private static void print() {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
@@ -77,17 +99,6 @@ public class Tact {
                 }
             }
             System.out.println();
-        }
-    }
-
-    public static void updateAfterTact() {
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length; j++) {
-                for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Animal anim = field[i][j].location.get(k);
-                    anim.setSatiety(anim.getSatiety() - anim.getLossEnergy());
-                }
-            }
         }
     }
 

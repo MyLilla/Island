@@ -11,11 +11,9 @@ import ua.com.shestakova.Island.animal.predator.Wolf;
 import ua.com.shestakova.Island.settings.Island;
 import ua.com.shestakova.Island.settings.Location;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import static ua.com.shestakova.Island.Tact.makeTact;
 
@@ -30,7 +28,20 @@ public class App {
 //        parse.parserToJsonMAP(Date.mapAllAnimals);
 
         makeTact();
-          }
+
+//       File JSON_SOURCE = new File ("src/ua/com/shestakova/app.properties");
+//        try {
+//            FileReader reader = new FileReader (JSON_SOURCE);
+//            Properties properties = new Properties();
+//            properties.load(reader);
+//            String appVersion = properties.getProperty("version");
+//            System.out.println(appVersion);
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+    }
 }
 
 

@@ -5,23 +5,20 @@ import java.util.ArrayList;
 public class Plant extends Animal {
     public Plant() {
         setIcon("\uD83C\uDF31");
-        setMAX_COUNT_OF_THIS_ANIMAL(15);
-        setWeight(3);
-        setWeight(10);
+        setWeight(1);
+        setMaxCountTypeInLoc(200);
     }
-
 
     @Override
     public void eat(ArrayList<Animal> animals) {
     }
 
     @Override
-    public <T extends Animal> void copy(T couple) {
-
+    public boolean checkTypeAnimalForEat(Animal animal) {
+        return false;
     }
 
     @Override
-    public void die() {
-
+    public void copy(ArrayList<Animal> animals) {
     }
 }

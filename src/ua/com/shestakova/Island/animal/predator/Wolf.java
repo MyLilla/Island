@@ -6,28 +6,19 @@ public class Wolf extends Predator {
 
 
     public Wolf() {
-        setWeight(50);
-        setCountFoodMax(8);
-        setSpeed(3);
-        setMAX_COUNT_OF_THIS_ANIMAL(2);
+
         setIcon("\uD83D\uDC3A");
-        setSatiety(10);
-        setLossEnergy(1);
+        setWeight(50);
+        setMaxCountTypeInLoc(30);
+        setSpeed(3);
+        setCountFoodMax(8);
+        setLossEnergy(2);
         getPercent().put("Deer", 15);
+        getPercent().put("Rabbit", 60);
     }
 
 
 
-    @Override
-    public <T extends Animal> void copy(T couple) {
-        if (couple instanceof Wolf) {
-            System.out.println("I'm ready make my copy!");
-        }
-    }
 
-    @Override
-    public void die() {
-
-    }
 
 }

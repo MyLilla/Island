@@ -7,8 +7,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Island implements StartSimulation {
     public static Location[][] field;
-    public final int WIDTH = 6; // столбец
-    public final int HEIGHT = 6; // строка
+    public final int WIDTH = 10; // столбец
+    public final int HEIGHT = 10; // строка
 
     public void addLocationOnIsland(int width, int height) {   // заполнение острова локациями
 
