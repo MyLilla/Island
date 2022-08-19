@@ -29,18 +29,17 @@ public class Parser {
 
         HashMap<Integer, Animal> allAnimal =  Tools.mapAllAnimals;
 
-        for (Map.Entry entry : allAnimal.entrySet()){
+        for (Map.Entry entry : allAnimal.entrySet()) {
 
             String name = entry.getValue().getClass().getSimpleName();
             Animal animal = (Animal) entry.getValue();
-            ;
-            JSONArray array = new JSONArray();
-            array.add(animal.getIcon());
-            array.add("weight = " + animal.getWeight());
 
-            obj.put(name, array);
+            JSONObject obj2 = new JSONObject();
+            obj2.put("name", animal.getName());
+            obj2.put("countFoodMax", animal.getCountFoodMax());
 
-           // obj.put("size", animal.getIcon());
+            obj.put(name, obj2);
+
         }
         try {
             FileWriter file = new FileWriter(JSON_SOURCE);

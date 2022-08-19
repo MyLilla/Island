@@ -1,30 +1,20 @@
 {
-  "Bear": [
-    "🐻",
-    "weight = 500"
-  ],
-  "Boa": [
-    "🐍",
-    "weight = 15"
-  ],
-  "Deer": [
-    "🦌",
-    "weight = 300"
-  ],
-  "Fox": [
-    "🦊",
-    "weight = 8"
-  ],
-  "Plant": [
-    "🌱",
-    "weight = 1"
-  ],
-  "Rabbit": [
-    "🐇",
-    "weight = 2"
-  ],
-  "Wolf": [
-    "🐺",
-    "weight = 50"
-  ]
-}
+  "Plant":
+  {
+    "countFoodMax":0.0,
+    "name":"Plant"
+  },
+  "Boa":
+  {
+    "countFoodMax":3.0,
+    "name":"Boa"
+  },
+  "Rabbit":
+  {
+    "countFoodMax":5.0,
+    "name":"Rabbit"},
+  "Wolf":
+  {
+    "countFoodMax":8.0,
+    "name":"Wolf"},
+  "Bear":{"countFoodMax":80.0,"name":"Bear"},"Eagle":{"countFoodMax":1.0,"name":"Eagle"},"Deer":{"countFoodMax":50.0,"name":"Deer"},"Fox":{"countFoodMax":2.0,"name":"Fox"}}
