@@ -7,6 +7,7 @@ public class Plant extends Animal {
         setIcon("\uD83C\uDF31");
         setWeight(1);
         setMaxCountTypeInLoc(200);
+        setChanceMakeCopy(80);
     }
 
     @Override
@@ -19,6 +20,7 @@ public class Plant extends Animal {
     }
 
     @Override
-    public void copy(ArrayList<Animal> animals) {
+    public boolean move(int x, int y) {
+        return false;
     }
 }

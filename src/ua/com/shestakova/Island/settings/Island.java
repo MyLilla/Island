@@ -1,37 +1,44 @@
 package ua.com.shestakova.Island.settings;
 
-import ua.com.shestakova.Island.StartSimulation;
-
-import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
-
-public class Island implements StartSimulation {
+public class Island {
     public static Location[][] field;
-    public final int WIDTH = 10; // столбец
-    public final int HEIGHT = 10; // строка
-
-    public void addLocationOnIsland(int width, int height) {   // заполнение острова локациями
+    public int WIDTH = 10;
+    public int HEIGHT = 10;
+    public int MAX_COUNT_IN_LOCATION = 10;
+    public void addLocationOnIsland(int width, int height) {
 
         field = new Location[width][height];
-      //  Rectangle bounds = new Rectangle(0, 0, WIDTH, HEIGHT);
 
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
-                try {
                     Location loc = new Location();
-                    loc.createRandomLocation();
+                    loc.createLocation(MAX_COUNT_IN_LOCATION);
                     field[i][j] = loc;
-                    // обработать
-                } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
-                         IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
             }
         }
     }
 
-    @Override
-    public void startIsland() {
+    public int getWIDTH() {
+        return WIDTH;
+    }
 
+    public void setWIDTH(int WIDTH) {
+        this.WIDTH = WIDTH;
+    }
+
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public void setHEIGHT(int HEIGHT) {
+        this.HEIGHT = HEIGHT;
+    }
+
+    public int getMAX_COUNT_IN_LOCATION() {
+        return MAX_COUNT_IN_LOCATION;
+    }
+
+    public void setMAX_COUNT_IN_LOCATION(int MAX_COUNT_IN_LOCATION) {
+        this.MAX_COUNT_IN_LOCATION = MAX_COUNT_IN_LOCATION;
     }
 }

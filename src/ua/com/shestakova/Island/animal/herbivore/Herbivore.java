@@ -8,7 +8,6 @@ public abstract class Herbivore extends Animal {
     public Herbivore() {
         getPercent().put("Plant", 50);
     }
-
     @Override
     public boolean checkTypeAnimalForEat(Animal animal) {
         return animal instanceof Plant;

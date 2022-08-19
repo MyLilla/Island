@@ -1,8 +1,6 @@
 package ua.com.shestakova.Island.settings;
 
-import ua.com.shestakova.Island.Date;
 import ua.com.shestakova.Island.animal.Animal;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -12,16 +10,14 @@ public class Location {
 
     public ArrayList<Animal> location;
 
-    public void createRandomLocation() throws NoSuchMethodException, InvocationTargetException,
-            InstantiationException, IllegalAccessException { // создание локации с рандомным числом разных животных
+    public void createLocation(int maxAnimal) {
 
         location = new ArrayList<>();
-        int countLifesOnLocation = new Random().nextInt(10);
+      
+        for (int i = 1; i <= Date.getRandomNumber(maxAnimal); i++) {  // количество животных на локации
+            int numberOfAnimal = new Random().nextInt(Date.mapAllAnimals.size());
 
-        for (int i = 1; i <= countLifesOnLocation; i++) {
-            int numberOfAnimal = new Random().nextInt(Date.mapAllAnimals.size());  // рандомный выбор животного по ключу
-
-            Animal randomAnimal = createNewAnimal(numberOfAnimal);
+            Animal randomAnimal = createRandomAnimal(numberOfAnimal);
 
             if (location.isEmpty()) {
                 location.add(randomAnimal);
@@ -43,7 +39,7 @@ public class Location {
         return countTypeInLoc;
     }
 
-    public static Animal createNewAnimal(int animalNumber)  {
+    public static Animal createRandomAnimal(int animalNumber)  {
 
         Animal animal = Date.mapAllAnimals.get(animalNumber);
         Class clazz = animal.getClass();
@@ -55,11 +51,5 @@ public class Location {
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
-
     }
-
-    public ArrayList<Animal> createWithParameter(int countAnimalsOnFields) {
-        return null;
-    }
-
 }

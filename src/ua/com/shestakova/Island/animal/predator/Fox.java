@@ -1,7 +1,5 @@
 package ua.com.shestakova.Island.animal.predator;
 
-import ua.com.shestakova.Island.animal.Animal;
-
 public class Fox extends Predator {
 
     public Fox() {
@@ -10,10 +8,7 @@ public class Fox extends Predator {
         setMaxCountTypeInLoc(30);
         setSpeed(2);
         setCountFoodMax(2);
-        setLossEnergy(1);
+        setLossSatiety(1);
         getPercent().put("Rabbit", 70);
     }
-
-
-
 }

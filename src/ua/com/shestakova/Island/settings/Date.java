@@ -1,4 +1,4 @@
-package ua.com.shestakova.Island;
+package ua.com.shestakova.Island.settings;
 
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.animal.Plant;
@@ -8,6 +8,7 @@ import ua.com.shestakova.Island.animal.predator.Fox;
 import ua.com.shestakova.Island.animal.predator.Wolf;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class Date {
 
@@ -20,5 +21,9 @@ public class Date {
         mapAllAnimals.put(3, new Rabbit());
         mapAllAnimals.put(4, new Fox());
         return mapAllAnimals;
+    }
+
+    public static int getRandomNumber (int board) {
+        return new Random().nextInt(board);
     }
 }

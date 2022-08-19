@@ -2,7 +2,7 @@ package ua.com.shestakova.Island.animal;
 
 import lombok.Getter;
 import lombok.Setter;
-import ua.com.shestakova.Island.Date;
+import ua.com.shestakova.Island.settings.Date;
 import ua.com.shestakova.Island.settings.Location;
 
 import java.util.*;
@@ -21,7 +21,7 @@ public abstract class Animal {
     private int countFoodMax;
     private boolean moved = false;
     private int satiety = 0;
-    private int lossEnergy;
+    private int lossSatiety;
     private boolean alive = true;
     private int chanceMakeCopy = 50;
     private Map<String, Integer> percent = new HashMap<>();
@@ -34,17 +34,17 @@ public abstract class Animal {
             try {
                 ani = animals.stream()
                         .filter(Animal::isAlive)
-                        .filter(this::checkTypeAnimalForEat) // должны получить класс, с чем сравнивать
+                        .filter(this::checkTypeAnimalForEat) // подходит ли класс для поедания
                         .findAny().get();
             } catch (NoSuchElementException e) {  // если подходящих нет
                 return;
             }
-            if (checkFoodPercent(this, ani)) {     // вероятность съедения
+            if (checkChanceEating(this, ani)) {     // вероятность съедения из %
                 ani.setAlive(false);
-                setSatiety(Math.min(getSatiety() + ani.getWeight(), getCountFoodMax()));    // + сытость (не переполнить)
-                // сытость + вес съедаемого или полная энергия что меньшн
-                System.out.print(ani.getIcon() + " будет съедена ");
-                System.out.println();
+
+                setSatiety(Math.min(getSatiety() + ani.getWeight(), getCountFoodMax()));
+                // System.out.print(ani.getIcon() + " будет съедена ");
+                // System.out.println();
                 animals.remove(animals.indexOf(ani));
                 animals.trimToSize();
             }
@@ -53,14 +53,14 @@ public abstract class Animal {
 
     public abstract boolean checkTypeAnimalForEat(Animal animal);
 
-    private boolean checkFoodPercent(Animal hunter, Animal prey) {
+    private boolean checkChanceEating(Animal hunter, Animal prey) {
 
-        int random = new Random().nextInt(101); // вероятность в %
+        int chance = Date.getRandomNumber(101);
 
-        for (String name : hunter.getPercent().keySet()) {  // проход по всем животным (key)
+        for (String name : hunter.getPercent().keySet()) {          // проход по всем животным (key)
             if (name.equals(prey.getClass().getSimpleName())) {     // найти подходящего класса
                 int probability = hunter.getPercent().get(name);   // взять его процент
-                if (probability <= random) {     //  сравнить с выпавшим
+                if (probability <= chance) {                      //  сравнить с выпавшим
                     return true;
                 }
             }
@@ -72,28 +72,17 @@ public abstract class Animal {
 
         ArrayList<Animal> newLocation = getNewField(x, y);
 
-        int count = getCountThisTypeInNewLocation(newLocation); // сколько животных такого типа на локации
+        int count = Location.getCountTypeInLoc(newLocation, this); // сколько животных такого типа на локации
 
         if (count < this.getMaxCountTypeInLoc()) {
-            newLocation.add(this);             // переселение
+            newLocation.add(this);                          // переселение
             field[x][y].location.remove(this);             // удаление со старой
             field[x][y].location.trimToSize();
             setMoved(true);
-            setSatiety(getSatiety() - getLossEnergy());
             return true;
         } else {
             return false;
         }
-    }
-
-    private int getCountThisTypeInNewLocation(ArrayList<Animal> loc) {
-
-        int countThisAnimalInNewLocation = 0;
-        for (Animal animal : loc) {
-            if (animal.getClass().equals(this.getClass()))
-                countThisAnimalInNewLocation++;
-        }
-        return countThisAnimalInNewLocation;
     }
 
     private ArrayList<Animal> getNewField(int x, int y) {
@@ -101,8 +90,8 @@ public abstract class Animal {
         int yNew = y;
         if (x >= getSpeed() && y >= getSpeed() &&
                 x < field.length - getSpeed() && y < field[x].length - getSpeed()) {
-            int random = new Random().nextInt(4);
-            switch (random) {
+
+            switch (Date.getRandomNumber(4)) {
                 case 0 -> xNew = down(x);
                 case 1 -> yNew = right(y);
                 case 2 -> xNew = up(x);
@@ -139,30 +128,31 @@ public abstract class Animal {
 
     public void copy(ArrayList<Animal> animals) {
 
-        int chanceRandom = new Random().nextInt(100);
-
-        if (getChanceMakeCopy() < chanceRandom) {
-      // System.out.println(this.getName() + " ищет пару");
+        if (getChanceMakeCopy() < Date.getRandomNumber(101)) {
+            // System.out.println(this.getName() + " ищет пару");
 
             int countTypeInLoc = Location.getCountTypeInLoc(animals, this);
-            if (countTypeInLoc < getMaxCountTypeInLoc() &&
-                countTypeInLoc > 1) {                       // если число животных больше 0 и меньше максимума
 
-            Animal newAni;
-            for (Map.Entry entry : Date.mapAllAnimals.entrySet()) {
-                if (entry.getValue().getClass() == (this).getClass()) {
-                    newAni = Location.createNewAnimal((int) entry.getKey());
-                   // System.out.println("пара создана" + newAni.getName());
-                    animals.add(newAni);
-                    break;
+            if (countTypeInLoc < getMaxCountTypeInLoc() &&
+                    (countTypeInLoc > 1 || this.getClass().equals(Plant.class))) {
+                // если число животных меньше максимума и больше 0 или растение
+
+                Animal newAni;
+                for (Map.Entry entry : Date.mapAllAnimals.entrySet()) {
+                    if (entry.getValue().getClass() == (this).getClass()) {
+
+                        newAni = Location.createRandomAnimal((int) entry.getKey());
+                        // System.out.println("пара создана" + newAni.getName());
+                        animals.add(newAni);
+                        break;
+                    }
                 }
             }
-        }
         }
     }
 
     public void die(int x, int y) {
-        if (!isAlive() || getSatiety() <= 0) {
+        if (!isAlive()) {
             field[x][y].location.remove(this);             // удаление со старой
             field[x][y].location.trimToSize();
             setAlive(false);

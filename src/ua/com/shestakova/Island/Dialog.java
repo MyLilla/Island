@@ -1,28 +1,32 @@
 package ua.com.shestakova.Island;
 
 import ua.com.shestakova.Island.settings.Island;
+import ua.com.shestakova.Island.settings.Parser;
 
-import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public class Dialog {
+    public static void createIsland() {
 
-    public static void start() {
-        Scanner scanner = new Scanner(System.in);
         Island island = new Island(); // создан объект острова
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Настройки симуляции: \n 1 - автоматические \n 2 - пользовательские");
-        switch (scanner.nextInt()) {
-            case 1: {
-                island.addLocationOnIsland(island.WIDTH, island.HEIGHT); // заполнить локациями
+        System.out.println("Менять настройки размеров симуляции? \n 1 - нет, оставить автоматические \n " +
+                "2 - да, создать остров с измененными настройками");
+
+            switch (scanner.nextInt()) {
+                case 1: {
+                   break;
+                }
+                case 2: {
+                    Parser parser = new Parser();
+                    parser.getParametersFromProperties(island);  // обновляем значения размеров
+                } default:
+                    System.out.println("Вы ввели не корректное число, остров будет создан с автоматическими настройками");  // выходит
             }
-            case 2: {
-                System.out.println("введите параметры острова: \n высота: ");
-                int width = scanner.nextInt();
-                System.out.println("ширина: ");
-                int height = scanner.nextInt();
-                island.addLocationOnIsland(width, height); // заполнить локациями
-            }
-        }
+
+        island.addLocationOnIsland(island.getWIDTH(), island.getHEIGHT());
+        System.out.println("Остров создан, вот он");
+        Tact.print();
     }
 }
