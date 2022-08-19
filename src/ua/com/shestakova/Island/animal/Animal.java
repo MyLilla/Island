@@ -2,7 +2,8 @@ package ua.com.shestakova.Island.animal;
 
 import lombok.Getter;
 import lombok.Setter;
-import ua.com.shestakova.Island.settings.Date;
+import lombok.ToString;
+import ua.com.shestakova.Island.settings.Tools;
 import ua.com.shestakova.Island.settings.Location;
 
 import java.util.*;
@@ -11,6 +12,7 @@ import static ua.com.shestakova.Island.settings.Island.field;
 
 @Setter
 @Getter
+@ToString
 public abstract class Animal {
 
     private String icon;
@@ -18,10 +20,10 @@ public abstract class Animal {
     private int weight;
     private int maxCountTypeInLoc;
     private int speed;
-    private int countFoodMax;
+    private double countFoodMax;
     private boolean moved = false;
-    private int satiety = 0;
-    private int lossSatiety;
+    private double satiety = 0;
+    private double lossSatiety;
     private boolean alive = true;
     private int chanceMakeCopy = 50;
     private Map<String, Integer> percent = new HashMap<>();
@@ -55,7 +57,7 @@ public abstract class Animal {
 
     private boolean checkChanceEating(Animal hunter, Animal prey) {
 
-        int chance = Date.getRandomNumber(101);
+        int chance = Tools.getRandomNumber(101);
 
         for (String name : hunter.getPercent().keySet()) {          // проход по всем животным (key)
             if (name.equals(prey.getClass().getSimpleName())) {     // найти подходящего класса
@@ -91,7 +93,7 @@ public abstract class Animal {
         if (x >= getSpeed() && y >= getSpeed() &&
                 x < field.length - getSpeed() && y < field[x].length - getSpeed()) {
 
-            switch (Date.getRandomNumber(4)) {
+            switch (Tools.getRandomNumber(4)) {
                 case 0 -> xNew = down(x);
                 case 1 -> yNew = right(y);
                 case 2 -> xNew = up(x);
@@ -128,7 +130,7 @@ public abstract class Animal {
 
     public void copy(ArrayList<Animal> animals) {
 
-        if (getChanceMakeCopy() < Date.getRandomNumber(101)) {
+        if (getChanceMakeCopy() < Tools.getRandomNumber(101)) {
             // System.out.println(this.getName() + " ищет пару");
 
             int countTypeInLoc = Location.getCountTypeInLoc(animals, this);
@@ -138,7 +140,7 @@ public abstract class Animal {
                 // если число животных меньше максимума и больше 0 или растение
 
                 Animal newAni;
-                for (Map.Entry entry : Date.mapAllAnimals.entrySet()) {
+                for (Map.Entry entry : Tools.mapAllAnimals.entrySet()) {
                     if (entry.getValue().getClass() == (this).getClass()) {
 
                         newAni = Location.createRandomAnimal((int) entry.getKey());

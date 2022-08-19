@@ -1,0 +1,30 @@
+{
+  "Bear": [
+    "🐻",
+    "weight = 500"
+  ],
+  "Boa": [
+    "🐍",
+    "weight = 15"
+  ],
+  "Deer": [
+    "🦌",
+    "weight = 300"
+  ],
+  "Fox": [
+    "🦊",
+    "weight = 8"
+  ],
+  "Plant": [
+    "🌱",
+    "weight = 1"
+  ],
+  "Rabbit": [
+    "🐇",
+    "weight = 2"
+  ],
+  "Wolf": [
+    "🐺",
+    "weight = 50"
+  ]
+}

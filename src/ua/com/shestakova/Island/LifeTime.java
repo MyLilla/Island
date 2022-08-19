@@ -1,31 +1,32 @@
 package ua.com.shestakova.Island;
 
+import com.diogonunes.jcolor.Attribute;
 import ua.com.shestakova.Island.animal.Animal;
-import ua.com.shestakova.Island.settings.Parser;
+import ua.com.shestakova.Island.animal.Plant;
+import ua.com.shestakova.Island.animal.herbivore.Herbivore;
+import ua.com.shestakova.Island.animal.predator.Predator;
 
-import java.util.HashMap;
-
+import static com.diogonunes.jcolor.Ansi.colorize;
 import static ua.com.shestakova.Island.settings.Island.field;
 
-public class Tact {
+public class LifeTime {
+
 
     public static void makeTact() {
-        for (int i = 0; i < 5; i++) {
-            print();
-            System.out.println("_____________________________________");
-            callActionCopy();
-            print();
-            System.out.println("_____________________________________");
-            callActionEat();
-            print();
-            System.out.println("_____________________________________");
-            callActionMove();
-            print();
-            System.out.println("_____________________________________");
 
-            resetFlags();
-            //          printInformationAfterTact();
-        }
+        callActionCopy();
+        System.out.println("Животные размножились");
+
+        callActionEat();
+        System.out.println("Животные поели");
+
+        callActionMove();
+        System.out.println("Животные переместились");
+
+        resetFlags();
+        print();
+
+       printInformation();
     }
 
     private static void callActionMove() {   // вызов действия
@@ -90,30 +91,37 @@ public class Tact {
             for (int j = 0; j < field[i].length; j++) {
                 System.out.print("[" + i + j + "]"); // ячейка
                 for (int k = 0; k < field[i][j].location.size(); k++) { // лист
-                    System.out.print("{" + field[i][j].location.get(k).getIcon() + "}");  // животное
+                    System.out.print(colorize ("{" + field[i][j].location.get(k).getIcon() + "}", Attribute.BLUE_TEXT()));  // животное
                 }
             }
             System.out.println();
         }
     }
 
-    public static void printInformationAfterTact() { // сохранение в джейсоне сколько животных на конец такта
+    public static void printInformation() {
 
-        Parser parse = new Parser();
-        HashMap<String, Animal> mapAnimalNow = new HashMap<>();
-
+        int countAllAnimal = 0;
+        int predator = 0;
+        int herbivore = 0;
+        int plant = 0;
 
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) {
                     Animal anim = field[i][j].location.get(k);
-                    mapAnimalNow.put(anim.getClass().getSimpleName(), anim);
+                    countAllAnimal++;
+                    if (anim.getClass().equals(Plant.class)) plant++;
+                    if (Predator.class.isAssignableFrom(anim.getClass())) predator++;
+                    if (Herbivore.class.isAssignableFrom(anim.getClass())) herbivore++;
+                    //  mapAnimalNow.put(anim.getClass().getSimpleName(), anim);
                 }
-                System.out.println("на локации: " + i + j + " " + mapAnimalNow.size() + " вида животных");
+                //  System.out.println("на локации: " + i + j + " " + mapAnimalNow.size() + " вида животных");
             }
         }
-//        System.out.println(mapAnimalNow);
-//        parse.parserToJsonMAP(mapAnimalNow);
-    }
+        System.out.println("Всего на локации " + countAllAnimal + " животных");
+        System.out.println("Из них хищников: " + predator);
+        System.out.println("Травоядных: " + herbivore);
+        System.out.println("Растений: " + plant);
 
+    }
 }

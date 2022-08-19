@@ -1,10 +1,32 @@
 package ua.com.shestakova.Island.settings;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Island {
+
+    private static Island island;
+
+    public static Island getIsland() {
+        if (island == null) {
+            island = new Island();
+        }
+        return island;
+    }
+    private Island() {
+    }
+
     public static Location[][] field;
+    @Getter
+    @Setter
     public int WIDTH = 10;
+    @Getter
+    @Setter
     public int HEIGHT = 10;
+    @Getter
+    @Setter
     public int MAX_COUNT_IN_LOCATION = 10;
+
     public void addLocationOnIsland(int width, int height) {
 
         field = new Location[width][height];
@@ -16,29 +38,5 @@ public class Island {
                     field[i][j] = loc;
             }
         }
-    }
-
-    public int getWIDTH() {
-        return WIDTH;
-    }
-
-    public void setWIDTH(int WIDTH) {
-        this.WIDTH = WIDTH;
-    }
-
-    public int getHEIGHT() {
-        return HEIGHT;
-    }
-
-    public void setHEIGHT(int HEIGHT) {
-        this.HEIGHT = HEIGHT;
-    }
-
-    public int getMAX_COUNT_IN_LOCATION() {
-        return MAX_COUNT_IN_LOCATION;
-    }
-
-    public void setMAX_COUNT_IN_LOCATION(int MAX_COUNT_IN_LOCATION) {
-        this.MAX_COUNT_IN_LOCATION = MAX_COUNT_IN_LOCATION;
     }
 }

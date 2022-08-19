@@ -14,8 +14,8 @@ public class Location {
 
         location = new ArrayList<>();
       
-        for (int i = 1; i <= Date.getRandomNumber(maxAnimal); i++) {  // количество животных на локации
-            int numberOfAnimal = new Random().nextInt(Date.mapAllAnimals.size());
+        for (int i = 1; i <= Tools.getRandomNumber(maxAnimal); i++) {  // количество животных на локации
+            int numberOfAnimal = new Random().nextInt(Tools.mapAllAnimals.size());
 
             Animal randomAnimal = createRandomAnimal(numberOfAnimal);
 
@@ -41,7 +41,7 @@ public class Location {
 
     public static Animal createRandomAnimal(int animalNumber)  {
 
-        Animal animal = Date.mapAllAnimals.get(animalNumber);
+        Animal animal = Tools.mapAllAnimals.get(animalNumber);
         Class clazz = animal.getClass();
         Constructor<?> constructor;
         try {
