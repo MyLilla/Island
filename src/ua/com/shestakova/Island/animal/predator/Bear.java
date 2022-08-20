@@ -1,7 +1,8 @@
 package ua.com.shestakova.Island.animal.predator;
 
 import ua.com.shestakova.Island.animal.Animal;
-import ua.com.shestakova.Island.animal.herbivore.Herbivore;
+import ua.com.shestakova.Island.animal.Herbivore;
+import ua.com.shestakova.Island.animal.Predator;
 
 public class Bear extends Predator {
 
@@ -13,8 +14,16 @@ public class Bear extends Predator {
         setCountFoodMax(80);
         setLossSatiety(10);
         getPercent().put("Boa", 80);
-        getPercent().put("Rabbit", 80);
+        getPercent().put("Rabbit", 90);
         getPercent().put("Deer", 80);
+        getPercent().put("Horse", 40);
+        getPercent().put("Mouse", 90);
+        getPercent().put("Goat", 70);
+        getPercent().put("Sheep", 70);
+        getPercent().put("Boar", 50);
+        getPercent().put("Buffalo", 20);
+        getPercent().put("Duck", 10);
+        getPercent().put("Caterpillar", 0);
     }
 
     @Override

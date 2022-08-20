@@ -1,12 +1,10 @@
-package ua.com.shestakova.Island.animal.herbivore;
+package ua.com.shestakova.Island.animal;
 
-import ua.com.shestakova.Island.animal.Animal;
-import ua.com.shestakova.Island.animal.Plant;
 
 public abstract class Herbivore extends Animal {
 
     public Herbivore() {
-        getPercent().put("Plant", 50);
+        getPercent().put("Plant", 100);
     }
     @Override
     public boolean checkTypeAnimalForEat(Animal animal) {

@@ -1,20 +1,160 @@
 {
-  "Plant":
-  {
-    "countFoodMax":0.0,
-    "name":"Plant"
+  "Bear": {
+    "countFoodMax": 80.0,
+    "lossSatiety": 10.0,
+    "icon": "🐻",
+    "name": "Bear",
+    "weight": 500.0,
+    "percent": 80.0,
+    "maxCountTypeInLoc": 5,
+    "speed": 2
   },
-  "Boa":
-  {
-    "countFoodMax":3.0,
-    "name":"Boa"
+  "Boa": {
+    "countFoodMax": 3.0,
+    "lossSatiety": 1.0,
+    "icon": "🐍",
+    "name": "Boa",
+    "weight": 15.0,
+    "percent": 3.0,
+    "maxCountTypeInLoc": 30,
+    "speed": 1
   },
-  "Rabbit":
-  {
-    "countFoodMax":5.0,
-    "name":"Rabbit"},
-  "Wolf":
-  {
-    "countFoodMax":8.0,
-    "name":"Wolf"},
-  "Bear":{"countFoodMax":80.0,"name":"Bear"},"Eagle":{"countFoodMax":1.0,"name":"Eagle"},"Deer":{"countFoodMax":50.0,"name":"Deer"},"Fox":{"countFoodMax":2.0,"name":"Fox"}}
+  "Boar": {
+    "countFoodMax": 50.0,
+    "icon": "🐗",
+    "lossSatiety": 5.0,
+    "maxCountTypeInLoc": 50,
+    "name": "Boar",
+    "percent": 50.0,
+    "speed": 2,
+    "weight": 400.0
+  },
+  "Buffalo": {
+    "countFoodMax": 100.0,
+    "lossSatiety": 15.0,
+    "icon": "🐃",
+    "name": "Buffalo",
+    "weight": 700.0,
+    "percent": 100.0,
+    "maxCountTypeInLoc": 10,
+    "speed": 3
+  },
+  "Caterpillar": {
+    "countFoodMax": 1.0,
+    "lossSatiety": 0.1,
+    "icon": "🐛",
+    "name": "Caterpillar",
+    "weight": 0.01,
+    "percent": 1.0,
+    "maxCountTypeInLoc": 1000,
+    "speed": 0
+  },
+  "Deer": {
+    "countFoodMax": 50.0,
+    "lossSatiety": 10.0,
+    "icon": "🦌",
+    "name": "Deer",
+    "weight": 300.0,
+    "percent": 50.0,
+    "maxCountTypeInLoc": 20,
+    "speed": 4
+  },
+  "Duck": {
+    "countFoodMax": 0.15,
+    "lossSatiety": 0.4,
+    "icon": "🦆",
+    "name": "Duck",
+    "weight": 1.0,
+    "percent": 0.15,
+    "maxCountTypeInLoc": 200,
+    "speed": 4
+  },
+  "Eagle": {
+    "countFoodMax": 1.0,
+    "lossSatiety": 0.3,
+    "icon": "🦅",
+    "name": "Eagle",
+    "weight": 6.0,
+    "percent": 1.0,
+    "maxCountTypeInLoc": 20,
+    "speed": 3
+  },
+  "Fox": {
+    "countFoodMax": 2.0,
+    "lossSatiety": 1.0,
+    "icon": "🦊",
+    "name": "Fox",
+    "weight": 8.0,
+    "percent": 2.0,
+    "maxCountTypeInLoc": 30,
+    "speed": 2
+  },
+  "Goat": {
+    "countFoodMax": 10.0,
+    "lossSatiety": 2.0,
+    "icon": "🐐",
+    "name": "Goat",
+    "weight": 60.0,
+    "percent": 10.0,
+    "maxCountTypeInLoc": 140,
+    "speed": 3
+  },
+  "Horse": {
+    "countFoodMax": 60.0,
+    "lossSatiety": 10.0,
+    "icon": "🐎",
+    "name": "Horse",
+    "weight": 400.0,
+    "percent": 60.0,
+    "maxCountTypeInLoc": 20,
+    "speed": 4
+  },
+  "Mouse": {
+    "countFoodMax": 0.01,
+    "lossSatiety": 0.005,
+    "icon": "🐁",
+    "name": "Mouse",
+    "weight": 0.05,
+    "percent": 0.01,
+    "maxCountTypeInLoc": 500,
+    "speed": 1
+  },
+  "Plant": {
+    "countFoodMax": 0.0,
+    "lossSatiety": 0.0,
+    "icon": "🌱",
+    "name": "Plant",
+    "weight": 1.0,
+    "percent": 0.0,
+    "maxCountTypeInLoc": 200,
+    "speed": 0
+  },
+  "Rabbit": {
+    "countFoodMax": 0.45,
+    "lossSatiety": 0.1,
+    "icon": "🐇",
+    "name": "Rabbit",
+    "weight": 2.0,
+    "percent": 0.45,
+    "maxCountTypeInLoc": 150,
+    "speed": 2
+  },
+  "Sheep": {
+    "countFoodMax": 15.0,
+    "lossSatiety": 7.0,
+    "icon": "🐑",
+    "name": "Sheep",
+    "weight": 70.0,
+    "percent": 15.0,
+    "maxCountTypeInLoc": 140,
+    "speed": 3
+  },
+  "Wolf": {
+    "countFoodMax": 8.0,
+    "lossSatiety": 2.0,
+    "icon": "🐺",
+    "name": "Wolf",
+    "weight": 50.0,
+    "percent": 8.0,
+    "maxCountTypeInLoc":30,"speed":3}
+}

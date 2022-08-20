@@ -1,5 +1,7 @@
 package ua.com.shestakova.Island.animal.herbivore;
 
+import ua.com.shestakova.Island.animal.Herbivore;
+
 public class Rabbit extends Herbivore {
 
     public Rabbit() {
@@ -7,7 +9,7 @@ public class Rabbit extends Herbivore {
         setWeight(2);
         setMaxCountTypeInLoc(150);
         setSpeed(2);
-        setCountFoodMax(5); //
-        setLossSatiety(1);
+        setCountFoodMax(0.45); //
+        setLossSatiety(0.10);
     }
 }

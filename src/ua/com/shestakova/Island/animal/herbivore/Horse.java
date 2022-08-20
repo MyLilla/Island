@@ -2,15 +2,15 @@ package ua.com.shestakova.Island.animal.herbivore;
 
 import ua.com.shestakova.Island.animal.Herbivore;
 
-public class Deer extends Herbivore {
+public class Horse extends Herbivore {
 
-    public Deer() {
-
-        setIcon("\uD83E\uDD8C");
-        setWeight(300);
+    public Horse() {
+        setIcon("\uD83D\uDC0E");
+        setWeight(400);
         setMaxCountTypeInLoc(20);
         setSpeed(4);
-        setCountFoodMax(50);
+        setCountFoodMax(60);
         setLossSatiety(10);
+
     }
 }

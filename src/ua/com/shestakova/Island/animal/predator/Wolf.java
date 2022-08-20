@@ -1,8 +1,7 @@
 package ua.com.shestakova.Island.animal.predator;
 
-import lombok.ToString;
+import ua.com.shestakova.Island.animal.Predator;
 
-@ToString
 public class Wolf extends Predator {
     public Wolf() {
 
@@ -12,9 +11,15 @@ public class Wolf extends Predator {
         setSpeed(3);
         setCountFoodMax(8);
         setLossSatiety(2);
-        getPercent().put("Deer", 15);
+        getPercent().put("Horse", 10);
         getPercent().put("Rabbit", 60);
+        getPercent().put("Deer", 15);
+        getPercent().put("Mouse", 80);
+        getPercent().put("Goat", 60);
+        getPercent().put("Sheep", 70);
+        getPercent().put("Boar", 15);
+        getPercent().put("Buffalo", 10);
+        getPercent().put("Duck", 40);
+        getPercent().put("Caterpillar", 0);
     }
-
-
 }

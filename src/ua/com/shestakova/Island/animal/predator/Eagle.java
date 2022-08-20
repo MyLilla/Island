@@ -1,9 +1,10 @@
 package ua.com.shestakova.Island.animal.predator;
 
 import ua.com.shestakova.Island.animal.Animal;
-import ua.com.shestakova.Island.animal.herbivore.Herbivore;
+import ua.com.shestakova.Island.animal.Herbivore;
+import ua.com.shestakova.Island.animal.Predator;
 
-public class Eagle extends Predator{
+public class Eagle extends Predator {
 
     public Eagle() {
 
@@ -15,6 +16,16 @@ public class Eagle extends Predator{
         setLossSatiety(0.3);
         getPercent().put("Fox", 10);
         getPercent().put("Rabbit", 90);
+        getPercent().put("Boa", 80);
+        getPercent().put("Deer", 0);
+        getPercent().put("Horse", 0);
+        getPercent().put("Mouse", 90);
+        getPercent().put("Goat", 0);
+        getPercent().put("Sheep", 0);
+        getPercent().put("Boar", 0);
+        getPercent().put("Buffalo", 0);
+        getPercent().put("Duck", 80);
+        getPercent().put("Caterpillar", 0);
     }
 
     @Override

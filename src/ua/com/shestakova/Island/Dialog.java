@@ -1,63 +1,114 @@
 package ua.com.shestakova.Island;
 
 import com.diogonunes.jcolor.Attribute;
-import ua.com.shestakova.Island.settings.Island;
-import ua.com.shestakova.Island.settings.Parser;
+import ua.com.shestakova.Island.building.Island;
+import ua.com.shestakova.Island.building.Parser;
+import ua.com.shestakova.Island.building.Tools;
+import ua.com.shestakova.Island.settingsActions.LifeTime;
 
+import java.io.PrintStream;
 import java.util.Scanner;
-
 import static com.diogonunes.jcolor.Ansi.colorize;
-import static ua.com.shestakova.Island.LifeTime.makeTact;
+import static ua.com.shestakova.Island.settingsActions.Time.TIME_OF_GAME;
+import static ua.com.shestakova.Island.settingsActions.Time.startDay;
 
 public class Dialog {
-    public static void start() {
+    public static void welcome(PrintStream out) {
 
-        Island island = Island.getIsland(); // создан объект острова
-        Scanner scanner = new Scanner(System.in);
+        out.println(colorize("""
+                Привет, тут симулируют жизни на острове.\s\s""", Attribute.YELLOW_TEXT()));
+        out.println(colorize("""
+                Ты хочешь просто посмотреть, с автонастройками?\s
+                Тогда введи - 1\s""", Attribute.BLUE_TEXT()));
+        out.println(colorize("""
+                Ты поменял значения в app.properties и хочешь их использовать?\s
+                Тогда введи - 2""", Attribute.GREEN_TEXT()));
 
-        System.out.println(colorize("""
-                Менять настройки размеров симуляции?\s
-                 1 - нет, оставить автоматические\s
-                 2 - да, создать остров с измененными настройками""", Attribute.YELLOW_TEXT()));
+        int number = Tools.getNumberFromUser(1, 2);
 
-        String number = scanner.nextLine();
-            switch (Integer.parseInt(number)) {
-                case 1: {
-                   break;
-                }
-                case 2: {
-                    Parser parser = new Parser();
-                    parser.getParametersFromProperties(island);  // обновляем значения размеров
-                    break;
-                } default:
-                    System.out.println("Вы ввели не корректное число, остров будет создан с автоматическими настройками");  // выходит
-            }
+        createIsland(number);
 
-        island.addLocationOnIsland(island.getWIDTH(), island.getHEIGHT());
-        System.out.println("Остров создан, вот он");
-        LifeTime.print();
+        out.println("Остров создан и заполнен существами, вот они:\n");
+        Statistics.printIsland(out);
 
-        System.out.println("""
-                Хотите узнать, сколько животных получилось?\s
-                 1 - Нет\s
-                 2 - Да""");
+        getMoreInformation(out);
 
+        printRules(out);
 
-        switch (Integer.parseInt(scanner.nextLine())) {
+        startSimulation(out);
+
+        finish(out);
+    }
+
+    private static void createIsland(int number) {
+        Island island = Island.getIsland();
+        switch (number) {
             case 1 -> {
             }
             case 2 -> {
-                LifeTime.printInformation();
+                Parser parser = new Parser();
+                parser.getParametersFromProperties(island);
             }
-            default -> System.out.println("Такого варианта нет");
+            default ->
+                    System.out.println("Вы ввели не корректное число, остров будет создан с автоматическими настройками");  // выходит
         }
-
-        System.out.println("Для запуска симуляции введите START");
-        String start = scanner.nextLine();
-        // добавить проверку, что START
-
-        // поток запускается счетчик даты
-        // запуск такта
-        makeTact();
+        island.addLocationOnIsland(island.getWIDTH(), island.getHEIGHT());
     }
+
+    private static void getMoreInformation(PrintStream out) {
+        int number;
+        out.println(colorize("""
+                \nХотите узнать, сколько животных получилось?\s
+                 1 - Нет\s
+                 2 - Да""", Attribute.YELLOW_TEXT()));
+
+        number = Tools.getNumberFromUser(1, 2);
+        switch (number) {
+            case 1 -> {
+            }
+            case 2 -> {
+                Statistics.getActualInformation();
+                Statistics.printStatistics(out);
+            }
+        }
+    }
+
+    private static void printRules(PrintStream out) {
+        out.println(colorize("На вашем острове сейчас ", Attribute.BRIGHT_GREEN_TEXT()) + startDay +
+                "\nно тут время идет быстрее. Сутки жизни симуляции = 3 секундам реального времени");
+        out.println(colorize("Симуляция завершится, через " + TIME_OF_GAME + " суток", Attribute.TEXT_COLOR(5)));
+    }
+
+    private static void startSimulation(PrintStream out) {
+        out.println("Для запуска симуляции введите любой текст и нажмите ENTER");
+        Scanner scanner = new Scanner(System.in);
+        scanner.next();
+
+        // Threads.startTime(); //  поток запускается счетчик даты
+        // Threads.startDay(); // запуск такта
+
+        LifeTime.makeTact();  // заменить на несколько потоков
+    }
+
+    private static void finish(PrintStream out) {
+        out.println(colorize("""
+                Симуляция завершена!\s\s""", Attribute.YELLOW_TEXT()));
+        out.println(colorize("""
+                Хотите узнать, что стало с островом?\s
+                Тогда введи - 1\s""", Attribute.BLUE_TEXT()));
+        out.println(colorize("""
+                Тебе все равно, и ты хочешь закончить?\s
+                Тогда введи - 2""", Attribute.GREEN_TEXT()));
+
+        switch (Tools.getNumberFromUser(1, 2)) {
+            case 1:
+                Statistics.getActualInformation();
+                Statistics.printStatistics(out);
+            case 2: {
+                out.println("Adios!");
+                System.exit(0);
+            }
+        }
+    }
+
 }

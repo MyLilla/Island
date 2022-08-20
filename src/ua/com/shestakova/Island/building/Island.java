@@ -1,4 +1,4 @@
-package ua.com.shestakova.Island.settings;
+package ua.com.shestakova.Island.building;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,13 +19,13 @@ public class Island {
     public static Location[][] field;
     @Getter
     @Setter
-    public int WIDTH = 10;
+    private int WIDTH = 20;
     @Getter
     @Setter
-    public int HEIGHT = 10;
+    private int HEIGHT = 100;
     @Getter
     @Setter
-    public int MAX_COUNT_IN_LOCATION = 10;
+    private int MAX_COUNT_IN_LOCATION = 50;
 
     public void addLocationOnIsland(int width, int height) {
 
