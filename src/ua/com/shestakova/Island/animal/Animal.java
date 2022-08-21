@@ -57,10 +57,10 @@ public abstract class Animal {
 
         int chance = Tools.getRandomNumber(101);
 
-        for (String name : hunter.getPercent().keySet()) {          // проход по всем животным (key)
-            if (name.equals(prey.getClass().getSimpleName())) {     // найти подходящего класса
-                int probability = hunter.getPercent().get(name);   // взять его процент
-                if (probability <= chance) {                      //  сравнить с выпавшим
+        for (String name : hunter.getPercent().keySet()) {
+            if (name.equals(prey.getClass().getSimpleName())) {
+                int probability = hunter.getPercent().get(name);
+                if (probability <= chance) {
                     return true;
                 }
             }
@@ -68,16 +68,16 @@ public abstract class Animal {
         return false;
     }
 
-    public boolean move(int x, int y) {
+    public boolean move(int width, int height) {
 
-        ArrayList<Animal> newLocation = getNewField(x, y);
+        ArrayList<Animal> newLocation = getNewField(width, height);
 
-        int count = Location.getCountTypeInLoc(newLocation, this); // сколько животных такого типа на локации
+        int countTypeInLoc = Location.getCountTypeInLoc(newLocation, this);
 
-        if (count < this.getMaxCountTypeInLoc()) {
+        if (countTypeInLoc < this.getMaxCountTypeInLoc()) {
             newLocation.add(this);
-            field[x][y].location.remove(this);
-            field[x][y].location.trimToSize();
+            field[width][height].location.remove(this);
+            field[width][height].location.trimToSize();
             setMoved(true);
             return true;
         } else {
@@ -156,4 +156,3 @@ public abstract class Animal {
         }
     }
 }
-

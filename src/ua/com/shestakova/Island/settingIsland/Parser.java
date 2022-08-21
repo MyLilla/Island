@@ -36,7 +36,6 @@ public class Parser {
             obj2.put("percent", animal.getCountFoodMax());
 
             obj.put(name, obj2);
-
         }
         try {
             FileWriter file = new FileWriter(JSON_SOURCE);

@@ -20,7 +20,7 @@ public class Plant extends Animal {
     }
 
     @Override
-    public boolean move(int x, int y) {
+    public boolean move(int width, int height) {
         return false;
     }
 }

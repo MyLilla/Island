@@ -7,10 +7,8 @@ import ua.com.shestakova.Island.animal.Plant;
 import ua.com.shestakova.Island.animal.Herbivore;
 import ua.com.shestakova.Island.animal.Predator;
 import ua.com.shestakova.Island.settingIsland.Tools;
-
 import java.io.PrintStream;
 import java.util.ArrayList;
-
 import static com.diogonunes.jcolor.Ansi.colorize;
 import static ua.com.shestakova.Island.settingIsland.Island.field;
 

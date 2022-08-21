@@ -5,7 +5,6 @@ import ua.com.shestakova.Island.settingIsland.Island;
 import ua.com.shestakova.Island.settingIsland.Parser;
 import ua.com.shestakova.Island.settingIsland.Tools;
 import ua.com.shestakova.Island.settingsActions.LifeTime;
-
 import java.io.PrintStream;
 import java.util.Scanner;
 import static com.diogonunes.jcolor.Ansi.colorize;

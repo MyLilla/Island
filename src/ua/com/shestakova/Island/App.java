@@ -5,6 +5,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        Dialog.welcome(System.out);
+       Dialog.welcome(System.out);
     }
-}
+    }
+
