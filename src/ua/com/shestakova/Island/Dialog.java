@@ -1,9 +1,9 @@
 package ua.com.shestakova.Island;
 
 import com.diogonunes.jcolor.Attribute;
-import ua.com.shestakova.Island.building.Island;
-import ua.com.shestakova.Island.building.Parser;
-import ua.com.shestakova.Island.building.Tools;
+import ua.com.shestakova.Island.settingIsland.Island;
+import ua.com.shestakova.Island.settingIsland.Parser;
+import ua.com.shestakova.Island.settingIsland.Tools;
 import ua.com.shestakova.Island.settingsActions.LifeTime;
 
 import java.io.PrintStream;

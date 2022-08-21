@@ -1,4 +1,4 @@
-package ua.com.shestakova.Island.building;
+package ua.com.shestakova.Island.settingIsland;
 
 import ua.com.shestakova.Island.animal.Animal;
 
@@ -15,7 +15,7 @@ public class Location {
 
         location = new ArrayList<>();
       
-        for (int i = 1; i <= Tools.getRandomNumber(maxAnimal); i++) {  // количество животных на локации
+        for (int i = 1; i <= Tools.getRandomNumber(maxAnimal); i++) {
             int numberOfAnimal = new Random().nextInt(Tools.mapAllAnimals.size());
 
             Animal randomAnimal = createRandomAnimal(numberOfAnimal);
@@ -31,7 +31,7 @@ public class Location {
         }
     }
     public static int getCountTypeInLoc(ArrayList<Animal> animals, Animal animal) {
-        int countTypeInLoc = 0;                         // подсчитать сколько таких животных на клетке уже есть
+        int countTypeInLoc = 0;
         for (Animal ani : animals) {
             if (ani.getName().equals(animal.getName())){
                 countTypeInLoc++;

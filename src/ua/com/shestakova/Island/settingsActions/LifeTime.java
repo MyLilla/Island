@@ -4,7 +4,7 @@ import ua.com.shestakova.Island.Statistics;
 import ua.com.shestakova.Island.animal.Animal;
 
 import static java.lang.System.out;
-import static ua.com.shestakova.Island.building.Island.field;
+import static ua.com.shestakova.Island.settingIsland.Island.field;
 
 public class LifeTime implements Runnable {
 

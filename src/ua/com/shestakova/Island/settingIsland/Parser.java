@@ -1,16 +1,13 @@
-package ua.com.shestakova.Island.building;
+package ua.com.shestakova.Island.settingIsland;
 
 import org.json.simple.JSONObject;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import ua.com.shestakova.Island.settingsActions.Time;
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.exceptions.ParsingExceptions;
-
 import java.io.FileWriter;
 import java.io.IOException;
 

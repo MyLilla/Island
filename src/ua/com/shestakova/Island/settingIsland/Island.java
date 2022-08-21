@@ -1,4 +1,4 @@
-package ua.com.shestakova.Island.building;
+package ua.com.shestakova.Island.settingIsland;
 
 import lombok.Getter;
 import lombok.Setter;

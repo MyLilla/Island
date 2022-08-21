@@ -1,16 +1,14 @@
-package ua.com.shestakova.Island.building;
+package ua.com.shestakova.Island.settingIsland;
 
 import com.diogonunes.jcolor.Attribute;
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.animal.Plant;
 import ua.com.shestakova.Island.animal.herbivore.*;
 import ua.com.shestakova.Island.animal.predator.*;
-
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
-
 import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class Tools {

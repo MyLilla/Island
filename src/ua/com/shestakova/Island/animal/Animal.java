@@ -4,10 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import ua.com.shestakova.Island.Statistics;
-import ua.com.shestakova.Island.building.Tools;
-import ua.com.shestakova.Island.building.Location;
+import ua.com.shestakova.Island.settingIsland.Tools;
+import ua.com.shestakova.Island.settingIsland.Location;
 import java.util.*;
-import static ua.com.shestakova.Island.building.Island.field;
+import static ua.com.shestakova.Island.settingIsland.Island.field;
 
 @Setter
 @Getter
