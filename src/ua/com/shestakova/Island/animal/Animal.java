@@ -29,24 +29,24 @@ public abstract class Animal {
 
     public abstract boolean checkTypeAnimalForEat(Animal animal);
 
-    public void eat(ArrayList<Animal> animals) {
+    public synchronized void eat(ArrayList<Animal> animals) {
         if (this.getSatiety() <= getCountFoodMax()) {
 
-            Animal ani;
+            Animal animal;
             try {
-                ani = animals.stream()
+                animal = animals.stream()
                         .filter(Animal::isAlive)
                         .filter(this::checkTypeAnimalForEat)
                         .findAny().get();
             } catch (NoSuchElementException e) {
                 return;
             }
-            if (checkChanceEating(this, ani)) {
-                ani.setAlive(false);
+            if (checkChanceEating(this, animal)) {
+                animal.setAlive(false);
 
-                setSatiety(Math.min(getSatiety() + ani.getWeight(), getCountFoodMax()));
+                setSatiety(Math.min(getSatiety() + animal.getWeight(), getCountFoodMax()));
 
-                animals.remove(animals.indexOf(ani));
+                animals.remove(animals.indexOf(animal));
                 animals.trimToSize();
                 Statistics.setCountDiedAnimal(Statistics.getCountDiedAnimal() + 1);
             }
@@ -55,7 +55,7 @@ public abstract class Animal {
 
     private boolean checkChanceEating(Animal hunter, Animal prey) {
 
-        int chance = Tools.getRandomNumber(101);
+        int chance = Tools.getRandomNumber(Tools.MAX_PERCENT_BORD);
 
         for (String name : hunter.getPercent().keySet()) {
             if (name.equals(prey.getClass().getSimpleName())) {
@@ -80,66 +80,55 @@ public abstract class Animal {
             field[width][height].location.trimToSize();
             setMoved(true);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     private ArrayList<Animal> getNewField(int x, int y) {
         int xNew = x;
         int yNew = y;
-        if (x >= getSpeed() && y >= getSpeed() &&
-                x < field.length - getSpeed() && y < field[x].length - getSpeed()) {
+        if (chanceMoveFree(x, y)) {
 
             switch (Tools.getRandomNumber(4)) {
-                case 0 -> xNew = down(x);
-                case 1 -> yNew = right(y);
-                case 2 -> xNew = up(x);
-                case 3 -> yNew = left(y);
+                case 0 -> xNew = newValue(x, 1);
+                case 1 -> yNew = newValue(y, -1);
+                case 2 -> xNew = newValue(x, -1);
+                case 3 -> yNew = newValue(y, 1);
             }
         } else if (x < getSpeed()) {
-            xNew = down(x);
+            xNew = newValue(x, 1);
         } else if (y < getSpeed()) {
-            yNew = left(y);
+            yNew = newValue(y, 1);
         } else if (x >= field.length - getSpeed()) {
-            xNew = up(x);
+            xNew = newValue(x, -1);
         } else if (y >= field[x].length - getSpeed()) {
-            yNew = right(y);
+            yNew = newValue(y, -1);
         }
         return field[xNew][yNew].location;
     }
 
-    private int down(int x) {
-        return x + this.getSpeed();
+    private boolean chanceMoveFree(int x, int y) {
+        return x >= getSpeed() && y >= getSpeed() &&
+                x < field.length - getSpeed() && y < field[x].length - getSpeed();
     }
 
-    private int up(int x) {
-        return x - this.getSpeed();
-    }
-
-    private int left(int y) {
-        return y + this.getSpeed();
-    }
-
-    private int right(int y) {
-        return y - this.getSpeed();
+    private int newValue(int x, int index) {
+        return x + this.getSpeed() * index;
     }
 
     public void copy(ArrayList<Animal> animals) {
 
-        if (getChanceMakeCopy() < Tools.getRandomNumber(101)) {
+        if (getChanceMakeCopy() < Tools.getRandomNumber(Tools.MAX_PERCENT_BORD)) {
 
             int countTypeInLoc = Location.getCountTypeInLoc(animals, this);
 
             if (countTypeInLoc < getMaxCountTypeInLoc() &&
                     (countTypeInLoc > 1 || this.getClass().equals(Plant.class))) {
 
-                Animal newAni;
                 for (Map.Entry entry : Tools.mapAllAnimals.entrySet()) {
                     if (entry.getValue().getClass() == (this).getClass()) {
 
-                        newAni = Location.createRandomAnimal((int) entry.getKey());
-                        animals.add(newAni);
+                        animals.add(Location.createRandomAnimal((int) entry.getKey()));
                         break;
                     }
                 }
@@ -147,7 +136,7 @@ public abstract class Animal {
         }
     }
 
-    public void die(int x, int y) {
+    public void utilize(int x, int y) {
         if (!isAlive()) {
             field[x][y].location.remove(this);
             field[x][y].location.trimToSize();

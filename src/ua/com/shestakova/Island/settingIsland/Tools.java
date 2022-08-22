@@ -5,15 +5,18 @@ import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.animal.Plant;
 import ua.com.shestakova.Island.animal.herbivore.*;
 import ua.com.shestakova.Island.animal.predator.*;
+
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
+
 import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class Tools {
 
-    public static int MAX_COUNT_INCORRECT_INPUT_NUMBER = 3;
+    public static int maxCountIncorrectInputNumber = 3;
+    public static final int MAX_PERCENT_BORD = 101;
     public static HashMap<Integer, Animal> mapAllAnimals = addedOfAllAnimals();
 
     public static HashMap<Integer, Animal> addedOfAllAnimals() {
@@ -48,7 +51,7 @@ public class Tools {
         int attempt = 0;
 
         try {
-            while ((number <= from || number >= to) && MAX_COUNT_INCORRECT_INPUT_NUMBER >= attempt) {
+            while ((number <= from || number >= to) && maxCountIncorrectInputNumber >= attempt) {
                 number = scanner.nextInt();
                 if (number < from || number > to) {
                     System.out.println("Что-то пошло не так, попробуйте еще: ");
@@ -57,7 +60,7 @@ public class Tools {
                     break;
                 }
             }
-            if (MAX_COUNT_INCORRECT_INPUT_NUMBER <= attempt) {
+            if (maxCountIncorrectInputNumber <= attempt) {
                 System.out.println(colorize("Вы превысили лимит ввода, Adios!", Attribute.RED_TEXT()));
                 System.exit(0);
             }

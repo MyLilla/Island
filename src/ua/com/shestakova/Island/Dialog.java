@@ -5,14 +5,16 @@ import ua.com.shestakova.Island.settingIsland.Island;
 import ua.com.shestakova.Island.settingIsland.Parser;
 import ua.com.shestakova.Island.settingIsland.Tools;
 import ua.com.shestakova.Island.settingsActions.LifeTime;
+
 import java.io.PrintStream;
 import java.util.Scanner;
+
 import static com.diogonunes.jcolor.Ansi.colorize;
-import static ua.com.shestakova.Island.settingsActions.Time.TIME_OF_GAME;
+import static ua.com.shestakova.Island.settingsActions.Time.timeOfGame;
 import static ua.com.shestakova.Island.settingsActions.Time.startDay;
 
 public class Dialog {
-    public static void welcome(PrintStream out) {
+    public void welcome(PrintStream out) {
 
         out.println(colorize("""
                 Привет, тут симулируют жизни на острове.\s\s""", Attribute.YELLOW_TEXT()));
@@ -39,22 +41,16 @@ public class Dialog {
         finish(out);
     }
 
-    private static void createIsland(int number) {
+    private void createIsland(int number) {
         Island island = Island.getIsland();
-        switch (number) {
-            case 1 -> {
-            }
-            case 2 -> {
-                Parser parser = new Parser();
-                parser.getParametersFromProperties(island);
-            }
-            default ->
-                    System.out.println("Вы ввели не корректное число, остров будет создан с автоматическими настройками");  // выходит
+        if (number == 2) {
+            Parser parser = new Parser();
+            parser.getParametersFromProperties(island);
         }
-        island.addLocationOnIsland(island.getWIDTH(), island.getHEIGHT());
+        island.addLocationOnIsland(island.getWidth(), island.getHeight());
     }
 
-    private static void getMoreInformation(PrintStream out) {
+    private void getMoreInformation(PrintStream out) {
         int number;
         out.println(colorize("""
                 \nХотите узнать, сколько животных получилось?\s
@@ -62,20 +58,16 @@ public class Dialog {
                  2 - Да""", Attribute.YELLOW_TEXT()));
 
         number = Tools.getNumberFromUser(1, 2);
-        switch (number) {
-            case 1 -> {
-            }
-            case 2 -> {
-                Statistics.getActualInformation();
-                Statistics.printStatistics(out);
-            }
+        if (number == 2) {
+            Statistics.getActualInformation();
+            Statistics.printStatistics(out);
         }
     }
 
-    private static void printRules(PrintStream out) {
+    private void printRules(PrintStream out) {
         out.println(colorize("На вашем острове сейчас ", Attribute.BRIGHT_GREEN_TEXT()) + startDay +
                 "\nно тут время идет быстрее. Сутки жизни симуляции = 3 секундам реального времени");
-        out.println(colorize("Симуляция завершится, через " + TIME_OF_GAME + " суток", Attribute.TEXT_COLOR(5)));
+        out.println(colorize("Симуляция завершится, через " + timeOfGame + " суток", Attribute.TEXT_COLOR(5)));
     }
 
     private static void startSimulation(PrintStream out) {
@@ -84,12 +76,12 @@ public class Dialog {
         scanner.next();
 
         // Threads.startTime(); //  поток запускается счетчик даты
-        // Threads.startDay(); // запуск такта
+        //Threads.startDay(); // запуск такта
 
-        LifeTime.makeTact();  // заменить на несколько потоков
+         LifeTime.makeTact();  // заменить на несколько потоков
     }
 
-    private static void finish(PrintStream out) {
+    private void finish(PrintStream out) {
         out.println(colorize("""
                 Симуляция завершена!\s\s""", Attribute.YELLOW_TEXT()));
         out.println(colorize("""
@@ -105,7 +97,6 @@ public class Dialog {
                 Statistics.printStatistics(out);
             case 2: {
                 out.println("Adios!");
-                System.exit(0);
             }
         }
     }

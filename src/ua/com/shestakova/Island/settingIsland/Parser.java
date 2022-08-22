@@ -1,19 +1,22 @@
 package ua.com.shestakova.Island.settingIsland;
 
 import org.json.simple.JSONObject;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
 import ua.com.shestakova.Island.settingsActions.Time;
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.exceptions.ParsingExceptions;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Parser {
-    private final File PROP_SOURCE = new File("src/ua/com/shestakova/app.properties");
-    private final File JSON_SOURCE = new File("src/ua/com/shestakova/app.json");
+    private final File PROP_SOURCE = new File("src/ua/com/shestakova/Island/resources/app.properties");
+    private final File JSON_SOURCE = new File("src/ua/com/shestakova/Island/resources/app.json");
 
     public void writerToJson() {
 
@@ -49,6 +52,7 @@ public class Parser {
 
     public void readerFromJson() {
         // получить данные из файла - пока не могу
+        // по плану должна брать данные, и в каждом животном не через set заполнять, а из документа
     }
 
     public void getParametersFromProperties(Island island) {
@@ -57,11 +61,11 @@ public class Parser {
             Properties properties = new Properties();
             properties.load(reader);
 
-            island.setWIDTH(Integer.parseInt(properties.getProperty("WIDTH")));
-            island.setHEIGHT(Integer.parseInt(properties.getProperty("HEIGHT")));
-            island.setMAX_COUNT_IN_LOCATION(Integer.parseInt(properties.getProperty("MAX_COUNT_IN_LOCATION")));
-            Tools.MAX_COUNT_INCORRECT_INPUT_NUMBER = (Integer.parseInt(properties.getProperty("MAX_COUNT_INCORRECT_INPUT_NUMBER")));
-            Time.TIME_OF_GAME = (Integer.parseInt(properties.getProperty("TIME_OF_GAME")));
+            island.setWidth(Integer.parseInt(properties.getProperty("WIDTH")));
+            island.setHeight(Integer.parseInt(properties.getProperty("HEIGHT")));
+            island.setMaxCountInLocation(Integer.parseInt(properties.getProperty("MAX_COUNT_IN_LOCATION")));
+            Tools.maxCountIncorrectInputNumber = (Integer.parseInt(properties.getProperty("MAX_COUNT_INCORRECT_INPUT_NUMBER")));
+            Time.timeOfGame = (Integer.parseInt(properties.getProperty("TIME_OF_GAME")));
 
         } catch (NumberFormatException e) {
             throw new ParsingExceptions("В файле app.properties какой-то косяк " + e);

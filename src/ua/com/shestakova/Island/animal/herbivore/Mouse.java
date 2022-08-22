@@ -15,6 +15,7 @@ public class Mouse extends Herbivore {
         setLossSatiety(0.005);
         getPercent().put("Caterpillar", 90);
     }
+
     @Override
     public boolean checkTypeAnimalForEat(Animal animal) {
         return animal instanceof Plant ||

@@ -13,19 +13,20 @@ public class Island {
         }
         return island;
     }
+
     private Island() {
     }
 
     public static Location[][] field;
     @Getter
     @Setter
-    private int WIDTH = 20;
+    private int width = 20;
     @Getter
     @Setter
-    private int HEIGHT = 100;
+    private int height = 100;
     @Getter
     @Setter
-    private int MAX_COUNT_IN_LOCATION = 50;
+    private int maxCountInLocation = 50;
 
     public void addLocationOnIsland(int width, int height) {
 
@@ -33,9 +34,9 @@ public class Island {
 
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
-                    Location loc = new Location();
-                    loc.createLocation(MAX_COUNT_IN_LOCATION);
-                    field[i][j] = loc;
+                Location loc = new Location();
+                loc.createLocation(maxCountInLocation);
+                field[i][j] = loc;
             }
         }
     }
