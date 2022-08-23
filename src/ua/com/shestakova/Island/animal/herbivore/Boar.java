@@ -12,7 +12,7 @@ public class Boar extends Herbivore {
         setMaxCountTypeInLoc(50);
         setSpeed(2);
         setCountFoodMax(50);
-        setLossSatiety(15);
+        setLossSatiety(20);
         getPercent().put("Caterpillar", 90);
         getPercent().put("Mouse", 50);
     }

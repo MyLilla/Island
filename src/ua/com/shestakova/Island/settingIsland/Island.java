@@ -6,6 +6,7 @@ import lombok.Setter;
 public class Island {
 
     private static Island island;
+    public final int MAX_SIDE_OF_ISLAND = 100;
 
     public static Island getIsland() {
         if (island == null) {
@@ -20,13 +21,13 @@ public class Island {
     public static Location[][] field;
     @Getter
     @Setter
-    private int width = 20;
+    private int width;
     @Getter
     @Setter
-    private int height = 100;
+    private int height;
     @Getter
     @Setter
-    private int maxCountInLocation = 50;
+    private int maxCountInLocation;
 
     public void addLocationOnIsland(int width, int height) {
 

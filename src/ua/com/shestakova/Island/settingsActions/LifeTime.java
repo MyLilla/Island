@@ -23,7 +23,8 @@ public class LifeTime implements Runnable {
             callActionMove();
             resetFlags();
             out.println("сутки " + i + " закончились, вот результат: ");
-            Statistics.printIsland(out);
+            Statistics.printMiniStatistics(out);
+            // Statistics.printIsland(out);
         }
 
     }

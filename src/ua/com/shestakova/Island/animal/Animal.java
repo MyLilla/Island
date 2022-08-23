@@ -6,7 +6,9 @@ import lombok.ToString;
 import ua.com.shestakova.Island.Statistics;
 import ua.com.shestakova.Island.settingIsland.Tools;
 import ua.com.shestakova.Island.settingIsland.Location;
+
 import java.util.*;
+
 import static ua.com.shestakova.Island.settingIsland.Island.field;
 
 @Setter
@@ -24,7 +26,7 @@ public abstract class Animal {
     private double satiety = 0;
     private double lossSatiety;
     private boolean alive = true;
-    private int chanceMakeCopy = 50;
+    private int chanceMakeCopy = 70;
     private Map<String, Integer> percent = new HashMap<>();
 
     public abstract boolean checkTypeAnimalForEat(Animal animal);
@@ -116,7 +118,7 @@ public abstract class Animal {
         return x + this.getSpeed() * index;
     }
 
-    public void copy(ArrayList<Animal> animals) {
+    public boolean copy(ArrayList<Animal> animals) {
 
         if (getChanceMakeCopy() < Tools.getRandomNumber(Tools.MAX_PERCENT_BORD)) {
 
@@ -129,11 +131,13 @@ public abstract class Animal {
                     if (entry.getValue().getClass() == (this).getClass()) {
 
                         animals.add(Location.createRandomAnimal((int) entry.getKey()));
-                        break;
+                        Statistics.setCountNewAnimal(Statistics.getCountNewAnimal() + 1);
+                        return true;
                     }
                 }
             }
         }
+        return false;
     }
 
     public void utilize(int x, int y) {

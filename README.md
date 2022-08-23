@@ -10,9 +10,9 @@
 
 <h3><a>Сборка проекта: </a></h3>
 
-```$ cd Crypto2```
+```$ cd island 1.0```
 <h3 ><a>Запуск проекта:</a></h3>
-```$ java -jar ./target/Crypto2.jar```
+```$ java -jar .out/artifacts/island_1_0/island 1.0.jar```
 
 <h3 ><a>Краткое описание классов</a></h3>
 >В корневом пакете ```ua.com.javarush.shestakova.Island``` находится:

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import ua.com.shestakova.Island.Statistics;
 import ua.com.shestakova.Island.settingsActions.Time;
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.exceptions.ParsingExceptions;
@@ -17,8 +18,9 @@ import java.io.IOException;
 public class Parser {
     private final File PROP_SOURCE = new File("src/ua/com/shestakova/Island/resources/app.properties");
     private final File JSON_SOURCE = new File("src/ua/com/shestakova/Island/resources/app.json");
+    private final File JSON_STATISTICS = new File("src/ua/com/shestakova/Island/resources/firstStatistic.json");
 
-    public void writerToJson() {
+    public void writerAllAnimalToJson() {
 
         JSONObject obj = new JSONObject();
         HashMap<Integer, Animal> allAnimal = Tools.mapAllAnimals;
@@ -49,6 +51,16 @@ public class Parser {
             e.printStackTrace();
         }
     }
+
+    public void writerFirstStatisticToJson() {
+
+        JSONObject obj = new JSONObject();
+
+
+
+
+    }
+
 
     public void readerFromJson() {
         // получить данные из файла - пока не могу

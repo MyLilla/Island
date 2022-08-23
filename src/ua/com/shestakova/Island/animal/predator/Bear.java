@@ -12,7 +12,7 @@ public class Bear extends Predator {
         setMaxCountTypeInLoc(5);
         setSpeed(2);
         setCountFoodMax(80);
-        setLossSatiety(10);
+        setLossSatiety(20);
         getPercent().put("Boa", 80);
         getPercent().put("Rabbit", 90);
         getPercent().put("Deer", 80);

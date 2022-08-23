@@ -10,7 +10,7 @@ public class Fox extends Predator {
         setMaxCountTypeInLoc(30);
         setSpeed(2);
         setCountFoodMax(2);
-        setLossSatiety(1);
+        setLossSatiety(0.5);
         getPercent().put("Rabbit", 70);
         getPercent().put("Deer", 0);
         getPercent().put("Horse", 0);
