@@ -1,4 +1,4 @@
-package ua.com.shestakova.Island.settingsActions;
+package ua.com.shestakova.Island.performingActions;
 
 import ua.com.shestakova.Island.Statistics;
 import ua.com.shestakova.Island.animal.Animal;
@@ -10,26 +10,22 @@ public class LifeTime implements Runnable {
 
     @Override
     public void run() {
-        // еще думаю над этим
+        makeTact();
     }
 
-    public static void makeTact() {
+    public static synchronized void makeTact() {
 
-        for (int i = 0; i < Time.timeOfGame; i++) {
-
-            out.println("сутки " + i + " начинаются");  // вывожу только для себя, потом уберу
-            callActionCopy();
-            callActionEat();
-            callActionMove();
-            resetFlags();
-            out.println("сутки " + i + " закончились, вот результат: ");
-            Statistics.printMiniStatistics(out);
-            // Statistics.printIsland(out);
-        }
+        // out.println("сутки начинаются");
+        callActionCopy();
+        callActionEat();
+        callActionMove();
+        finalizeTact();
+        //  out.println("сутки закончились, вот результат: ");
+        Statistics.printMiniStatistics(out);
 
     }
 
-    private static void callActionMove() {
+    private static synchronized void callActionMove() {
 
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
@@ -43,7 +39,7 @@ public class LifeTime implements Runnable {
         }
     }
 
-    public static void resetFlags() {
+    public static synchronized void finalizeTact() {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) {
@@ -56,7 +52,7 @@ public class LifeTime implements Runnable {
         }
     }
 
-    private static void callActionEat() {
+    private static synchronized void callActionEat() {
 
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
@@ -68,7 +64,7 @@ public class LifeTime implements Runnable {
         }
     }
 
-    private static void callActionCopy() {
+    private static synchronized void callActionCopy() {
 
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {

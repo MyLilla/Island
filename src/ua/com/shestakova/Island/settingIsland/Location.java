@@ -14,7 +14,7 @@ public class Location {
     public void createLocation(int maxAnimal) {
 
         location = new ArrayList<>();
-      
+
         for (int i = 1; i <= Tools.getRandomNumber(maxAnimal); i++) {
             int numberOfAnimal = new Random().nextInt(Tools.mapAllAnimals.size());
 
@@ -30,17 +30,18 @@ public class Location {
             }
         }
     }
+
     public static int getCountTypeInLoc(ArrayList<Animal> animals, Animal animal) {
         int countTypeInLoc = 0;
         for (Animal ani : animals) {
-            if (ani.getName().equals(animal.getName())){
+            if (ani.getName().equals(animal.getName())) {
                 countTypeInLoc++;
             }
         }
         return countTypeInLoc;
     }
 
-    public static Animal createRandomAnimal(int animalNumber)  {
+    public static Animal createRandomAnimal(int animalNumber) {
 
         Animal animal = Tools.mapAllAnimals.get(animalNumber);
         Class clazz = animal.getClass();
@@ -49,7 +50,8 @@ public class Location {
             constructor = clazz.getConstructor();
             return (Animal) constructor.newInstance();
 
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
             throw new RuntimeException(e);
         }
     }

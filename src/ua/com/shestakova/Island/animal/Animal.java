@@ -92,19 +92,19 @@ public abstract class Animal {
         if (chanceMoveFree(x, y)) {
 
             switch (Tools.getRandomNumber(4)) {
-                case 0 -> xNew = newValue(x, 1);
-                case 1 -> yNew = newValue(y, -1);
-                case 2 -> xNew = newValue(x, -1);
-                case 3 -> yNew = newValue(y, 1);
+                case 0 -> xNew = getWay(x, 1);
+                case 1 -> yNew = getWay(y, -1);
+                case 2 -> xNew = getWay(x, -1);
+                case 3 -> yNew = getWay(y, 1);
             }
         } else if (x < getSpeed()) {
-            xNew = newValue(x, 1);
+            xNew = getWay(x, 1);
         } else if (y < getSpeed()) {
-            yNew = newValue(y, 1);
+            yNew = getWay(y, 1);
         } else if (x >= field.length - getSpeed()) {
-            xNew = newValue(x, -1);
+            xNew = getWay(x, -1);
         } else if (y >= field[x].length - getSpeed()) {
-            yNew = newValue(y, -1);
+            yNew = getWay(y, -1);
         }
         return field[xNew][yNew].location;
     }
@@ -114,7 +114,7 @@ public abstract class Animal {
                 x < field.length - getSpeed() && y < field[x].length - getSpeed();
     }
 
-    private int newValue(int x, int index) {
+    private int getWay(int x, int index) {
         return x + this.getSpeed() * index;
     }
 

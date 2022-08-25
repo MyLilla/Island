@@ -17,6 +17,7 @@ public class Tools {
 
     public static int maxCountIncorrectInputNumber = 3;
     public static final int MAX_PERCENT_BORD = 101;
+    public static int timeOfGame = 10;
     public static HashMap<Integer, Animal> mapAllAnimals = addedOfAllAnimals();
 
     public static HashMap<Integer, Animal> addedOfAllAnimals() {

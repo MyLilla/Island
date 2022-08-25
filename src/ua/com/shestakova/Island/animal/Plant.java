@@ -7,7 +7,7 @@ public class Plant extends Animal {
         setIcon("\uD83C\uDF31");
         setWeight(1);
         setMaxCountTypeInLoc(200);
-        setChanceMakeCopy(80);
+        setChanceMakeCopy(60);
     }
 
     @Override

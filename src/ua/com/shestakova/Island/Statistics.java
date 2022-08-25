@@ -29,7 +29,7 @@ public class Statistics {
     public static Map<String, Integer> firstInfo;
     public static Map<String, Integer> lastInfo;
 
-    public static void printIsland(PrintStream out) {
+    public void printIsland(PrintStream out) {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 ArrayList<Animal> loc = field[i][j].location;
@@ -44,14 +44,14 @@ public class Statistics {
         }
     }
 
-    public Map <String, Integer> getGlobalInformation() {
+    public Map<String, Integer> getGlobalInformation() {
         int countAllAnimal = 0;
         int countPredator = 0;
         int countHerbivore = 0;
         int countPlant = 0;
         int filledLocations = 0;
 
-        Map <String, Integer> firstInfo = new HashMap<>();
+        Map<String, Integer> firstInfo = new HashMap<>();
 
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
@@ -100,12 +100,12 @@ public class Statistics {
     }
 
 
-    public void printStatistics(PrintStream out, Map <String, Integer> info) {
+    public static void printStatistics(PrintStream out, Map<String, Integer> info) {
         out.println("Всего на локации " + info.get("countAllAnimal") + " животных\n" +
                 "Из них хищников: " + info.get("countPredator") +
                 "\nТравоядных: " + info.get("countHerbivore") + "\nРастений: " + info.get("countPlant"));
         out.println(colorize("Всего заполненных локаций: " + info.get("filledLocations")));
-     ;
+        ;
     }
 
     public static void printMiniStatistics(PrintStream out) {

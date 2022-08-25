@@ -4,18 +4,20 @@ import com.diogonunes.jcolor.Attribute;
 import ua.com.shestakova.Island.settingIsland.Island;
 import ua.com.shestakova.Island.settingIsland.Parser;
 import ua.com.shestakova.Island.settingIsland.Tools;
-import ua.com.shestakova.Island.settingsActions.LifeTime;
-import ua.com.shestakova.Island.settingsActions.Time;
+import ua.com.shestakova.Island.performingActions.LifeTime;
 
 import java.io.PrintStream;
+import java.time.LocalTime;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
-import static ua.com.shestakova.Island.settingsActions.Time.timeOfGame;
-import static ua.com.shestakova.Island.settingsActions.Time.startDay;
+import static ua.com.shestakova.Island.settingIsland.Tools.timeOfGame;
 
 public class Dialog {
-    Statistics statistics = new Statistics();
+    public Statistics statistics = new Statistics();
 
     public void welcome(PrintStream out) {
 
@@ -33,7 +35,7 @@ public class Dialog {
         createIsland(out, number);
 
         out.println("Остров создан и заполнен существами, вот они:\n");
-        Statistics.printIsland(out);
+        statistics.printIsland(out);
 
         getMoreInformation(out);
 
@@ -61,7 +63,7 @@ public class Dialog {
             island.setMaxCountInLocation(maxCountInLocation);
             out.println("введите количество дней жизни локации: ");
             int timeOfGame = Tools.getNumberFromUser(0, Integer.MAX_VALUE);
-            Time.timeOfGame = timeOfGame;
+            Tools.timeOfGame = timeOfGame;
         } else {
             Parser parser = new Parser();
             parser.getParametersFromProperties(island);
@@ -86,8 +88,6 @@ public class Dialog {
     }
 
     private void printRules(PrintStream out) {  // надо поправить
-        out.println(colorize("На вашем острове сейчас ", Attribute.BRIGHT_GREEN_TEXT()) + startDay +
-                "\nно тут время идет быстрее. Сутки жизни симуляции = 3 секундам реального времени");
         out.println(colorize("Симуляция завершится, через " + timeOfGame +
                 " суток", Attribute.TEXT_COLOR(5)));
     }
@@ -97,10 +97,27 @@ public class Dialog {
         Scanner scanner = new Scanner(System.in);
         scanner.next();
 
-        // Threads.startTime(); //  поток запускается счетчик даты
-        //Threads.startDay(); // запуск такта
+        LocalTime start = LocalTime.now();
+        System.out.println(start.getSecond() + "время начала симуляции");
 
-        LifeTime.makeTact();  // заменить на несколько потоков
+        ExecutorService executorService = Executors.newCachedThreadPool();
+
+        for (int i = 0; i < timeOfGame; i++) {
+            executorService.submit(new LifeTime());
+        }
+        executorService.shutdown();
+        try {
+            if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                System.out.println("все потоки завершились");
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        LocalTime finish = LocalTime.now();
+        System.out.println();
+        System.out.println("на симуляцию ушло " + (finish.getSecond() - start.getSecond()) + " секунд");
+
     }
 
     private void finish(PrintStream out) {

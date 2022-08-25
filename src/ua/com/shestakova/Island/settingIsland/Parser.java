@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import ua.com.shestakova.Island.Statistics;
-import ua.com.shestakova.Island.settingsActions.Time;
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.exceptions.ParsingExceptions;
 
@@ -57,10 +55,7 @@ public class Parser {
         JSONObject obj = new JSONObject();
 
 
-
-
     }
-
 
     public void readerFromJson() {
         // получить данные из файла - пока не могу
@@ -77,7 +72,7 @@ public class Parser {
             island.setHeight(Integer.parseInt(properties.getProperty("HEIGHT")));
             island.setMaxCountInLocation(Integer.parseInt(properties.getProperty("MAX_COUNT_IN_LOCATION")));
             Tools.maxCountIncorrectInputNumber = (Integer.parseInt(properties.getProperty("MAX_COUNT_INCORRECT_INPUT_NUMBER")));
-            Time.timeOfGame = (Integer.parseInt(properties.getProperty("TIME_OF_GAME")));
+            Tools.timeOfGame = (Integer.parseInt(properties.getProperty("TIME_OF_GAME")));
 
         } catch (NumberFormatException e) {
             throw new ParsingExceptions("В файле app.properties какой-то косяк " + e);
@@ -87,5 +82,4 @@ public class Parser {
             throw new ParsingExceptions("Что-то пошло не так при чтении данных из app.properties " + ex);
         }
     }
-
 }
