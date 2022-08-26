@@ -1,11 +1,9 @@
 package ua.com.shestakova.Island;
 
+import com.diogonunes.jcolor.Attribute;
 import lombok.Getter;
 import lombok.Setter;
-import ua.com.shestakova.Island.animal.Animal;
-import ua.com.shestakova.Island.animal.Plant;
-import ua.com.shestakova.Island.animal.Herbivore;
-import ua.com.shestakova.Island.animal.Predator;
+import ua.com.shestakova.Island.animal.*;
 import ua.com.shestakova.Island.settingIsland.Tools;
 
 import java.io.PrintStream;
@@ -21,10 +19,10 @@ public class Statistics {
 
     @Getter
     @Setter
-    private static int countDiedAnimal;
+    private static int countDiedCreatures;
     @Getter
     @Setter
-    private static int countNewAnimal;
+    private static int countNewCreatures;
 
     public static Map<String, Integer> firstInfo;
     public static Map<String, Integer> lastInfo;
@@ -32,7 +30,7 @@ public class Statistics {
     public void printIsland(PrintStream out) {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
-                ArrayList<Animal> loc = field[i][j].location;
+                ArrayList<Сreature> loc = field[i][j].location;
                 if (loc.size() > 0) {
                     String icon = loc.get(Tools.getRandomNumber(loc.size())).getIcon();
                     out.print("[" + icon + "]");
@@ -58,11 +56,11 @@ public class Statistics {
                 if (field[i][j].location.size() > 0) filledLocations++;
 
                 for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Animal animal = field[i][j].location.get(k);
+                    Сreature сreature = field[i][j].location.get(k);
                     countAllAnimal++;
-                    if (animal.getClass().equals(Plant.class)) countPlant++;
-                    if (Predator.class.isAssignableFrom(animal.getClass())) countPredator++;
-                    if (Herbivore.class.isAssignableFrom(animal.getClass())) countHerbivore++;
+                    if (сreature.getName().equals("Plant")) countPlant++;
+                    if (Predator.class.isAssignableFrom(сreature.getClass())) countPredator++;
+                    if (Herbivore.class.isAssignableFrom(сreature.getClass())) countHerbivore++;
                 }
             }
         }
@@ -75,7 +73,7 @@ public class Statistics {
         return firstInfo;
     }
 
-    public void getAndPrintActualCountTypeAnimals() {  //
+    public void getAndPrintActualCountTypeAnimals() {
 
         Map<String, Integer> map = new HashMap<>();
 
@@ -83,7 +81,7 @@ public class Statistics {
             for (int j = 0; j < field[i].length; j++) {
 
                 for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Animal animal = field[i][j].location.get(k);
+                    Сreature animal = field[i][j].location.get(k);
 
                     if (map.containsKey(animal.getName())) {
                         map.put(animal.getName(), map.get(animal.getName()) + 1);
@@ -100,7 +98,7 @@ public class Statistics {
     }
 
 
-    public static void printStatistics(PrintStream out, Map<String, Integer> info) {
+    public void printStatistics(PrintStream out, Map<String, Integer> info) {
         out.println("Всего на локации " + info.get("countAllAnimal") + " животных\n" +
                 "Из них хищников: " + info.get("countPredator") +
                 "\nТравоядных: " + info.get("countHerbivore") + "\nРастений: " + info.get("countPlant"));
@@ -109,8 +107,8 @@ public class Statistics {
     }
 
     public static void printMiniStatistics(PrintStream out) {
-        out.println(colorize("С начала симуляции умерло: " + countDiedAnimal + " животных"));
-        out.println(colorize("С начала симуляции родилось: " + countNewAnimal + " животных"));
+        out.println(colorize("С начала симуляции умерло: " + countDiedCreatures + " животных"));
+        out.println(colorize("С начала симуляции родилось: " + countNewCreatures + " животных"));
     }
 
     public void countingAndPrintResult(PrintStream out) {

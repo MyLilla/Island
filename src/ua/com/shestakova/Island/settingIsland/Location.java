@@ -1,6 +1,7 @@
 package ua.com.shestakova.Island.settingIsland;
 
-import ua.com.shestakova.Island.animal.Animal;
+import ua.com.shestakova.Island.animal.Сreature;
+import ua.com.shestakova.Island.exceptions.CreateException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -9,50 +10,50 @@ import java.util.Random;
 
 public class Location {
 
-    public ArrayList<Animal> location;
+    public ArrayList<Сreature> location;
 
-    public void createLocation(int maxAnimal) {
+    public void createLocation(int maxCharacter) {
 
         location = new ArrayList<>();
 
-        for (int i = 1; i <= Tools.getRandomNumber(maxAnimal); i++) {
-            int numberOfAnimal = new Random().nextInt(Tools.mapAllAnimals.size());
+        for (int i = 1; i <= Tools.getRandomNumber(maxCharacter); i++) {
+            int numberOfCreature = new Random().nextInt(Tools.mapAllAnimals.size());
 
-            Animal randomAnimal = createRandomAnimal(numberOfAnimal);
+            Сreature randomCreature = createRandomСreature(numberOfCreature);
 
             if (location.isEmpty()) {
-                location.add(randomAnimal);
+                location.add(randomCreature);
             } else {
-                int countTypeInLocation = getCountTypeInLoc(location, randomAnimal);
-                if (countTypeInLocation < randomAnimal.getMaxCountTypeInLoc()) {
-                    location.add(randomAnimal);
+                int countTypeInLocation = getCountTypeInLoc(location, randomCreature);
+                if (countTypeInLocation < randomCreature.getMaxCountTypeInLoc()) {
+                    location.add(randomCreature);
                 }
             }
         }
     }
 
-    public static int getCountTypeInLoc(ArrayList<Animal> animals, Animal animal) {
+    public static int getCountTypeInLoc(ArrayList<Сreature> сreatures, Сreature сreature) {
         int countTypeInLoc = 0;
-        for (Animal ani : animals) {
-            if (ani.getName().equals(animal.getName())) {
+        for (Сreature ani : сreatures) {
+            if (ani.getName().equals(сreature.getName())) {
                 countTypeInLoc++;
             }
         }
         return countTypeInLoc;
     }
 
-    public static Animal createRandomAnimal(int animalNumber) {
+    public static Сreature createRandomСreature(int creatureNumber) {
 
-        Animal animal = Tools.mapAllAnimals.get(animalNumber);
-        Class clazz = animal.getClass();
+        Сreature character = Tools.mapAllAnimals.get(creatureNumber);
+        Class clazz = character.getClass();
         Constructor<?> constructor;
         try {
             constructor = clazz.getConstructor();
-            return (Animal) constructor.newInstance();
+            return (Сreature) constructor.newInstance();
 
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
                  InvocationTargetException e) {
-            throw new RuntimeException(e);
+            throw new CreateException("Ошибка при создании существа" + e);
         }
     }
 }

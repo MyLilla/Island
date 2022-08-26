@@ -8,7 +8,7 @@ public abstract class Herbivore extends Animal {
     }
 
     @Override
-    public boolean checkTypeAnimalForEat(Animal animal) {
-        return animal instanceof Plant;
+    public boolean checkTypeAnimalForEat(Сreature сreature) {
+        return сreature instanceof Plant;
     }
 }

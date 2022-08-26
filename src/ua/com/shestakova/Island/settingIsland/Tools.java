@@ -1,7 +1,7 @@
 package ua.com.shestakova.Island.settingIsland;
 
 import com.diogonunes.jcolor.Attribute;
-import ua.com.shestakova.Island.animal.Animal;
+import ua.com.shestakova.Island.animal.Сreature;
 import ua.com.shestakova.Island.animal.Plant;
 import ua.com.shestakova.Island.animal.herbivore.*;
 import ua.com.shestakova.Island.animal.predator.*;
@@ -18,9 +18,9 @@ public class Tools {
     public static int maxCountIncorrectInputNumber = 3;
     public static final int MAX_PERCENT_BORD = 101;
     public static int timeOfGame = 10;
-    public static HashMap<Integer, Animal> mapAllAnimals = addedOfAllAnimals();
+    public static HashMap<Integer, Сreature> mapAllAnimals = addedOfAllAnimals();
 
-    public static HashMap<Integer, Animal> addedOfAllAnimals() {
+    public static HashMap<Integer, Сreature> addedOfAllAnimals() {
         mapAllAnimals = new HashMap<>();
         mapAllAnimals.put(0, new Wolf());
         mapAllAnimals.put(1, new Deer());

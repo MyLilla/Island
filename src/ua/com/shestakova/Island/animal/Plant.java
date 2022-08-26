@@ -1,26 +1,24 @@
 package ua.com.shestakova.Island.animal;
 
+import ua.com.shestakova.Island.Statistics;
+
 import java.util.ArrayList;
 
-public class Plant extends Animal {
+public class Plant extends Сreature {
     public Plant() {
         setIcon("\uD83C\uDF31");
         setWeight(1);
         setMaxCountTypeInLoc(200);
-        setChanceMakeCopy(60);
     }
 
     @Override
-    public void eat(ArrayList<Animal> animals) {
-    }
-
-    @Override
-    public boolean checkTypeAnimalForEat(Animal animal) {
+    public boolean checkTypeAnimalForEat(Сreature сreature) {
         return false;
     }
 
-    @Override
-    public boolean move(int width, int height) {
-        return false;
+    public void copy(ArrayList<Сreature> сreatures, int contPlantInLocation) {
+            сreatures.add(new Plant());
+            Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
+        System.out.println("появилось новое растение");
     }
 }

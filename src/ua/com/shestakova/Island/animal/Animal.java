@@ -14,48 +14,44 @@ import static ua.com.shestakova.Island.settingIsland.Island.field;
 @Setter
 @Getter
 @ToString
-public abstract class Animal {
+public abstract class Animal extends Сreature {
 
-    private String icon;
-    private String name = this.getClass().getSimpleName();
-    private double weight;
-    private int maxCountTypeInLoc;
     private int speed;
     private double countFoodMax;
     private boolean moved = false;
     private double satiety = 0;
     private double lossSatiety;
-    private boolean alive = true;
-    private int chanceMakeCopy = 70;
     private Map<String, Integer> percent = new HashMap<>();
 
-    public abstract boolean checkTypeAnimalForEat(Animal animal);
+    //public abstract boolean checkTypeAnimalForEat(Animal animal);
 
-    public synchronized void eat(ArrayList<Animal> animals) {
+
+    public void eat(ArrayList<Сreature> сreatures) {
         if (this.getSatiety() <= getCountFoodMax()) {
 
-            Animal animal;
+            Сreature сreatureForEat;
             try {
-                animal = animals.stream()
-                        .filter(Animal::isAlive)
+                сreatureForEat = сreatures.stream()
+                        .filter(Сreature::isAlive)
                         .filter(this::checkTypeAnimalForEat)
                         .findAny().get();
             } catch (NoSuchElementException e) {
                 return;
             }
-            if (checkChanceEating(this, animal)) {
-                animal.setAlive(false);
+            if (checkChanceEating(this, сreatureForEat)) {
 
-                setSatiety(Math.min(getSatiety() + animal.getWeight(), getCountFoodMax()));
+                сreatureForEat.setAlive(false);
+                setSatiety(Math.min(getSatiety() + сreatureForEat.getWeight(), getCountFoodMax()));
 
-                animals.remove(animals.indexOf(animal));
-                animals.trimToSize();
-                Statistics.setCountDiedAnimal(Statistics.getCountDiedAnimal() + 1);
+                сreatures.remove(сreatures.indexOf(сreatureForEat));
+                сreatures.trimToSize();
+                Statistics.setCountDiedCreatures(Statistics.getCountDiedCreatures() + 1);
+                System.out.println(this.getName() + " съел " + сreatureForEat.getName());
             }
         }
     }
 
-    private boolean checkChanceEating(Animal hunter, Animal prey) {
+    private boolean checkChanceEating(Animal hunter, Сreature prey) {
 
         int chance = Tools.getRandomNumber(Tools.MAX_PERCENT_BORD);
 
@@ -72,7 +68,7 @@ public abstract class Animal {
 
     public boolean move(int width, int height) {
 
-        ArrayList<Animal> newLocation = getNewField(width, height);
+        ArrayList<Сreature> newLocation = getNewField(width, height);
 
         int countTypeInLoc = Location.getCountTypeInLoc(newLocation, this);
 
@@ -86,7 +82,7 @@ public abstract class Animal {
         return false;
     }
 
-    private ArrayList<Animal> getNewField(int x, int y) {
+    private ArrayList<Сreature> getNewField(int x, int y) {
         int xNew = x;
         int yNew = y;
         if (chanceMoveFree(x, y)) {
@@ -118,34 +114,26 @@ public abstract class Animal {
         return x + this.getSpeed() * index;
     }
 
-    public boolean copy(ArrayList<Animal> animals) {
+    public void copy(ArrayList<Сreature> creatures, int countAnimalInLoc) {
 
-        if (getChanceMakeCopy() < Tools.getRandomNumber(Tools.MAX_PERCENT_BORD)) {
-
-            int countTypeInLoc = Location.getCountTypeInLoc(animals, this);
-
-            if (countTypeInLoc < getMaxCountTypeInLoc() &&
-                    (countTypeInLoc > 1 || this.getClass().equals(Plant.class))) {
+            if (countAnimalInLoc > 1) {
 
                 for (Map.Entry entry : Tools.mapAllAnimals.entrySet()) {
                     if (entry.getValue().getClass() == (this).getClass()) {
-
-                        animals.add(Location.createRandomAnimal((int) entry.getKey()));
-                        Statistics.setCountNewAnimal(Statistics.getCountNewAnimal() + 1);
-                        return true;
+                        creatures.add(Location.createRandomСreature((int) entry.getKey()));
+                        Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
+                        System.out.println(this.getName() + " размножился ");
                     }
                 }
             }
         }
-        return false;
-    }
 
     public void utilize(int x, int y) {
         if (!isAlive()) {
             field[x][y].location.remove(this);
             field[x][y].location.trimToSize();
             setAlive(false);
-            Statistics.setCountDiedAnimal(Statistics.getCountDiedAnimal() + 1);
+            Statistics.setCountDiedCreatures(Statistics.getCountDiedCreatures() + 1);
         }
     }
 }

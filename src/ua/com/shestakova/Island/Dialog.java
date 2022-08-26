@@ -30,14 +30,14 @@ public class Dialog {
                 Ты хочешь поменять настройки симуляции?\s
                 Тогда введи - 2""", Attribute.GREEN_TEXT()));
 
-        int number = Tools.getNumberFromUser(1, 2);
+        int choice = Tools.getNumberFromUser(1, 2);
 
-        createIsland(out, number);
+        createIsland(out, choice);
 
         out.println("Остров создан и заполнен существами, вот они:\n");
         statistics.printIsland(out);
 
-        getMoreInformation(out);
+        getFirstInfo(out);
 
         printRules(out);
 
@@ -47,23 +47,22 @@ public class Dialog {
 
     }
 
-    private void createIsland(PrintStream out, int number) {
+    private void createIsland(PrintStream out, int choice) {
         Island island = Island.getIsland();
 
-        if (number == 2) {
+        if (choice == 2) {
             out.println(colorize("Нужны размеры острова.", Attribute.BLUE_TEXT()));
+
             out.println("введите высоту (число до 100): ");
-            int width = Tools.getNumberFromUser(0, island.MAX_SIDE_OF_ISLAND);
-            island.setWidth(width);
+            island.setWidth(Tools.getNumberFromUser(0, island.MAX_SIDE_OF_ISLAND));
             out.println("введите высоту (число до 100): ");
-            int height = Tools.getNumberFromUser(0, island.MAX_SIDE_OF_ISLAND);
-            island.setHeight(height);
+            island.setHeight(Tools.getNumberFromUser(0, island.MAX_SIDE_OF_ISLAND));
+
             out.println("введите максимальное число животных на локации: ");
-            int maxCountInLocation = Tools.getNumberFromUser(0, Integer.MAX_VALUE);
-            island.setMaxCountInLocation(maxCountInLocation);
+            island.setMaxCountInLocation(Tools.getNumberFromUser(0, Integer.MAX_VALUE));
             out.println("введите количество дней жизни локации: ");
-            int timeOfGame = Tools.getNumberFromUser(0, Integer.MAX_VALUE);
-            Tools.timeOfGame = timeOfGame;
+            Tools.timeOfGame = Tools.getNumberFromUser(0, Integer.MAX_VALUE);
+
         } else {
             Parser parser = new Parser();
             parser.getParametersFromProperties(island);
@@ -71,41 +70,54 @@ public class Dialog {
         island.addLocationOnIsland(island.getWidth(), island.getHeight());
     }
 
-    private void getMoreInformation(PrintStream out) {
-        int number;
+    private void getFirstInfo(PrintStream out) {
+
+        Statistics.firstInfo = (statistics.getGlobalInformation());
+
         out.println(colorize("""
                 \nХотите узнать, сколько животных получилось?\s
-                 1 - Нет\s
-                 2 - Да""", Attribute.YELLOW_TEXT()));
+                 Нет - введите 1\s
+                 Да - введите 2""", Attribute.YELLOW_TEXT()));
 
-        number = Tools.getNumberFromUser(1, 2);
-        if (number == 2) {
-
-            Statistics.firstInfo = (statistics.getGlobalInformation());
+        int choice = Tools.getNumberFromUser(1, 2);
+        if (choice == 2) {
             statistics.printStatistics(out, Statistics.firstInfo);
             statistics.getAndPrintActualCountTypeAnimals();
         }
     }
 
-    private void printRules(PrintStream out) {  // надо поправить
+    private void printRules(PrintStream out) {
         out.println(colorize("Симуляция завершится, через " + timeOfGame +
                 " суток", Attribute.TEXT_COLOR(5)));
     }
 
     private static void startSimulation(PrintStream out) {
+
         out.println("Для запуска симуляции введите любой текст и нажмите ENTER");
         Scanner scanner = new Scanner(System.in);
         scanner.next();
 
         LocalTime start = LocalTime.now();
-        System.out.println(start.getSecond() + "время начала симуляции");
+        System.out.println(start + " время начала симуляции");
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
 
+        LifeTime lifeTime = new LifeTime();
         for (int i = 0; i < timeOfGame; i++) {
-            executorService.submit(new LifeTime());
+            executorService.submit(() -> {
+                lifeTime.callActionCopy();
+            });
+            executorService.submit(lifeTime::callActionEat);
+
+            executorService.submit(() -> {
+                lifeTime.callActionMove();
+            });
+            executorService.submit(() -> {
+                lifeTime.finalizeTact();
+            });
         }
         executorService.shutdown();
+
         try {
             if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
                 System.out.println("все потоки завершились");

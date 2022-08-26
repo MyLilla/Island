@@ -3,6 +3,7 @@ package ua.com.shestakova.Island.animal.predator;
 import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.animal.Herbivore;
 import ua.com.shestakova.Island.animal.Predator;
+import ua.com.shestakova.Island.animal.Сreature;
 
 public class Boa extends Predator {
 
@@ -27,9 +28,9 @@ public class Boa extends Predator {
     }
 
     @Override
-    public boolean checkTypeAnimalForEat(Animal animal) {
+    public boolean checkTypeAnimalForEat(Сreature animal) {
         return Herbivore.class.isAssignableFrom(animal.getClass()) ||
-                animal.getClass().equals(Fox.class);
+                animal instanceof Fox;
     }
 }
 

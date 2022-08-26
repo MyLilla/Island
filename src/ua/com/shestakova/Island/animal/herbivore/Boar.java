@@ -1,8 +1,8 @@
 package ua.com.shestakova.Island.animal.herbivore;
 
-import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.animal.Herbivore;
 import ua.com.shestakova.Island.animal.Plant;
+import ua.com.shestakova.Island.animal.Сreature;
 
 public class Boar extends Herbivore {
 
@@ -17,9 +17,9 @@ public class Boar extends Herbivore {
         getPercent().put("Mouse", 50);
     }
     @Override
-    public boolean checkTypeAnimalForEat(Animal animal) {
-        return animal instanceof Plant ||
-                animal instanceof Caterpillar ||
-                animal instanceof Mouse;
+    public boolean checkTypeAnimalForEat(Сreature сreature) {
+        return сreature instanceof Plant ||
+                сreature instanceof Caterpillar ||
+                сreature instanceof Mouse;
     }
 }
