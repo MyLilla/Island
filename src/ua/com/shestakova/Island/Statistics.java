@@ -54,11 +54,10 @@ public class Statistics {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 if (field[i][j].location.size() > 0) filledLocations++;
-
                 for (int k = 0; k < field[i][j].location.size(); k++) {
                     Сreature сreature = field[i][j].location.get(k);
                     countAllAnimal++;
-                    if (сreature.getName().equals("Plant")) countPlant++;
+                    if (сreature.getClass().equals(Plant.class)) countPlant++;
                     if (Predator.class.isAssignableFrom(сreature.getClass())) countPredator++;
                     if (Herbivore.class.isAssignableFrom(сreature.getClass())) countHerbivore++;
                 }

@@ -16,9 +16,9 @@ public class Plant extends Сreature {
         return false;
     }
 
-    public void copy(ArrayList<Сreature> сreatures, int contPlantInLocation) {
-            сreatures.add(new Plant());
+    public void copy(ArrayList<Сreature> creatures, int contTypeInLocation) {
+            creatures.add(new Plant());
             Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
-        System.out.println("появилось новое растение");
+            // System.out.println("появилось новое растение");
     }
 }

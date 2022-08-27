@@ -44,9 +44,9 @@ public abstract class Animal extends Сreature {
                 setSatiety(Math.min(getSatiety() + сreatureForEat.getWeight(), getCountFoodMax()));
 
                 сreatures.remove(сreatures.indexOf(сreatureForEat));
-                сreatures.trimToSize();
+                 сreatures.trimToSize();
                 Statistics.setCountDiedCreatures(Statistics.getCountDiedCreatures() + 1);
-                System.out.println(this.getName() + " съел " + сreatureForEat.getName());
+               // System.out.println(this.getName() + " съел " + сreatureForEat.getName());
             }
         }
     }
@@ -122,18 +122,9 @@ public abstract class Animal extends Сreature {
                     if (entry.getValue().getClass() == (this).getClass()) {
                         creatures.add(Location.createRandomСreature((int) entry.getKey()));
                         Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
-                        System.out.println(this.getName() + " размножился ");
+                        //  System.out.println(this.getName() + " размножился ");
                     }
                 }
             }
         }
-
-    public void utilize(int x, int y) {
-        if (!isAlive()) {
-            field[x][y].location.remove(this);
-            field[x][y].location.trimToSize();
-            setAlive(false);
-            Statistics.setCountDiedCreatures(Statistics.getCountDiedCreatures() + 1);
-        }
-    }
 }

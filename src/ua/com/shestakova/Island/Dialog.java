@@ -1,6 +1,7 @@
 package ua.com.shestakova.Island;
 
 import com.diogonunes.jcolor.Attribute;
+import ua.com.shestakova.Island.exceptions.ThreadsException;
 import ua.com.shestakova.Island.settingIsland.Island;
 import ua.com.shestakova.Island.settingIsland.Parser;
 import ua.com.shestakova.Island.settingIsland.Tools;
@@ -9,15 +10,17 @@ import ua.com.shestakova.Island.performingActions.LifeTime;
 import java.io.PrintStream;
 import java.time.LocalTime;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
+import static java.lang.System.out;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static ua.com.shestakova.Island.settingIsland.Tools.timeOfGame;
 
 public class Dialog {
     public Statistics statistics = new Statistics();
+    LifeTime lifeTime = new LifeTime();
 
     public void welcome(PrintStream out) {
 
@@ -91,7 +94,7 @@ public class Dialog {
                 " суток", Attribute.TEXT_COLOR(5)));
     }
 
-    private static void startSimulation(PrintStream out) {
+    private void startSimulation(PrintStream out) {
 
         out.println("Для запуска симуляции введите любой текст и нажмите ENTER");
         Scanner scanner = new Scanner(System.in);
@@ -100,36 +103,61 @@ public class Dialog {
         LocalTime start = LocalTime.now();
         System.out.println(start + " время начала симуляции");
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        startStatisticsThread();
 
-        LifeTime lifeTime = new LifeTime();
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
         for (int i = 0; i < timeOfGame; i++) {
-            executorService.submit(() -> {
-                lifeTime.callActionCopy();
-            });
-            executorService.submit(lifeTime::callActionEat);
-
-            executorService.submit(() -> {
-                lifeTime.callActionMove();
-            });
-            executorService.submit(() -> {
-                lifeTime.finalizeTact();
-            });
+            startActionsThreads(executorService);
+            lifeTime.finalizeTact();
+            try {
+                Thread.sleep(500);
+                System.out.println("day " + i);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         executorService.shutdown();
-
         try {
-            if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
-                System.out.println("все потоки завершились");
-            }
+            executorService.awaitTermination(20, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new ThreadsException("Ошибка потоков" + e);
         }
 
         LocalTime finish = LocalTime.now();
         System.out.println();
         System.out.println("на симуляцию ушло " + (finish.getSecond() - start.getSecond()) + " секунд");
+    }
 
+    private void startStatisticsThread() {
+
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+
+            Thread.currentThread().setDaemon(true);
+            Statistics.printMiniStatistics(out);
+        }, 0, 2, SECONDS);
+    }
+
+    private void startActionsThreads(ExecutorService executorService) {
+        ReentrantLock reentrantLock = new ReentrantLock();
+
+        executorService.submit(() -> {
+            reentrantLock.lock();
+            lifeTime.callActionCopy();
+            reentrantLock.unlock();
+        });
+        executorService.submit(() -> {
+            reentrantLock.lock();
+            lifeTime.callActionEat();
+            reentrantLock.unlock();
+        });
+        executorService.submit(() -> {
+            reentrantLock.lock();
+            lifeTime.callActionMove();
+            reentrantLock.unlock();
+        });
     }
 
     private void finish(PrintStream out) {
