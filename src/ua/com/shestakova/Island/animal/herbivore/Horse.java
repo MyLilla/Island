@@ -10,7 +10,6 @@ public class Horse extends Herbivore {
         setMaxCountTypeInLoc(20);
         setSpeed(4);
         setCountFoodMax(60);
-        setLossSatiety(12);
-
+        setLossSatiety(2);
     }
 }

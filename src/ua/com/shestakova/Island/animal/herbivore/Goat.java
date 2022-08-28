@@ -10,6 +10,6 @@ public class Goat extends Herbivore {
         setMaxCountTypeInLoc(140);
         setSpeed(3);
         setCountFoodMax(10);
-        setLossSatiety(2);
+        setLossSatiety(2.5);
     }
 }

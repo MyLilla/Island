@@ -8,6 +8,7 @@ import ua.com.shestakova.Island.settingIsland.Tools;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +25,11 @@ public class Statistics {
     @Setter
     private static int countNewCreatures;
 
-    public static Map<String, Integer> firstInfo;
-    public static Map<String, Integer> lastInfo;
+    public static Map<String, Integer> firstGlobalInfo;
+    public static Map<String, Integer> lastGlobalInfo;
+
+    public static Map<String, Integer> firstTypeInfo;
+    public static Map<String, Integer> lastTypeInfo;
 
     public void printIsland(PrintStream out) {
         for (int i = 0; i < field.length; i++) {
@@ -33,9 +37,10 @@ public class Statistics {
                 ArrayList<Сreature> loc = field[i][j].location;
                 if (loc.size() > 0) {
                     String icon = loc.get(Tools.getRandomNumber(loc.size())).getIcon();
-                    out.print("[" + icon + "]");
+                    out.print(colorize("[", Attribute.RED_TEXT()) + icon + colorize("]"
+                            , Attribute.RED_TEXT()));
                 } else {
-                    out.print("[ ]");
+                    out.print(colorize("[ ]", Attribute.RED_TEXT()));
                 }
             }
             out.println();
@@ -72,7 +77,16 @@ public class Statistics {
         return firstInfo;
     }
 
-    public void getAndPrintActualCountTypeAnimals() {
+    public void printGlobalStatistics(PrintStream out, Map<String, Integer> info) {
+        out.println("In total there are " + info.get("countAllAnimal") + " living creatures in the location\n\n" +
+                "Predators:" + colorize("" + info.get("countPredator"), Attribute.CYAN_TEXT()) +
+                "\nHerbivores:" + colorize("" + info.get("countHerbivore"), Attribute.CYAN_TEXT()) +
+                "\nPlants:" + colorize("" + info.get("countPlant"), Attribute.CYAN_TEXT()));
+        out.println("Total locations: " + info.get("filledLocations"));
+
+    }
+
+    public Map<String, Integer> getActualCountType() {
 
         Map<String, Integer> map = new HashMap<>();
 
@@ -90,45 +104,54 @@ public class Statistics {
                 }
             }
         }
-        System.out.println("Всего животных по видам: ");
+        return map;
+    }
+
+    public void printTypeAnimal(Map<String, Integer> map) {
+        System.out.println(colorize("Total animals by types: ", Attribute.BLUE_BACK(), Attribute.BLACK_TEXT()));
         for (Map.Entry entry : map.entrySet()) {
             System.out.println(entry);
         }
     }
 
 
-    public void printStatistics(PrintStream out, Map<String, Integer> info) {
-        out.println("Всего на локации " + info.get("countAllAnimal") + " животных\n" +
-                "Из них хищников: " + info.get("countPredator") +
-                "\nТравоядных: " + info.get("countHerbivore") + "\nРастений: " + info.get("countPlant"));
-        out.println(colorize("Всего заполненных локаций: " + info.get("filledLocations")));
-        ;
-    }
-
     public static void printMiniStatistics(PrintStream out) {
-        out.println(colorize("С начала симуляции умерло: " + countDiedCreatures + " животных"));
-        out.println(colorize("С начала симуляции родилось: " + countNewCreatures + " животных"));
+        out.println(colorize("From start of simulation " + countDiedCreatures + " creatures died"));
+        out.println(colorize("From start of simulation " + countNewCreatures + " creatures born"));
     }
 
     public void countingAndPrintResult(PrintStream out) {
-        if (Statistics.firstInfo.get("countAllAnimal") < Statistics.lastInfo.get("countAllAnimal")) {
-            out.println("Остров стал заметно больше!");
+        if (Statistics.firstGlobalInfo.get("countAllAnimal") < Statistics.lastGlobalInfo.get("countAllAnimal")) {
+            out.println(colorize("The island got bigger!", Attribute.RED_TEXT()));
         }
-        if (Statistics.firstInfo.get("countPlant") < Statistics.lastInfo.get("countPlant")) {
-            out.println("Растений теперь много!\nИх число увеличилось на " +
-                    (Statistics.lastInfo.get("countPlant") - Statistics.firstInfo.get("countPlant")));
+        if (Statistics.firstGlobalInfo.get("countPlant") < Statistics.lastGlobalInfo.get("countPlant")) {
+            out.println(colorize("Lots of plants now.\nTheir number has increased by " +
+                            (Statistics.lastGlobalInfo.get("countPlant") - Statistics.firstGlobalInfo.get("countPlant")),
+                    Attribute.GREEN_TEXT()));
         }
-        if (Statistics.firstInfo.get("countPredator") < Statistics.lastInfo.get("countPredator")) {
-            out.println("Твой остров стал опаснее, хищников стало на " +
-                    (Statistics.lastInfo.get("countPredator") - Statistics.firstInfo.get("countPredator") + " больше!"));
+        if (Statistics.firstGlobalInfo.get("countPredator") < Statistics.lastGlobalInfo.get("countPredator")) {
+            out.println("Your island has become more" + colorize(" dangerous", Attribute.RED_TEXT()) + ", there are " +
+                    (Statistics.lastGlobalInfo.get("countPredator") - Statistics.firstGlobalInfo.get("countPredator")
+                            + " more predators!"));
         }
-        if (Statistics.firstInfo.get("countHerbivore") < Statistics.lastInfo.get("countHerbivore")) {
-            out.println("Но ничего, еды для них тоже хватает. Травоядных теперь: " +
-                    Statistics.lastInfo.get("countHerbivore"));
+        if (Statistics.firstGlobalInfo.get("countHerbivore") < Statistics.lastGlobalInfo.get("countHerbivore")) {
+            out.println("But, there is enough food for them too) Count of herbivores now: " +
+                    Statistics.lastGlobalInfo.get("countHerbivore"));
         } else {
-            out.println("И это печально, ведь число травоядных уменьшилось на " +
-                    (Statistics.firstInfo.get("countHerbivore") - Statistics.lastInfo.get("countHerbivore")
-                            + " скоро твои волки сожрут тебя)"));
+            out.println("And this is sad, because count of herbivores has decreased by " +
+                    (Statistics.firstGlobalInfo.get("countHerbivore") - Statistics.lastGlobalInfo.get("countHerbivore")
+                            + " your wolves will eat you. Soon)"));
         }
+        out.println("In the beginning, it was the most: " +
+                Statistics.firstTypeInfo.entrySet().stream()
+                        .max(Comparator.comparing(Map.Entry::getValue))
+                        .map(Map.Entry::getKey)
+                        .orElse(null));
+
+        out.println("In the ending, it was the most: " +
+                Statistics.lastTypeInfo.entrySet().stream()
+                        .max(Comparator.comparing(Map.Entry::getValue))
+                        .map(Map.Entry::getKey)
+                        .orElse(null));
     }
 }

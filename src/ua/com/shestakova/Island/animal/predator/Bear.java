@@ -24,7 +24,6 @@ public class Bear extends Predator {
         getPercent().put("Boar", 50);
         getPercent().put("Buffalo", 20);
         getPercent().put("Duck", 10);
-        getPercent().put("Caterpillar", 0);
     }
 
     @Override

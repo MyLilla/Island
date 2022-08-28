@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import ua.com.shestakova.Island.animal.Animal;
 import ua.com.shestakova.Island.animal.Сreature;
 import ua.com.shestakova.Island.exceptions.ParsingExceptions;
 
@@ -17,7 +16,7 @@ import java.io.IOException;
 public class Parser {
     private final File PROP_SOURCE = new File("src/ua/com/shestakova/Island/resources/app.properties");
     private final File JSON_SOURCE = new File("src/ua/com/shestakova/Island/resources/app.json");
-    private final File JSON_STATISTICS = new File("src/ua/com/shestakova/Island/resources/firstStatistic.json");
+
 
     public void writerAllAnimalToJson() {
 
@@ -27,17 +26,13 @@ public class Parser {
         for (Map.Entry entry : allAnimal.entrySet()) {
 
             String name = entry.getValue().getClass().getSimpleName();
-            Animal animal = (Animal) entry.getValue();
+            Сreature animal = (Сreature) entry.getValue();
 
             JSONObject obj2 = new JSONObject();
             obj2.put("icon", animal.getIcon());
             obj2.put("name", animal.getName());
             obj2.put("weight", animal.getWeight());
             obj2.put("maxCountTypeInLoc", animal.getMaxCountTypeInLoc());
-            obj2.put("speed", animal.getSpeed());
-            obj2.put("countFoodMax", animal.getCountFoodMax());
-            obj2.put("lossSatiety", animal.getLossSatiety());
-            obj2.put("percent", animal.getCountFoodMax());
 
             obj.put(name, obj2);
         }
@@ -49,13 +44,6 @@ public class Parser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void writerFirstStatisticToJson() {
-
-        JSONObject obj = new JSONObject();
-
-
     }
 
     public void readerFromJson() {
@@ -73,7 +61,7 @@ public class Parser {
             island.setHeight(Integer.parseInt(properties.getProperty("HEIGHT")));
             island.setMaxCountInLocation(Integer.parseInt(properties.getProperty("MAX_COUNT_IN_LOCATION")));
             Tools.maxCountIncorrectInputNumber = (Integer.parseInt(properties.getProperty("MAX_COUNT_INCORRECT_INPUT_NUMBER")));
-            Tools.timeOfGame = (Integer.parseInt(properties.getProperty("TIME_OF_GAME")));
+            Tools.daysOfGame = (Integer.parseInt(properties.getProperty("TIME_OF_GAME")));
 
         } catch (NumberFormatException e) {
             throw new ParsingExceptions("В файле app.properties какой-то косяк " + e);

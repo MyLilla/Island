@@ -34,8 +34,8 @@ public class Location {
 
     public static int getCountTypeInLoc(ArrayList<Сreature> сreatures, Сreature сreature) {
         int countTypeInLoc = 0;
-        for (Сreature ani : сreatures) {
-            if (ani.getName().equals(сreature.getName())) {
+        for (Сreature сreature1 : сreatures) {
+            if (сreature1.getName().equals(сreature.getName())) {
                 countTypeInLoc++;
             }
         }
@@ -53,7 +53,7 @@ public class Location {
 
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
                  InvocationTargetException e) {
-            throw new CreateException("Ошибка при создании существа" + e);
+            throw new CreateException("Random creature creation error" + e);
         }
     }
 }

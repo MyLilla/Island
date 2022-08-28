@@ -10,6 +10,6 @@ public class Rabbit extends Herbivore {
         setMaxCountTypeInLoc(150);
         setSpeed(2);
         setCountFoodMax(0.45); //
-        setLossSatiety(0.10);
+        setLossSatiety(0.15);
     }
 }

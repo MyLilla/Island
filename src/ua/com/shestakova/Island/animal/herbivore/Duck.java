@@ -12,7 +12,7 @@ public class Duck extends Herbivore {
         setMaxCountTypeInLoc(200);
         setSpeed(4);
         setCountFoodMax(0.15);
-        setLossSatiety(0.4);
+        setLossSatiety(0.2);
         getPercent().put("Caterpillar", 90);
     }
 

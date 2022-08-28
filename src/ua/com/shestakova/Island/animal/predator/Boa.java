@@ -16,15 +16,9 @@ public class Boa extends Predator {
         setLossSatiety(1);
         getPercent().put("Fox", 15);
         getPercent().put("Rabbit", 20);
-        getPercent().put("Deer", 0);
-        getPercent().put("Horse", 0);
         getPercent().put("Mouse", 40);
-        getPercent().put("Goat", 0);
-        getPercent().put("Sheep", 0);
         getPercent().put("Boar", 5);
-        getPercent().put("Buffalo", 0);
         getPercent().put("Duck", 10);
-        getPercent().put("Caterpillar", 0);
     }
 
     @Override

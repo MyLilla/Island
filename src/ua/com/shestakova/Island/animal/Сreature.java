@@ -32,5 +32,4 @@ public abstract class Сreature {
             Statistics.setCountDiedCreatures(Statistics.getCountDiedCreatures() + 1);
         }
     }
-
 }

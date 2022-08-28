@@ -10,6 +10,6 @@ public class Buffalo extends Herbivore {
         setMaxCountTypeInLoc(10);
         setSpeed(3);
         setCountFoodMax(100);
-        setLossSatiety(30);
+        setLossSatiety(2);
     }
 }

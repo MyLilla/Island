@@ -15,56 +15,54 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 import static java.lang.System.out;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static ua.com.shestakova.Island.settingIsland.Tools.timeOfGame;
+import static ua.com.shestakova.Island.settingIsland.Tools.daysOfGame;
 
 public class Dialog {
-    public Statistics statistics = new Statistics();
-    LifeTime lifeTime = new LifeTime();
+    private final Statistics statistics = new Statistics();
+    private final LifeTime lifeTime = new LifeTime();
 
     public void welcome(PrintStream out) {
 
         out.println(colorize("""
-                Привет, тут симулируют жизни на острове.\s\s""", Attribute.YELLOW_TEXT()));
+                Hello) It's a life simulation on the island.\s\s""", Attribute.YELLOW_TEXT()));
         out.println(colorize("""
-                Ты хочешь запустить симуляцию с автонастройками?\s
-                Тогда введи - 1\s""", Attribute.BLUE_TEXT()));
+                Do you want to start process with auto-settings?\s
+                Please, enter number - 1\s""", Attribute.BLUE_TEXT()));
         out.println(colorize("""
-                Ты хочешь поменять настройки симуляции?\s
-                Тогда введи - 2""", Attribute.GREEN_TEXT()));
+                Do you want to change settings of simulation?\s
+                So, enter number - 2\s""", Attribute.GREEN_TEXT()));
 
         int choice = Tools.getNumberFromUser(1, 2);
-
         createIsland(out, choice);
 
-        out.println("Остров создан и заполнен существами, вот они:\n");
+        out.println("Your island was created! See:\n");
         statistics.printIsland(out);
 
         getFirstInfo(out);
-
         printRules(out);
 
         startSimulation(out);
 
         finish(out);
-
     }
 
     private void createIsland(PrintStream out, int choice) {
         Island island = Island.getIsland();
 
         if (choice == 2) {
-            out.println(colorize("Нужны размеры острова.", Attribute.BLUE_TEXT()));
+            out.println(colorize("I need a size of the island", Attribute.BLUE_TEXT()));
 
-            out.println("введите высоту (число до 100): ");
+            out.println("Input WIDTH (number from 10 to 100): ");
             island.setWidth(Tools.getNumberFromUser(0, island.MAX_SIDE_OF_ISLAND));
-            out.println("введите высоту (число до 100): ");
+            out.println("Input HEIGHT (number from 10 to 100): ");
             island.setHeight(Tools.getNumberFromUser(0, island.MAX_SIDE_OF_ISLAND));
 
-            out.println("введите максимальное число животных на локации: ");
+            out.println("Input MAX count characters in ONE location: ");
             island.setMaxCountInLocation(Tools.getNumberFromUser(0, Integer.MAX_VALUE));
-            out.println("введите количество дней жизни локации: ");
-            Tools.timeOfGame = Tools.getNumberFromUser(0, Integer.MAX_VALUE);
+            out.println("Input count life-days this island: ");
+            Tools.daysOfGame = Tools.getNumberFromUser(0, Integer.MAX_VALUE);
 
         } else {
             Parser parser = new Parser();
@@ -75,69 +73,57 @@ public class Dialog {
 
     private void getFirstInfo(PrintStream out) {
 
-        Statistics.firstInfo = (statistics.getGlobalInformation());
+        Statistics.firstGlobalInfo = statistics.getGlobalInformation();
+        Statistics.firstTypeInfo = statistics.getActualCountType();
 
         out.println(colorize("""
-                \nХотите узнать, сколько животных получилось?\s
-                 Нет - введите 1\s
-                 Да - введите 2""", Attribute.YELLOW_TEXT()));
+                \nDo you want to know how many creatures are there?\s
+                 NO - input 1\s
+                 YES - input 2""", Attribute.YELLOW_TEXT()));
 
         int choice = Tools.getNumberFromUser(1, 2);
         if (choice == 2) {
-            statistics.printStatistics(out, Statistics.firstInfo);
-            statistics.getAndPrintActualCountTypeAnimals();
+            statistics.printGlobalStatistics(out, Statistics.firstGlobalInfo);
+            statistics.printTypeAnimal(Statistics.firstTypeInfo);
         }
     }
 
     private void printRules(PrintStream out) {
-        out.println(colorize("Симуляция завершится, через " + timeOfGame +
-                " суток", Attribute.TEXT_COLOR(5)));
+        out.println(colorize("Simulation will be finished, in " + daysOfGame +
+                " days", Attribute.TEXT_COLOR(5)));
+        out.println(colorize("You'll see statistics information every day", Attribute.TEXT_COLOR(5)));
     }
 
     private void startSimulation(PrintStream out) {
 
-        out.println("Для запуска симуляции введите любой текст и нажмите ENTER");
+        out.println("To run the simulation, enter any text and click ENTER");
         Scanner scanner = new Scanner(System.in);
         scanner.next();
 
-        LocalTime start = LocalTime.now();
-        System.out.println(start + " время начала симуляции");
-
-        startStatisticsThread();
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            Statistics.printMiniStatistics(out);
+        }, 1, 1, SECONDS);
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-        for (int i = 0; i < timeOfGame; i++) {
+        for (int i = 0; i < daysOfGame; i++) {
+            System.out.println("It is day number" + colorize(" " + (i+1), Attribute.BRIGHT_RED_TEXT()));
             startActionsThreads(executorService);
             lifeTime.finalizeTact();
             try {
-                Thread.sleep(500);
-                System.out.println("day " + i);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new ThreadsException("Sleep Exception in days tact" + e);
             }
         }
         executorService.shutdown();
+        scheduledExecutorService.shutdown();
         try {
-            executorService.awaitTermination(20, TimeUnit.SECONDS);
+            executorService.awaitTermination(daysOfGame + 1100, MILLISECONDS);
         } catch (InterruptedException e) {
-            throw new ThreadsException("Ошибка потоков" + e);
+            throw new ThreadsException("Thread was interrupted " + e);
         }
-
-        LocalTime finish = LocalTime.now();
-        System.out.println();
-        System.out.println("на симуляцию ушло " + (finish.getSecond() - start.getSecond()) + " секунд");
-    }
-
-    private void startStatisticsThread() {
-
-        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
-
-        scheduledExecutorService.scheduleAtFixedRate(() -> {
-
-            Thread.currentThread().setDaemon(true);
-            Statistics.printMiniStatistics(out);
-        }, 0, 2, SECONDS);
     }
 
     private void startActionsThreads(ExecutorService executorService) {
@@ -162,22 +148,25 @@ public class Dialog {
 
     private void finish(PrintStream out) {
         out.println(colorize("""
-                Симуляция завершена!\s\s""", Attribute.YELLOW_TEXT()));
+                Simulation was finished!\s\s""", Attribute.YELLOW_TEXT()));
+
+        Statistics.lastTypeInfo = statistics.getActualCountType();
         out.println(colorize("""
-                Хотите узнать, что стало с островом?\s
-                Тогда введи - 1\s""", Attribute.BLUE_TEXT()));
+                Do you want to know what happened to the animals?\s
+                input number 1\s""", Attribute.BLUE_TEXT()));
         out.println(colorize("""
-                Тебе все равно, и ты хочешь закончить?\s
-                Тогда введи - 2""", Attribute.GREEN_TEXT()));
+                You don't care and you want to get out?\s
+                input number 2""", Attribute.GREEN_TEXT()));
 
         switch (Tools.getNumberFromUser(1, 2)) {
             case 1:
-                Statistics.lastInfo = (statistics.getGlobalInformation());
-                statistics.printStatistics(out, Statistics.lastInfo);
-                statistics.getAndPrintActualCountTypeAnimals();
+                Statistics.lastGlobalInfo = (statistics.getGlobalInformation());
+                statistics.printGlobalStatistics(out, Statistics.lastGlobalInfo);
+                statistics.printTypeAnimal(Statistics.lastTypeInfo);
                 statistics.countingAndPrintResult(out);
             case 2: {
-                out.println("Если запустишь снова, результаты могут быть другие! \uD83D\uDE0F");
+                out.println(colorize("If you run it again, the results may be different! \uD83D\uDE0F",
+                        Attribute.RED_TEXT()));
             }
         }
     }

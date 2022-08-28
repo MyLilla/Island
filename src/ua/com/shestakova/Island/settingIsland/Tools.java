@@ -17,7 +17,7 @@ public class Tools {
 
     public static int maxCountIncorrectInputNumber = 3;
     public static final int MAX_PERCENT_BORD = 101;
-    public static int timeOfGame = 10;
+    public static int daysOfGame;
     public static HashMap<Integer, Сreature> mapAllAnimals = addedOfAllAnimals();
 
     public static HashMap<Integer, Сreature> addedOfAllAnimals() {
@@ -55,18 +55,18 @@ public class Tools {
             while ((number <= from || number >= to) && maxCountIncorrectInputNumber >= attempt) {
                 number = scanner.nextInt();
                 if (number < from || number > to) {
-                    System.out.println("Что-то пошло не так, попробуйте еще: ");
+                    System.out.println("Something is wrong, please try again:");
                     attempt++;
                 } else {
                     break;
                 }
             }
             if (maxCountIncorrectInputNumber <= attempt) {
-                System.out.println(colorize("Вы превысили лимит ввода, Adios!", Attribute.RED_TEXT()));
+                System.out.println(colorize("You have exceeded the input limit, Adios!", Attribute.RED_TEXT()));
                 System.exit(0);
             }
         } catch (InputMismatchException e) {
-            System.out.println(colorize("Вы ввели не число, Adios!", Attribute.RED_TEXT()));
+            System.out.println(colorize("You didn't enter a number, Adios!", Attribute.RED_TEXT()));
             System.exit(0);
         }
         return number;

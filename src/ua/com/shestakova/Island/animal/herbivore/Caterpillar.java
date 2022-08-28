@@ -8,8 +8,8 @@ public class Caterpillar extends Herbivore {
         setIcon("\uD83D\uDC1B");
         setWeight(0.01);
         setMaxCountTypeInLoc(1000);
-        setSpeed(0);
-        setCountFoodMax(1);
-        setLossSatiety(0.1);
+        //setSpeed(0);
+       // setCountFoodMax(1);
+        setLossSatiety(0.001);
     }
 }

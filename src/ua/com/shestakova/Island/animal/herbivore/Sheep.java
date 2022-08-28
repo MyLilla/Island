@@ -9,6 +9,6 @@ public class Sheep extends Herbivore {
         setMaxCountTypeInLoc(140);
         setSpeed(3);
         setCountFoodMax(15);
-        setLossSatiety(5);
+        setLossSatiety(3.5);
     }
 }

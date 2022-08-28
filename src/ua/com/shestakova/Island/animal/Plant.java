@@ -1,10 +1,16 @@
 package ua.com.shestakova.Island.animal;
 
+import lombok.Getter;
+import lombok.Setter;
 import ua.com.shestakova.Island.Statistics;
 
 import java.util.ArrayList;
 
 public class Plant extends Сreature {
+    @Getter
+    @Setter
+    private int countDaysLife = 3;
+
     public Plant() {
         setIcon("\uD83C\uDF31");
         setWeight(1);
@@ -17,8 +23,8 @@ public class Plant extends Сreature {
     }
 
     public void copy(ArrayList<Сreature> creatures, int contTypeInLocation) {
-            creatures.add(new Plant());
-            Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
-            // System.out.println("появилось новое растение");
+        creatures.add(new Plant());
+        Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
+       // System.out.println("появилось новое растение");
     }
 }

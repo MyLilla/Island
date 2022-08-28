@@ -13,20 +13,17 @@ import static ua.com.shestakova.Island.settingIsland.Island.field;
 
 @Setter
 @Getter
-@ToString
 public abstract class Animal extends Сreature {
 
     private int speed;
     private double countFoodMax;
     private boolean moved = false;
-    private double satiety = 0;
+    private double satiety;
     private double lossSatiety;
     private Map<String, Integer> percent = new HashMap<>();
 
-    //public abstract boolean checkTypeAnimalForEat(Animal animal);
-
-
     public void eat(ArrayList<Сreature> сreatures) {
+
         if (this.getSatiety() <= getCountFoodMax()) {
 
             Сreature сreatureForEat;
@@ -46,7 +43,7 @@ public abstract class Animal extends Сreature {
                 сreatures.remove(сreatures.indexOf(сreatureForEat));
                  сreatures.trimToSize();
                 Statistics.setCountDiedCreatures(Statistics.getCountDiedCreatures() + 1);
-               // System.out.println(this.getName() + " съел " + сreatureForEat.getName());
+                //System.out.println(this.getName() + " съел " + сreatureForEat.getName());
             }
         }
     }
@@ -122,7 +119,6 @@ public abstract class Animal extends Сreature {
                     if (entry.getValue().getClass() == (this).getClass()) {
                         creatures.add(Location.createRandomСreature((int) entry.getKey()));
                         Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
-                        //  System.out.println(this.getName() + " размножился ");
                     }
                 }
             }

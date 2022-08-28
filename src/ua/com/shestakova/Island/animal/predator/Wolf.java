@@ -10,7 +10,7 @@ public class Wolf extends Predator {
         setMaxCountTypeInLoc(30);
         setSpeed(3);
         setCountFoodMax(8);
-        setLossSatiety(2);
+        setLossSatiety(3);
         getPercent().put("Horse", 10);
         getPercent().put("Rabbit", 60);
         getPercent().put("Deer", 15);
@@ -20,6 +20,5 @@ public class Wolf extends Predator {
         getPercent().put("Boar", 15);
         getPercent().put("Buffalo", 10);
         getPercent().put("Duck", 40);
-        getPercent().put("Caterpillar", 0);
     }
 }
