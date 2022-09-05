@@ -6,6 +6,7 @@ import ua.com.shestakova.island.creature.Plant;
 import ua.com.shestakova.island.creature.Сreature;
 import ua.com.shestakova.island.constructorGame.Location;
 import ua.com.shestakova.island.constructorGame.Tools;
+
 import static ua.com.shestakova.island.constructorGame.Island.field;
 
 public class LifeTime {
@@ -19,13 +20,11 @@ public class LifeTime {
                         Animal runner = (Animal) сreature;
                         if (!runner.isMoved() && k >= 0 && runner.move(i, j)) {
                             k--;
-                           // out.println(runner.getName() + " moved");
                         }
                     }
                 }
             }
         }
-       // out.println("движение");
     }
 
     public synchronized void finalizeTact() {
@@ -33,22 +32,25 @@ public class LifeTime {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) {
                     Сreature сreature = field[i][j].location.get(k);
-                    if (Animal.class.isAssignableFrom(сreature.getClass())) {
-                        Animal animal = (Animal) сreature;
-                        animal.setSatiety(animal.getSatiety() - animal.getLossSatiety());
-                        animal.setMoved(false);
-                    } if ((Plant.class.isAssignableFrom(сreature.getClass()))) {
-                        Plant plant = (Plant) сreature;
-                        plant.setCountDaysLife(plant.getCountDaysLife() - 1);
-                        if (plant.getCountDaysLife() < 0) {
-                            plant.setAlive(false);
-                        }
-                    }
+                    determineType(сreature);
                     сreature.utilize(i, j);
                 }
             }
         }
-      //  out.println("сброс флагов");
+    }
+
+    private void determineType(Сreature сreature) {
+        if (Animal.class.isAssignableFrom(сreature.getClass())) {
+            Animal animal = (Animal) сreature;
+            animal.setSatiety(animal.getSatiety() - animal.getLossSatiety());
+            animal.setMoved(false);
+        } else {
+            Plant plant = (Plant) сreature;
+            plant.setCountDaysLife(plant.getCountDaysLife() - 1);
+            if (plant.getCountDaysLife() < 0) {
+                plant.setAlive(false);
+            }
+        }
     }
 
     public void callActionEat() {
@@ -60,14 +62,13 @@ public class LifeTime {
                     if (Animal.class.isAssignableFrom(сreature.getClass())) {
                         Animal hunter = (Animal) сreature;
                         hunter.eat(field[i][j].location);
-                        if (hunter instanceof Herbivore){
+                        if (hunter instanceof Herbivore) {
                             hunter.eat(field[i][j].location);
                         }
                     }
                 }
             }
         }
-       // out.println("еда ");
     }
 
     public void callActionCopy() {
@@ -85,6 +86,5 @@ public class LifeTime {
                 }
             }
         }
-      //  out.println("размножение ");
     }
 }

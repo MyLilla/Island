@@ -9,7 +9,8 @@ import ua.com.shestakova.island.performingActions.LifeTime;
 
 import java.io.PrintStream;
 import java.util.Scanner;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static com.diogonunes.jcolor.Ansi.colorize;

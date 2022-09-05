@@ -25,6 +25,5 @@ public class Plant extends Сreature {
     public void copy(ArrayList<Сreature> creatures, int contTypeInLocation) {
         creatures.add(new Plant());
         Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
-       // System.out.println("появилось новое растение");
     }
 }
