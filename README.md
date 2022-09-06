@@ -83,7 +83,7 @@
 - Stream API
 - ExecutorService (пакет java.util.concurrent)
 - Reflection API
-- библиотеки Lombok и JColor
+- Maven (Lombok и JColor)
 
 ### Примеры работы программы:
 ```

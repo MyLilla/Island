@@ -15,9 +15,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Parser {
-    private final File PROP_SOURCE = new File("src/ua/com/shestakova/Island/resources/settingIsland.properties");
-    private final File JSON_SOURCE = new File("src/ua/com/shestakova/Island/resources/allAnimal.json");
-
+    private final File PROP_SOURCE = new File("src/main/resources/settingIsland.properties");
+    private final File JSON_SOURCE = new File("src/main/resources/allAnimal.json");
 
     public void writerAllAnimalToJson() {
 
