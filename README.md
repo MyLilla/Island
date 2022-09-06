@@ -22,9 +22,9 @@
 
 <h3><a>Сборка проекта: </a></h3>
 
-```$ cd island 1.0```
+```$ mvn package```
 <h3 ><a>Запуск проекта:</a></h3>
-```$ java -jar .out/artifacts/island_1_0/island 1.0.jar```
+```$ java -jar ./target/island 1.0.jar```
 
 <h3 ><a>Краткое описание классов</a></h3>
 >В корневом пакете ```ua.com.javarush.shestakova.Island``` находится:
@@ -86,6 +86,9 @@
 - Maven (Lombok и JColor)
 
 ### Примеры работы программы:
+
+https://user-images.githubusercontent.com/105308647/188747613-796dcebd-c53d-4dc7-8086-504aa8eba0c1.mp4
+
 ```
 Hello) It's a life simulation on the island.  
 Do you want to start process with auto-settings? 
