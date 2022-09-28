@@ -3,38 +3,35 @@ package ua.com.shestakova.island;
 import com.diogonunes.jcolor.Attribute;
 import lombok.Getter;
 import lombok.Setter;
-import ua.com.shestakova.island.creature.*;
 import ua.com.shestakova.island.constructorGame.Tools;
+import ua.com.shestakova.island.creature.Creature;
+import ua.com.shestakova.island.creature.Herbivore;
+import ua.com.shestakova.island.creature.Plant;
+import ua.com.shestakova.island.creature.Predator;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 import static ua.com.shestakova.island.constructorGame.Island.field;
 
-
+@Getter
+@Setter
 public class Statistics {
 
-    public static Map<String, Integer> firstGlobalInfo;
-    public static Map<String, Integer> lastGlobalInfo;
-    public static Map<String, Integer> firstTypeInfo;
-    public static Map<String, Integer> lastTypeInfo;
-    @Getter
-    @Setter
-    private static int countDiedCreatures;
-    @Getter
-    @Setter
-    private static int countNewCreatures;
+    private Map<String, Integer> firstGlobalInfo;
+    private Map<String, Integer> lastGlobalInfo;
+    private Map<String, Integer> firstTypeInfo;
+    private Map<String, Integer> lastTypeInfo;
+    private int countDiedCreatures;
+    private  int countNewCreatures;
 
     public void printIsland(PrintStream out) {
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length; j++) {
-                ArrayList<Сreature> loc = field[i][j].location;
-                if (loc.size() > 0) {
-                    String icon = loc.get(Tools.getRandomNumber(loc.size())).getIcon();
+        for (int x = 0; x < field.length; x++) {
+            for (int y = 0; y < field[x].length; y++) {
+                List<Creature> location = field[x][y].location;
+                if (!location.isEmpty()) {
+                    String icon = location.get(Tools.getRandomNumber(location.size())).getIcon();
                     out.print(colorize("[", Attribute.RED_TEXT()) + icon + colorize("]"
                             , Attribute.RED_TEXT()));
                 } else {
@@ -54,15 +51,15 @@ public class Statistics {
 
         Map<String, Integer> firstInfo = new HashMap<>();
 
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length; j++) {
-                if (field[i][j].location.size() > 0) filledLocations++;
-                for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Сreature сreature = field[i][j].location.get(k);
+        for (int x = 0; x < field.length; x++) {
+            for (int y = 0; y < field[x].length; y++) {
+                if (!field[x][y].location.isEmpty()) filledLocations++;
+                for (int k = 0; k < field[x][y].location.size(); k++) {
+                    Creature creature = field[x][y].location.get(k);
                     countAllAnimal++;
-                    if (сreature.getClass().equals(Plant.class)) countPlant++;
-                    if (Predator.class.isAssignableFrom(сreature.getClass())) countPredator++;
-                    if (Herbivore.class.isAssignableFrom(сreature.getClass())) countHerbivore++;
+                    if (creature.getClass().equals(Plant.class)) countPlant++;
+                    if (Predator.class.isAssignableFrom(creature.getClass())) countPredator++;
+                    if (Herbivore.class.isAssignableFrom(creature.getClass())) countHerbivore++;
                 }
             }
         }
@@ -92,7 +89,7 @@ public class Statistics {
             for (int j = 0; j < field[i].length; j++) {
 
                 for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Сreature animal = field[i][j].location.get(k);
+                    Creature animal = field[i][j].location.get(k);
 
                     if (map.containsKey(animal.getName())) {
                         map.put(animal.getName(), map.get(animal.getName()) + 1);
@@ -112,41 +109,41 @@ public class Statistics {
         }
     }
 
-    public static void printMiniStatistics(PrintStream out) {
-        out.printf(colorize("From start of simulation %s creatures died\n"), countDiedCreatures);
+    public void printMiniStatistics(PrintStream out) {
+        out.printf(colorize("From start of simulation %s creatures died\n"), this.countDiedCreatures);
         out.printf(colorize("From start of simulation %s creatures born\n"), countNewCreatures);
     }
 
     public void countingAndPrintResult(PrintStream out) {
-        if (Statistics.firstGlobalInfo.get("countAllAnimal") < Statistics.lastGlobalInfo.get("countAllAnimal")) {
+        if (this.firstGlobalInfo.get("countAllAnimal") < this.lastGlobalInfo.get("countAllAnimal")) {
             out.println(colorize("The island got bigger!", Attribute.RED_TEXT()));
         }
-        if (Statistics.firstGlobalInfo.get("countPlant") < Statistics.lastGlobalInfo.get("countPlant")) {
+        if (this.firstGlobalInfo.get("countPlant") < this.lastGlobalInfo.get("countPlant")) {
             out.println(colorize("Lots of plants now.\nTheir number has increased by " +
-                            (Statistics.lastGlobalInfo.get("countPlant") - Statistics.firstGlobalInfo.get("countPlant")),
+                            (this.lastGlobalInfo.get("countPlant") - this.firstGlobalInfo.get("countPlant")),
                     Attribute.GREEN_TEXT()));
         }
-        if (Statistics.firstGlobalInfo.get("countPredator") < Statistics.lastGlobalInfo.get("countPredator")) {
+        if (this.firstGlobalInfo.get("countPredator") < this.lastGlobalInfo.get("countPredator")) {
             out.println("Your island has become more" + colorize(" dangerous", Attribute.RED_TEXT()) + ", there are " +
-                    (Statistics.lastGlobalInfo.get("countPredator") - Statistics.firstGlobalInfo.get("countPredator")
+                    (this.lastGlobalInfo.get("countPredator") - this.firstGlobalInfo.get("countPredator")
                             + " more predators!"));
         }
-        if (Statistics.firstGlobalInfo.get("countHerbivore") < Statistics.lastGlobalInfo.get("countHerbivore")) {
+        if (this.firstGlobalInfo.get("countHerbivore") < this.lastGlobalInfo.get("countHerbivore")) {
             out.println("But, there is enough food for them too) Count of herbivores now: " +
-                    Statistics.lastGlobalInfo.get("countHerbivore"));
+                    this.lastGlobalInfo.get("countHerbivore"));
         } else {
             out.println("And this is sad, because count of herbivores has decreased by " +
-                    (Statistics.firstGlobalInfo.get("countHerbivore") - Statistics.lastGlobalInfo.get("countHerbivore")
+                    (this.firstGlobalInfo.get("countHerbivore") - this.lastGlobalInfo.get("countHerbivore")
                             + " your wolves will eat you. Soon)"));
         }
         out.println("In the beginning, it was the most: " +
-                Statistics.firstTypeInfo.entrySet().stream()
+                this.firstTypeInfo.entrySet().stream()
                         .max(Comparator.comparing(Map.Entry::getValue))
                         .map(Map.Entry::getKey)
                         .orElse(null));
 
         out.println("In the ending, it was the most: " +
-                Statistics.lastTypeInfo.entrySet().stream()
+                this.lastTypeInfo.entrySet().stream()
                         .max(Comparator.comparing(Map.Entry::getValue))
                         .map(Map.Entry::getKey)
                         .orElse(null));

@@ -2,6 +2,7 @@ package ua.com.shestakova.island.creature;
 
 import lombok.Getter;
 import lombok.Setter;
+import ua.com.shestakova.island.Dialog;
 import ua.com.shestakova.island.Statistics;
 import ua.com.shestakova.island.constructorGame.Tools;
 import ua.com.shestakova.island.constructorGame.Location;
@@ -12,7 +13,7 @@ import static ua.com.shestakova.island.constructorGame.Island.field;
 
 @Setter
 @Getter
-public abstract class Animal extends Сreature {
+public abstract class Animal extends Creature {
 
     private boolean moved = false;
     private int speed;
@@ -21,32 +22,32 @@ public abstract class Animal extends Сreature {
     private double lossSatiety;
     private Map<String, Integer> percent = new HashMap<>();
 
-    public void eat(ArrayList<Сreature> сreatures) {
+    public void eat(ArrayList<Creature> creatures) {
 
         if (this.getSatiety() <= getCountFoodMax()) {
 
-            Сreature сreatureForEat;
+            Creature creatureForEat;
             try {
-                сreatureForEat = сreatures.stream()
-                        .filter(Сreature::isAlive)
+                creatureForEat = creatures.stream()
+                        .filter(Creature::isAlive)
                         .filter(this::checkTypeAnimalForEat)
                         .findAny().get();
             } catch (NoSuchElementException e) {
                 return;
             }
-            if (checkChanceEating(this, сreatureForEat)) {
+            if (checkChanceEating(this, creatureForEat)) {
 
-                сreatureForEat.setAlive(false);
-                setSatiety(Math.min(getSatiety() + сreatureForEat.getWeight(), getCountFoodMax()));
+                creatureForEat.setAlive(false);
+                setSatiety(Math.min(getSatiety() + creatureForEat.getWeight(), getCountFoodMax()));
 
-                сreatures.remove(сreatures.indexOf(сreatureForEat));
-                сreatures.trimToSize();
-                Statistics.setCountDiedCreatures(Statistics.getCountDiedCreatures() + 1);
+                creatures.remove(creatures.indexOf(creatureForEat));
+                creatures.trimToSize();
+                Dialog.statistics.setCountDiedCreatures(Dialog.statistics.getCountDiedCreatures() + 1);
             }
         }
     }
 
-    private boolean checkChanceEating(Animal hunter, Сreature prey) {
+    private boolean checkChanceEating(Animal hunter, Creature prey) {
 
         int chance = Tools.getRandomNumber(Tools.MAX_PERCENT_BORD);
 
@@ -63,7 +64,7 @@ public abstract class Animal extends Сreature {
 
     public boolean move(int width, int height) {
 
-        ArrayList<Сreature> locationForMove = getNewField(width, height);
+        ArrayList<Creature> locationForMove = getNewField(width, height);
 
         int countTypeInLoc = Location.getCountTypeInLoc(locationForMove, this);
 
@@ -77,7 +78,7 @@ public abstract class Animal extends Сreature {
         return false;
     }
 
-    private ArrayList<Сreature> getNewField(int width, int height) {
+    private ArrayList<Creature> getNewField(int width, int height) {
         int widthNew = width;
         int heightNew = height;
         if (chanceMoveFree(width, height)) {
@@ -109,14 +110,14 @@ public abstract class Animal extends Сreature {
         return x + this.getSpeed() * index;
     }
 
-    public void copy(ArrayList<Сreature> creatures, int countAnimalInLoc) {
+    public void copy(List<Creature> creatures, int countAnimalInLoc) {
 
         if (countAnimalInLoc > 1) {
 
             for (Map.Entry entry : Tools.mapAllAnimals.entrySet()) {
                 if (entry.getValue().getClass() == (this).getClass()) {
                     creatures.add(Location.createRandomСreature((int) entry.getKey()));
-                    Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
+                    Dialog.statistics.setCountNewCreatures(Dialog.statistics.getCountNewCreatures() + 1);
                 }
             }
         }

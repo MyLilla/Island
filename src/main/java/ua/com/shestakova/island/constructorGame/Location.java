@@ -1,6 +1,6 @@
 package ua.com.shestakova.island.constructorGame;
 
-import ua.com.shestakova.island.creature.Сreature;
+import ua.com.shestakova.island.creature.Creature;
 import ua.com.shestakova.island.exceptions.CreateException;
 
 import java.lang.reflect.Constructor;
@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Location {
 
-    public ArrayList<Сreature> location;
+    public ArrayList<Creature> location;
 
     public void createLocation(int maxCharacter) {
 
@@ -19,7 +19,7 @@ public class Location {
         for (int i = 1; i <= Tools.getRandomNumber(maxCharacter + 1); i++) {
             int numberOfCreature = new Random().nextInt(Tools.mapAllAnimals.size());
 
-            Сreature randomCreature = createRandomСreature(numberOfCreature);
+            Creature randomCreature = createRandomСreature(numberOfCreature);
 
             if (location.isEmpty()) {
                 location.add(randomCreature);
@@ -32,9 +32,9 @@ public class Location {
         }
     }
 
-    public static int getCountTypeInLoc(ArrayList<Сreature> сreatures, Сreature сreature) {
+    public static int getCountTypeInLoc(ArrayList<Creature> сreatures, Creature сreature) {
         int countTypeInLoc = 0;
-        for (Сreature сreature1 : сreatures) {
+        for (Creature сreature1 : сreatures) {
             if (сreature1.getName().equals(сreature.getName())) {
                 countTypeInLoc++;
             }
@@ -42,14 +42,14 @@ public class Location {
         return countTypeInLoc;
     }
 
-    public static Сreature createRandomСreature(int creatureNumber) {
+    public static Creature createRandomСreature(int creatureNumber) {
 
-        Сreature character = Tools.mapAllAnimals.get(creatureNumber);
+        Creature character = Tools.mapAllAnimals.get(creatureNumber);
         Class clazz = character.getClass();
         Constructor<?> constructor;
         try {
             constructor = clazz.getConstructor();
-            return (Сreature) constructor.newInstance();
+            return (Creature) constructor.newInstance();
 
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
                  InvocationTargetException e) {

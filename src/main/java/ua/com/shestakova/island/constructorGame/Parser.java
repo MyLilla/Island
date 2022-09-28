@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import ua.com.shestakova.island.creature.Сreature;
+import ua.com.shestakova.island.creature.Creature;
 import ua.com.shestakova.island.exceptions.ParsingExceptions;
 
 import java.io.FileWriter;
@@ -21,12 +21,12 @@ public class Parser {
     public void writerAllAnimalToJson() {
 
         JSONObject obj = new JSONObject();
-        HashMap<Integer, Сreature> allAnimal = Tools.mapAllAnimals;
+        Map<Integer, Creature> allAnimal = Tools.mapAllAnimals;
 
         for (Map.Entry entry : allAnimal.entrySet()) {
 
             String name = entry.getValue().getClass().getSimpleName();
-            Сreature animal = (Сreature) entry.getValue();
+            Creature animal = (Creature) entry.getValue();
 
             JSONObject obj2 = new JSONObject();
             obj2.put("icon", animal.getIcon());

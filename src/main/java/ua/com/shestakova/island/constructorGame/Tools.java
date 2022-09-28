@@ -1,15 +1,12 @@
 package ua.com.shestakova.island.constructorGame;
 
 import com.diogonunes.jcolor.Attribute;
-import ua.com.shestakova.island.creature.Сreature;
+import ua.com.shestakova.island.creature.Creature;
 import ua.com.shestakova.island.creature.Plant;
 import ua.com.shestakova.island.creature.herbivore.*;
 import ua.com.shestakova.island.creature.predator.*;
 
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 
@@ -18,9 +15,9 @@ public class Tools {
     public static final int MAX_PERCENT_BORD = 101;
     public static int maxCountIncorrectInputNumber = 3;
     public static int daysOfGame;
-    public static HashMap<Integer, Сreature> mapAllAnimals = addedOfAllAnimals();
+    public static Map<Integer, Creature> mapAllAnimals = addedOfAllAnimals();
 
-    public static HashMap<Integer, Сreature> addedOfAllAnimals() {
+    public static Map<Integer, Creature> addedOfAllAnimals() {
         mapAllAnimals = new HashMap<>();
         mapAllAnimals.put(0, new Wolf());
         mapAllAnimals.put(1, new Deer());

@@ -6,7 +6,7 @@ public abstract class Predator extends Animal {
     }
 
     @Override
-    public boolean checkTypeAnimalForEat(Сreature animal) {
+    public boolean checkTypeAnimalForEat(Creature animal) {
         return Herbivore.class.isAssignableFrom(animal.getClass());
     }
 }

@@ -1,8 +1,8 @@
 package ua.com.shestakova.island.creature.herbivore;
 
+import ua.com.shestakova.island.creature.Creature;
 import ua.com.shestakova.island.creature.Herbivore;
 import ua.com.shestakova.island.creature.Plant;
-import ua.com.shestakova.island.creature.Сreature;
 
 public class Mouse extends Herbivore {
 
@@ -17,7 +17,7 @@ public class Mouse extends Herbivore {
     }
 
     @Override
-    public boolean checkTypeAnimalForEat(Сreature сreature) {
+    public boolean checkTypeAnimalForEat(Creature сreature) {
         return сreature instanceof Plant ||
                 сreature instanceof Caterpillar;
     }

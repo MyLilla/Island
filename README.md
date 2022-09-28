@@ -38,7 +38,7 @@
 
 >В пакете ```creature``` находятся все виды существ острова
 - класс-Родитель ```Creature``` - содержит общие поля и методы всех существ
-```ua.com.shestakova.island.creature.Сreature```
+```ua.com.shestakova.island.creature.Creature```
 - классы ```Animal``` и ```Plant``` - наследники ```Creature``` содержат более 
 подробные характеристики для животных и растений
 - классы ```Herbivore``` и ```Predator``` - в свою очередь наследники ```Animal```,

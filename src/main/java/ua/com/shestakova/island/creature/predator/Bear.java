@@ -1,8 +1,8 @@
 package ua.com.shestakova.island.creature.predator;
 
+import ua.com.shestakova.island.creature.Creature;
 import ua.com.shestakova.island.creature.Herbivore;
 import ua.com.shestakova.island.creature.Predator;
-import ua.com.shestakova.island.creature.Сreature;
 
 public class Bear extends Predator {
 
@@ -26,7 +26,7 @@ public class Bear extends Predator {
     }
 
     @Override
-    public boolean checkTypeAnimalForEat(Сreature animal) {
+    public boolean checkTypeAnimalForEat(Creature animal) {
         return Herbivore.class.isAssignableFrom(animal.getClass()) ||
                 animal instanceof Boa;
     }

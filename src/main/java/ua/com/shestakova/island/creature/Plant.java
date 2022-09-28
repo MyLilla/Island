@@ -2,11 +2,11 @@ package ua.com.shestakova.island.creature;
 
 import lombok.Getter;
 import lombok.Setter;
-import ua.com.shestakova.island.Statistics;
+import ua.com.shestakova.island.Dialog;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class Plant extends Сreature {
+public class Plant extends Creature {
     @Getter
     @Setter
     private int countDaysLife = 3;
@@ -18,12 +18,12 @@ public class Plant extends Сreature {
     }
 
     @Override
-    public boolean checkTypeAnimalForEat(Сreature сreature) {
+    public boolean checkTypeAnimalForEat(Creature creature) {
         return false;
     }
 
-    public void copy(ArrayList<Сreature> creatures, int contTypeInLocation) {
+    public void copy(List<Creature> creatures, int contTypeInLocation) {
         creatures.add(new Plant());
-        Statistics.setCountNewCreatures(Statistics.getCountNewCreatures() + 1);
+        Dialog.statistics.setCountNewCreatures(Dialog.statistics.getCountNewCreatures() + 1);
     }
 }
