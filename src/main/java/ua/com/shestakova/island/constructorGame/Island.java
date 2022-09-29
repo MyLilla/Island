@@ -5,19 +5,6 @@ import lombok.Setter;
 
 public class Island {
 
-    private static Island island;
-    public final int MAX_SIDE_OF_ISLAND = 100;
-
-    public static Island getIsland() {
-        if (island == null) {
-            island = new Island();
-        }
-        return island;
-    }
-
-    private Island() {
-    }
-
     public static Location[][] field;
     @Getter
     @Setter

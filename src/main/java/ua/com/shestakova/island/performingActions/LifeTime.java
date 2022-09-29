@@ -15,9 +15,9 @@ public class LifeTime {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Creature сreature = field[i][j].location.get(k);
-                    if (Animal.class.isAssignableFrom(сreature.getClass())) {
-                        Animal runner = (Animal) сreature;
+                    Creature creature = field[i][j].location.get(k);
+                    if (Animal.class.isAssignableFrom(creature.getClass())) {
+                        Animal runner = (Animal) creature;
                         if (!runner.isMoved() && k >= 0 && runner.move(i, j)) {
                             k--;
                         }
@@ -31,21 +31,21 @@ public class LifeTime {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Creature сreature = field[i][j].location.get(k);
-                    determineType(сreature);
-                    сreature.utilize(i, j);
+                    Creature creature = field[i][j].location.get(k);
+                    determineType(creature);
+                    creature.utilize(i, j);
                 }
             }
         }
     }
 
-    private void determineType(Creature сreature) {
-        if (Animal.class.isAssignableFrom(сreature.getClass())) {
-            Animal animal = (Animal) сreature;
+    private void determineType(Creature creature) {
+        if (Animal.class.isAssignableFrom(creature.getClass())) {
+            Animal animal = (Animal) creature;
             animal.setSatiety(animal.getSatiety() - animal.getLossSatiety());
             animal.setMoved(false);
         } else {
-            Plant plant = (Plant) сreature;
+            Plant plant = (Plant) creature;
             plant.setCountDaysLife(plant.getCountDaysLife() - 1);
             if (plant.getCountDaysLife() < 0) {
                 plant.setAlive(false);
@@ -58,9 +58,9 @@ public class LifeTime {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Creature сreature = field[i][j].location.get(k);
-                    if (Animal.class.isAssignableFrom(сreature.getClass())) {
-                        Animal hunter = (Animal) сreature;
+                    Creature creature = field[i][j].location.get(k);
+                    if (Animal.class.isAssignableFrom(creature.getClass())) {
+                        Animal hunter = (Animal) creature;
                         hunter.eat(field[i][j].location);
                         if (hunter instanceof Herbivore) {
                             hunter.eat(field[i][j].location);
@@ -76,12 +76,12 @@ public class LifeTime {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Creature сreature = field[i][j].location.get(k);
+                    Creature creature = field[i][j].location.get(k);
 
-                    int countTypeInLoc = Location.getCountTypeInLoc(field[i][j].location, сreature);
-                    if (сreature.getChanceMakeCopy() < Tools.getRandomNumber(Tools.MAX_PERCENT_BORD) &&
-                            countTypeInLoc < сreature.getMaxCountTypeInLoc()) {
-                        сreature.copy(field[i][j].location, countTypeInLoc);
+                    int countTypeInLoc = Location.getCountTypeInLoc(field[i][j].location, creature);
+                    if (creature.getChanceMakeCopy() < Tools.getRandomNumber(Tools.MAX_PERCENT_BORD) &&
+                            countTypeInLoc < creature.getMaxCountTypeInLoc()) {
+                        creature.copy(field[i][j].location, countTypeInLoc);
                     }
                 }
             }

@@ -51,6 +51,7 @@ public class Statistics {
 
         Map<String, Integer> firstInfo = new HashMap<>();
 
+
         for (int x = 0; x < field.length; x++) {
             for (int y = 0; y < field[x].length; y++) {
                 if (!field[x][y].location.isEmpty()) filledLocations++;

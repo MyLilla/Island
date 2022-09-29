@@ -1,22 +1,21 @@
 package ua.com.shestakova.island;
 
 import com.diogonunes.jcolor.Attribute;
-import ua.com.shestakova.island.constructorGame.Island;
-import ua.com.shestakova.island.constructorGame.Parser;
 import ua.com.shestakova.island.constructorGame.Tools;
-import ua.com.shestakova.island.performingActions.StartSimulation;
 
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
-import static ua.com.shestakova.island.constructorGame.Tools.daysOfGame;
+import static ua.com.shestakova.island.constructorGame.Tools.*;
+import static ua.com.shestakova.island.performingActions.Simulation.timeOfGame;
 
 public class Dialog {
-    public final int CHOICE_ONE = 1;
-    public final int CHOICE_TWO = 2;
+
     public static final Statistics statistics = new Statistics();
 
-    public void welcome(PrintStream out) {
+    public boolean getTypeOfSettings(PrintStream out) {
 
         out.println(colorize("""
                 Hello) It's a life simulation on the island.\s\s""", Attribute.YELLOW_TEXT()));
@@ -27,42 +26,41 @@ public class Dialog {
                 Do you want to change settings of simulation?\s
                 So, enter number - 2\s""", Attribute.GREEN_TEXT()));
 
-        int choice = Tools.getNumberFromUser(CHOICE_ONE, CHOICE_TWO);
-        createIsland(out, choice);
+        return Tools.getNumberFromUser(CHOICE_ONE, CHOICE_TWO) == 1;
+    }
+
+    public Map<String, Integer> getParametersForCreateIsland(PrintStream out, boolean autoSettings) {
+
+        if (autoSettings) {
+            return settings;
+        } else {
+            out.println(colorize("I need a size of the island", Attribute.BLUE_TEXT()));
+
+            Map<String, Integer> settings = new HashMap<>();
+
+            out.println("Input WIDTH (number from 10 to 100): ");
+            settings.put("WIDTH", Tools.getNumberFromUser(0, Tools.MAX_SIDE_OF_ISLAND));
+
+            out.println("Input HEIGHT (number from 10 to 100): ");
+            settings.put("HEIGHT", Tools.getNumberFromUser(0, Tools.MAX_SIDE_OF_ISLAND));
+
+            out.println("Input MAX count characters in ONE location: ");
+            settings.put("MAX_COUNT_IN_LOCATION", Tools.getNumberFromUser(0, Integer.MAX_VALUE));
+
+            out.println("Input count life-days this island: ");
+            settings.put("TIME_OF_GAME", Tools.getNumberFromUser(0, Integer.MAX_VALUE));
+
+            return settings;
+        }
+    }
+
+    public void printInitialisationInfo(PrintStream out) {
 
         out.println("Your island was created! Look:\n");
         statistics.printIsland(out);
 
         getInitialisationInfo(out);
         printRules(out);
-
-        StartSimulation start = new StartSimulation();
-        start.startSimulation(out);
-
-        finish(out);
-    }
-
-    private void createIsland(PrintStream out, int choice) {
-        Island island = Island.getIsland();
-
-        if (choice == CHOICE_TWO) {
-            out.println(colorize("I need a size of the island", Attribute.BLUE_TEXT()));
-
-            out.println("Input WIDTH (number from 10 to 100): ");
-            island.setWidth(Tools.getNumberFromUser(0, island.MAX_SIDE_OF_ISLAND));
-            out.println("Input HEIGHT (number from 10 to 100): ");
-            island.setHeight(Tools.getNumberFromUser(0, island.MAX_SIDE_OF_ISLAND));
-
-            out.println("Input MAX count characters in ONE location: ");
-            island.setMaxCountInLocation(Tools.getNumberFromUser(0, Integer.MAX_VALUE));
-            out.println("Input count life-days this island: ");
-            Tools.daysOfGame = Tools.getNumberFromUser(0, Integer.MAX_VALUE);
-
-        } else {
-            Parser parser = new Parser();
-            parser.getParametersFromProperties(island);
-        }
-        island.addLocationOnIsland(island.getWidth(), island.getHeight());
     }
 
     private void getInitialisationInfo(PrintStream out) {
@@ -83,12 +81,13 @@ public class Dialog {
     }
 
     private void printRules(PrintStream out) {
-        out.println(colorize("Simulation will be finished, in " + daysOfGame +
+        out.println(colorize("Simulation will be finished, in " + timeOfGame +
                 " days", Attribute.TEXT_COLOR(5)));
         out.println(colorize("You'll see statistics information every day", Attribute.TEXT_COLOR(5)));
     }
 
-    private void finish(PrintStream out) {
+
+    public void finish(PrintStream out) {
         out.println(colorize("""
                 Simulation was finished!\s\s""", Attribute.YELLOW_TEXT()));
 
@@ -110,7 +109,6 @@ public class Dialog {
                 out.println(colorize("If you run it again, the results may be different! \uD83D\uDE0F",
                         Attribute.RED_TEXT()));
             }
-
         }
     }
 }

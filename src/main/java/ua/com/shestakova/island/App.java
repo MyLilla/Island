@@ -1,10 +1,15 @@
 package ua.com.shestakova.island;
 
+import ua.com.shestakova.island.performingActions.Simulation;
+
+import static java.lang.System.out;
+
 public class App {
 
     public static void main(String[] args) {
 
-        Dialog dialog = new Dialog();
-        dialog.welcome(System.out);
+        Simulation simulation = new Simulation();
+        simulation.startSimulation(out);
+
     }
 }
