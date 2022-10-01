@@ -1,0 +1,97 @@
+{
+  "Bear": {
+    "icon": "🐻",
+    "name": "Bear",
+    "weight": 500.0,
+    "maxCountTypeInLoc": 5
+  },
+  "Boa": {
+    "icon": "🐍",
+    "name": "Boa",
+    "weight": 15.0,
+    "maxCountTypeInLoc": 30
+  },
+  "Boar": {
+    "icon": "🐗",
+    "maxCountTypeInLoc": 50,
+    "name": "Boar",
+    "weight": 400.0
+  },
+  "Buffalo": {
+    "icon": "🐃",
+    "name": "Buffalo",
+    "weight": 700.0,
+    "maxCountTypeInLoc": 10
+  },
+  "Caterpillar": {
+    "icon": "🐛",
+    "name": "Caterpillar",
+    "weight": 0.01,
+    "maxCountTypeInLoc": 1000
+  },
+  "Deer": {
+    "icon": "🦌",
+    "name": "Deer",
+    "weight": 300.0,
+    "maxCountTypeInLoc": 20
+  },
+  "Duck": {
+    "icon": "🦆",
+    "name": "Duck",
+    "weight": 1.0,
+    "maxCountTypeInLoc": 200
+  },
+  "Eagle": {
+    "icon": "🦅",
+    "name": "Eagle",
+    "weight": 6.0,
+    "maxCountTypeInLoc": 20
+  },
+  "Fox": {
+    "icon": "🦊",
+    "name": "Fox",
+    "weight": 8.0,
+    "maxCountTypeInLoc": 30
+  },
+  "Goat": {
+    "icon": "🐐",
+    "name": "Goat",
+    "weight": 60.0,
+    "maxCountTypeInLoc": 140
+  },
+  "Horse": {
+    "icon": "🐎",
+    "name": "Horse",
+    "weight": 400.0,
+    "maxCountTypeInLoc": 20
+  },
+  "Mouse": {
+    "icon": "🐁",
+    "name": "Mouse",
+    "weight": 0.05,
+    "maxCountTypeInLoc": 500
+  },
+  "Plant": {
+    "icon": "🌱",
+    "name": "Plant",
+    "weight": 1.0,
+    "maxCountTypeInLoc": 200
+  },
+  "Rabbit": {
+    "icon": "🐇",
+    "maxCountTypeInLoc": 150,
+    "name": "Rabbit",
+    "weight": 2.0
+  },
+  "Sheep": {
+    "icon": "🐑",
+    "name": "Sheep",
+    "weight": 70.0,
+    "maxCountTypeInLoc": 140
+  },
+  "Wolf": {
+    "icon": "🐺",
+    "name": "Wolf",
+    "weight": 50.0,
+    "maxCountTypeInLoc":30}
+}
