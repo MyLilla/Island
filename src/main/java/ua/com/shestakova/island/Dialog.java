@@ -76,7 +76,7 @@ public class Dialog {
         int choice = Tools.getNumberFromUser(CHOICE_ONE, CHOICE_TWO);
         if (choice == CHOICE_ONE) {
             statistics.printGlobalStatistics(out, statistics.getFirstGlobalInfo());
-            statistics.printTypeAnimal(statistics.getFirstGlobalInfo());
+            statistics.printTypeAnimal(statistics.getFirstTypeInfo(), out);
         }
     }
 
@@ -103,7 +103,7 @@ public class Dialog {
             case CHOICE_ONE:
                 statistics.setLastGlobalInfo(statistics.getGlobalInformation());
                 statistics.printGlobalStatistics(out, statistics.getLastGlobalInfo());
-                statistics.printTypeAnimal(statistics.getLastTypeInfo());
+                statistics.printTypeAnimal(statistics.getLastTypeInfo(), out);
                 statistics.countingAndPrintResult(out);
             case CHOICE_TWO: {
                 out.println(colorize("If you run it again, the results may be different! \uD83D\uDE0F",

@@ -17,7 +17,7 @@ public class Tools {
     public static final int CHOICE_TWO = 2;
     public static final int MAX_PERCENT_BORD = 101;
     public static final int MAX_SIDE_OF_ISLAND = 100;
-    public static final  Map <String, Integer> settings = getDefaultSettings();
+    public static final Map<String, Integer> settings = getDefaultSettings();
     public static final int MAX_COUNT_INCORRECT_INPUT_NUMBER = 3;
     public static Map<Integer, Creature> mapAllAnimals = addedOfAllAnimals();
 
@@ -77,11 +77,11 @@ public class Tools {
         return number;
     }
 
-    private static Map <String, Integer> getDefaultSettings () {
-        Map <String, Integer> settings = new HashMap<>();
-        settings.put("WIDTH", 10);
-        settings.put("HEIGHT", 10);
-        settings.put("MAX_COUNT_IN_LOCATION", 10);
+    private static Map<String, Integer> getDefaultSettings() {
+        Map<String, Integer> settings = new HashMap<>();
+        settings.put("WIDTH", 100);
+        settings.put("HEIGHT", 20);
+        settings.put("MAX_COUNT_IN_LOCATION", 20);
         settings.put("MAX_COUNT_INCORRECT_INPUT_NUMBER", 3);
         settings.put("TIME_OF_GAME", 10);
 

@@ -20,7 +20,7 @@ public class Location {
         for (int i = 1; i <= Tools.getRandomNumber(maxCharacter + 1); i++) {
             int numberOfCreature = new Random().nextInt(Tools.mapAllAnimals.size());
 
-            Creature randomCreature = createRandomСreature(numberOfCreature);
+            Creature randomCreature = createRandomCreature(numberOfCreature);
 
             if (location.isEmpty()) {
                 location.add(randomCreature);
@@ -33,17 +33,17 @@ public class Location {
         }
     }
 
-    public static int getCountTypeInLoc(ArrayList<Creature> сreatures, Creature сreature) {
-        int countTypeInLoc = 0;
-        for (Creature сreature1 : сreatures) {
-            if (сreature1.getName().equals(сreature.getName())) {
-                countTypeInLoc++;
+    public static int getCountTypeInLoc(List<Creature> creatures, Creature creature) {
+        int countTypeInLocation = 0;
+        for (Creature creature1 : creatures) {
+            if (creature1.getName().equals(creature.getName())) {
+                countTypeInLocation++;
             }
         }
-        return countTypeInLoc;
+        return countTypeInLocation;
     }
 
-    public static Creature createRandomСreature(int creatureNumber) {
+    public static Creature createRandomCreature(int creatureNumber) {
 
         Creature character = Tools.mapAllAnimals.get(creatureNumber);
         Class clazz = character.getClass();

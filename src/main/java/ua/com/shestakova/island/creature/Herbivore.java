@@ -3,7 +3,7 @@ package ua.com.shestakova.island.creature;
 
 public abstract class Herbivore extends Animal {
 
-    public Herbivore() {
+    protected Herbivore() {
         getPercent().put("Plant", 100);
     }
 

@@ -1,7 +1,7 @@
 package ua.com.shestakova.island.creature;
 
 public abstract class Predator extends Animal {
-    public Predator() {
+    protected Predator() {
         getPercent().put("Plant", 0);
     }
 

@@ -3,9 +3,7 @@ package ua.com.shestakova.island.creature;
 import lombok.Getter;
 import lombok.Setter;
 import ua.com.shestakova.island.Dialog;
-import ua.com.shestakova.island.Statistics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static ua.com.shestakova.island.constructorGame.Island.field;

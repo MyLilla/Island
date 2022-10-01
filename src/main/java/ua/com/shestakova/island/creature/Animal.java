@@ -3,7 +3,6 @@ package ua.com.shestakova.island.creature;
 import lombok.Getter;
 import lombok.Setter;
 import ua.com.shestakova.island.Dialog;
-import ua.com.shestakova.island.Statistics;
 import ua.com.shestakova.island.constructorGame.Tools;
 import ua.com.shestakova.island.constructorGame.Location;
 
@@ -116,7 +115,7 @@ public abstract class Animal extends Creature {
 
             for (Map.Entry entry : Tools.mapAllAnimals.entrySet()) {
                 if (entry.getValue().getClass() == (this).getClass()) {
-                    creatures.add(Location.createRandomСreature((int) entry.getKey()));
+                    creatures.add(Location.createRandomCreature((int) entry.getKey()));
                     Dialog.statistics.setCountNewCreatures(Dialog.statistics.getCountNewCreatures() + 1);
                 }
             }

@@ -24,7 +24,7 @@ public class Statistics {
     private Map<String, Integer> firstTypeInfo;
     private Map<String, Integer> lastTypeInfo;
     private int countDiedCreatures;
-    private  int countNewCreatures;
+    private int countNewCreatures;
 
     public void printIsland(PrintStream out) {
         for (int x = 0; x < field.length; x++) {
@@ -84,67 +84,61 @@ public class Statistics {
 
     public Map<String, Integer> getActualCountType() {
 
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Integer> typesMap = new HashMap<>();
 
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length; j++) {
-
-                for (int k = 0; k < field[i][j].location.size(); k++) {
-                    Creature animal = field[i][j].location.get(k);
-
-                    if (map.containsKey(animal.getName())) {
-                        map.put(animal.getName(), map.get(animal.getName()) + 1);
-                    } else {
-                        map.put(animal.getName(), 1);
-                    }
+        for (int x = 0; x < field.length; x++) {
+            for (int y = 0; y < field[x].length; y++) {
+                for (int countAnimal = 0; countAnimal < field[x][y].location.size(); countAnimal++) {
+                    Creature animal = field[x][y].location.get(countAnimal);
+                    typesMap.merge(animal.getName(), 1, Integer::sum);
                 }
             }
         }
-        return map;
+        return typesMap;
     }
 
-    public void printTypeAnimal(Map<String, Integer> map) {
-        System.out.println(colorize("Total animals by types: ", Attribute.BLUE_BACK(), Attribute.BLACK_TEXT()));
+    public void printTypeAnimal(Map<String, Integer> map, PrintStream out) {
+        out.println(colorize("Total animals by types: ", Attribute.BLUE_BACK(), Attribute.BLACK_TEXT()));
         for (Map.Entry entry : map.entrySet()) {
-            System.out.println(entry);
+            out.println(entry);
         }
     }
 
     public void printMiniStatistics(PrintStream out) {
-        out.printf(colorize("From start of simulation %s creatures died\n"), this.countDiedCreatures);
+        out.printf(colorize("From start of simulation %s creatures died\n"), countDiedCreatures);
         out.printf(colorize("From start of simulation %s creatures born\n"), countNewCreatures);
     }
 
     public void countingAndPrintResult(PrintStream out) {
-        if (this.firstGlobalInfo.get("countAllAnimal") < this.lastGlobalInfo.get("countAllAnimal")) {
+        if (firstGlobalInfo.get("countAllAnimal") < lastGlobalInfo.get("countAllAnimal")) {
             out.println(colorize("The island got bigger!", Attribute.RED_TEXT()));
         }
-        if (this.firstGlobalInfo.get("countPlant") < this.lastGlobalInfo.get("countPlant")) {
+        if (firstGlobalInfo.get("countPlant") < lastGlobalInfo.get("countPlant")) {
             out.println(colorize("Lots of plants now.\nTheir number has increased by " +
-                            (this.lastGlobalInfo.get("countPlant") - this.firstGlobalInfo.get("countPlant")),
+                            (lastGlobalInfo.get("countPlant") - firstGlobalInfo.get("countPlant")),
                     Attribute.GREEN_TEXT()));
         }
-        if (this.firstGlobalInfo.get("countPredator") < this.lastGlobalInfo.get("countPredator")) {
+        if (firstGlobalInfo.get("countPredator") < lastGlobalInfo.get("countPredator")) {
             out.println("Your island has become more" + colorize(" dangerous", Attribute.RED_TEXT()) + ", there are " +
-                    (this.lastGlobalInfo.get("countPredator") - this.firstGlobalInfo.get("countPredator")
+                    (lastGlobalInfo.get("countPredator") - firstGlobalInfo.get("countPredator")
                             + " more predators!"));
         }
-        if (this.firstGlobalInfo.get("countHerbivore") < this.lastGlobalInfo.get("countHerbivore")) {
+        if (firstGlobalInfo.get("countHerbivore") < lastGlobalInfo.get("countHerbivore")) {
             out.println("But, there is enough food for them too) Count of herbivores now: " +
-                    this.lastGlobalInfo.get("countHerbivore"));
+                    lastGlobalInfo.get("countHerbivore"));
         } else {
             out.println("And this is sad, because count of herbivores has decreased by " +
-                    (this.firstGlobalInfo.get("countHerbivore") - this.lastGlobalInfo.get("countHerbivore")
+                    (firstGlobalInfo.get("countHerbivore") - lastGlobalInfo.get("countHerbivore")
                             + " your wolves will eat you. Soon)"));
         }
         out.println("In the beginning, it was the most: " +
-                this.firstTypeInfo.entrySet().stream()
+                firstTypeInfo.entrySet().stream()
                         .max(Comparator.comparing(Map.Entry::getValue))
                         .map(Map.Entry::getKey)
                         .orElse(null));
 
         out.println("In the ending, it was the most: " +
-                this.lastTypeInfo.entrySet().stream()
+                lastTypeInfo.entrySet().stream()
                         .max(Comparator.comparing(Map.Entry::getValue))
                         .map(Map.Entry::getKey)
                         .orElse(null));

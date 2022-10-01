@@ -17,8 +17,8 @@ public class Mouse extends Herbivore {
     }
 
     @Override
-    public boolean checkTypeAnimalForEat(Creature сreature) {
-        return сreature instanceof Plant ||
-                сreature instanceof Caterpillar;
+    public boolean checkTypeAnimalForEat(Creature creature) {
+        return creature instanceof Plant ||
+                creature instanceof Caterpillar;
     }
 }

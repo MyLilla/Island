@@ -67,13 +67,13 @@ public class Parser {
 
     public void writeParametersToProperties(Map<String, Integer> settings) {
 
-            try (OutputStream output = new FileOutputStream(PROP_SOURCE)) {
-                Properties properties = new Properties();
+        try (OutputStream output = new FileOutputStream(PROP_SOURCE)) {
+            Properties properties = new Properties();
 
-                for (Map.Entry entry : settings.entrySet()) {
-                    properties.setProperty(entry.getKey().toString(), entry.getValue().toString());
-                }
-                properties.store(output, null);
+            for (Map.Entry entry : settings.entrySet()) {
+                properties.setProperty(entry.getKey().toString(), entry.getValue().toString());
+            }
+            properties.store(output, null);
 
         } catch (NumberFormatException e) {
             throw new ParsingExceptions("File settingIsland.properties exception " + e + PROP_SOURCE);

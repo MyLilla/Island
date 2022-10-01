@@ -1,5 +1,7 @@
 package ua.com.shestakova.island;
 
+import ua.com.shestakova.island.creature.Creature;
+import ua.com.shestakova.island.creature.predator.Wolf;
 import ua.com.shestakova.island.performingActions.Simulation;
 
 import static java.lang.System.out;
