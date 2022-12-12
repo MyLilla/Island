@@ -1,87 +1,76 @@
 # [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=27&pause=1000&width=435&lines=Island)](https://git.io/typing-svg)
-<h2><a>Симуляция острова с локациями животных и растений.</a></h2>
+<h2><a>Simulation of island with locations, animals and plants.</a></h2>
 
-Создается остров локаций с животными и растениями. 
-У каждого животного есть такие функции как: 
-- двигаться - из одной локации в другую, при этом доступную, т.к. есть ограничение по вместимости каждого вида
-- кушать - выбирается подходящее на локации существо, которое входит в рацион поедающего.
+An island of locations with animals and plants is being created.
+Each animal has such functions as:
+- move - from one location to another accessible. There is a limit on the capacity of each type
+- eat - a creature suitable for the location is selected, which is included in the diet of the eater.
+And **all** creatures have function "copy".
 
-Так же, у **всех** существ есть функция размножения. 
-Шансы на совершение действия зависят от рандомно выпавшего числа
+The chances of taking an action depend on a randomly drawn number
+Every creature has a cycle of life. In animals, it depends on saturation. At 0 saturation, the object dies.
+Also, throughout the simulation, the statistics of the island are kept.
 
-У каждого существа есть цикл жизни. У животных он зависит от насыщения. При 0 насыщении объект умирает.
+<h3><a>Operations:</a></h3>
 
-Так же, на протяжении всей симуляции ведется статистика острова.
+* Create island with auto locations
+* Create island with special parameters
+* Get information about state of island
 
-<h3><a>Доступны операции:</a></h3>
-
-* Создание острова с автоматическими параметрами
-* Создание острова с настраиваемыми параметрами
-* Получение данных о состоянии острова
-
-<h3><a>Сборка проекта: </a></h3>
-
+<h3><a>Build: </a></h3>
 ```$ mvn package```
-<h3 ><a>Запуск проекта:</a></h3>
-```$ java -jar ./target/island 1.0.jar```
 
-<h3 ><a>Краткое описание классов</a></h3>
->В корневом пакете ```ua.com.javarush.shestakova.Island``` находится:
-- класс ```App``` - точка входа в приложение ```ua.com.shestakova.island.App```
-- класс ```Dialod``` - строит интерактивный интерфейс для пользователя
-- класс ```Statistics``` - обновляет и собирает статистику по полю
+<h3 ><a>Launch:</a></h3>
+```$ java -jar ./target/island-1.0.jar```
 
->В пакете ```resources``` находятся:
-- файл ```settingIsland.properties``` - содержит основные настройки острова
-- файл ```allAnimal.json``` - содержит данные по всем возможным на локации животным
+<h3 ><a>Description of classes:</a></h3>
+>Root package ```ua.com.javarush.shestakova.Island``` has classes:
+- ```App``` - start point to app ```ua.com.shestakova.island.App```
+- ```Dialod``` - builds interface fot user
+- ```Statistics``` - updates and collects field statistics
 
->В пакете ```creature``` находятся все виды существ острова
-- класс-Родитель ```Creature``` - содержит общие поля и методы всех существ
+>Package ```resources``` has classes:
+- ```settingIsland.properties``` - general settings of simulation
+- ```allAnimal.json``` - data on all possibilities about the whereabouts of animals
+
+>Package ```creature``` has all kinds of island creatures
+- class-parent ```Creature``` - common fields and methods of all creatures
 ```ua.com.shestakova.island.creature.Creature```
-- классы ```Animal``` и ```Plant``` - наследники ```Creature``` содержат более 
-подробные характеристики для животных и растений
-- классы ```Herbivore``` и ```Predator``` - в свою очередь наследники ```Animal```,
-и содержат еще более подробные характеристики данных типов животных
+- ```Animal``` and ```Plant``` - heirs ```Creature``` more
+  statistical characteristics of animals and plants
+- ```Herbivore``` and ```Predator``` - heirs ```Animal```,
+even more detailed characteristics of these types of animals
 
-- В подПакетах ```herbivore``` и ```predator```
-находятся все классы животных, потомков травоядных и хищников, со своими оригинальными 
-параметрами
+- subpackage ```herbivore``` and ```predator```
 
->В пакете ```constructorGame``` - классы для создания локаций острова:
-- класс ```Island``` - создание и заполнения поля локациями
-- класс ```Location``` - заполнение локаций животными и растениями
-- класс ```Parser``` - содержит методы для считывания и записи в документы пользовательских настроек
-- класс ```Tools``` - хранит карту всех возможных животных и несколько дополнительных 
-инструментов для работы с простыми числами
+>Package ```constructorGame``` - classes for creating:
+- ```Island``` - create island and locations
+- ```Location``` - add creatures in locations
+- ```Parser``` - write and read user's settings
+- ```Tools``` - keep the map all animals and some tools for work with simple numbers
 
->В пакете ```performingActions``` - основная логика поведения объектов
-- класс ```LifeTime``` - жизненный цикл существа
-- класс ```Simulation``` - этапы работы симуляции
->В пакете ```exceptions``` находятся классы:
-- класс ```ParsingExceptions``` - ошибки чтения/записи в файл
-- класс ```CreateException``` - ошибки создания существа/локации
-- класс ```ThreadsException``` - ошибки потоков
-- класс ```InputException``` - ошибки ввода данных
-<h3><a>Пользовательский интерфейс</a></h3>
-  Диалог с пользователем и получение от него (при выборе) настроек поля.
-  По ходу симуляции, предоставляется 2 варианта выбора. Это должны быть числа 1 или 2
-Для старта необходимо ввести любую строку и нажать клавишу "Enter"
-При запуске симуляции выводятся данные об изменениях животных на острове (количество рожденных и умерших)
+>Package ```performingActions``` - general logic creature's behavior
+- ```LifeTime``` - life cycle of creature
+- ```Simulation``` - simulation's steps
+>Package ```exceptions``` has classes:
+- ```ParsingExceptions```
+- ```CreateException``` 
+- ```ThreadsException``` 
+- ```InputException``` 
+- 
+<h3><a>User's interface</a></h3>
+  Dialog with user and getting sitting (if it was chosen) has 2 various.
+  It has to be numbers 1 or 2
+User must add something symbol for start of simulation and "Enter"
+When running the simulation, data on changes in animals on the island is displayed (the number of births and deaths)
 
-<h3><a>Технологии в проекте</a></h3>
+<h3><a>Technology</a></h3>
 
-Симуляция построена на основе принципов ООП:
-- абстракция - каждый класс объектов имеет минимальный набор полей и методов для определенных задач
-- инкапсуляция - "служебные" данные и методы скрыты под приватным модификатором
-- наследование - все существа наследуются от главного класса (животные имеют так же "промежуточных родителей")
-- полиморфизм - множество методов (классов Statistics, Creature, Tools и др.) используются не единоразово
-
-Используется так же: 
-- чтение и запись данных из файла properties, запись в файл JSON
+- reading and writing data from a file properties, write to JSON
 - Stream API
 - ExecutorService (пакет java.util.concurrent)
 - Reflection API
 - Maven (Lombok и JColor)
 
-### Примеры работы программы:
+### Example:
 https://user-images.githubusercontent.com/105308647/193412048-86d7ce3f-9e21-45b1-a247-c06e235f0bfe.mp4
