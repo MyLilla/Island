@@ -19,7 +19,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 public class Simulation {
 
     public static int timeOfGame = 3;
-    LifeTime lifeTime = new LifeTime();
+    private final LifeTime lifeTime = new LifeTime();
 
     public void startSimulation(PrintStream out) {
 
