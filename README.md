@@ -73,3 +73,4 @@ When running the simulation, data on changes in animals on the island is display
 - Maven (Lombok и JColor)
 
 ### Example:
+https://user-images.githubusercontent.com/105308647/193412048-86d7ce3f-9e21-45b1-a247-c06e235f0bfe.mp4
