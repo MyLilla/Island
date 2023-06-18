@@ -24,9 +24,10 @@ Also, throughout the simulation, the statistics of the island are kept.
 ```$ java -jar ./target/island-1.0.jar```
 
 <h3 ><a>Description of classes:</a></h3>
+
 >Root package ```ua.com.javarush.shestakova.Island``` has classes:
 - ```App``` - start point to app ```ua.com.shestakova.island.App```
-- ```Dialod``` - builds interface fot user
+- ```Dialog``` - builds interface fot user
 - ```Statistics``` - updates and collects field statistics
 
 >Package ```resources``` has classes:
