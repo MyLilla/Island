@@ -10,6 +10,5 @@ public class App {
 
         Simulation simulation = new Simulation();
         simulation.startSimulation(out);
-
     }
 }

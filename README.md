@@ -1,6 +1,8 @@
 # [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=27&pause=1000&width=435&lines=Island)](https://git.io/typing-svg)
 <h2><a>Simulation of island with locations, animals and plants.</a></h2>
 
+Second project in the JavaRush course
+
 An island of locations with animals and plants is being created.
 Each animal has such functions as:
 - move - from one location to another accessible. There is a limit on the capacity of each type
