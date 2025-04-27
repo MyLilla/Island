@@ -27,7 +27,6 @@ Also, throughout the simulation, the statistics of the island are kept.
 <h3 ><a>Launch:</a></h3>
 ```$ java -jar ./target/island-1.0.jar```
 
-
 <h3><a>User interface: </a></h3>
   Dialog with user and getting sitting (if it was chosen) has 2 various.
   It has to be numbers 1 or 2
